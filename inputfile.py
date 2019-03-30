@@ -1,0 +1,10 @@
+num_genes = 19
+seq_length = 5000
+prop_unlinked = 0.8
+prop_no_threshold = 0.5
+thresh_min = 0.2
+thresh_max = 2
+decay_min = 0
+decay_max = 2
+dev_steps = 12
+base_props = (0.25,0.25,0.25,0.25) # T,C,A,G
