@@ -1,37 +1,59 @@
 import numpy as np
 import scipy
+import copy
 from inputfile import * # Must add a check the the file exists, and that the
 			# variables are valid
 from numpy import exp
 from scipy import stats
 
-class Offspring(object):
-	def __init__(self,name,parent):
-		self.name = name
-		self.parent = parent
-
-
-
-class NewOrganism(object):
+class Organism(object):
 	#Constructor
-	def __init__(self,name,number_of_genes,dev_steps):
+	def __init__(self,name,generation,num_genes,prop_unlinked,prop_no_threshold,thresh_boundaries,decay_boundaries,dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences):
 		self.name = name
-		self.generation = 0
-		self.number_of_genes = number_of_genes
+		self.generation = generation
+		self.num_genes = num_genes
 		self.prop_unlinked = prop_unlinked
 		self.prop_no_threshold = prop_no_threshold
-		self.thresh_min = thresh_min
-		self.thresh_max = thresh_max
-		self.decay_min = decay_min
-		self.decay_max = decay_max
+		self.thresh_boundaries = thresh_boundaries
+		self.decay_boundaries = decay_boundaries
 		self.dev_steps = dev_steps
-		self.decays = decays = randomMaskedVector(number_of_genes,0,decay_min,decay_max)
-		self.thresholds = thresholds = randomMaskedVector(number_of_genes,prop_no_threshold,thresh_min,thresh_max)
-		self.start_vect = start_vect = makeStartVect(number_of_genes)
-		self.grn = grn = makeGRN(number_of_genes,prop_unlinked)
-		self.development = development = develop(start_vect,grn,decays,thresholds,dev_steps)
-		self.fitness = fitness = calcFitness(development)
-		self.sequences = sequences = makeRandomSequenceArray(seq_length,base_props,number_of_genes) if fitness != 0 else None
+		self.decays = decays# = randomMaskedVector(num_genes,0,decay_min,decay_max)
+		self.thresholds = thresholds# = randomMaskedVector(num_genes,prop_no_threshold,thresh_min,thresh_max)
+		self.start_vect = start_vect# = makeStartVect(num_genes)
+		self.grn = grn# = makeGRN(num_genes,prop_unlinked)
+		self.development = development# = develop(start_vect,grn,decays,thresholds,dev_steps)
+		self.fitness = fitness# = calcFitness(development)
+		self.sequences = sequences# = makeRandomSequenceArray(seq_length,base_props,num_genes) if fitness != 0 else None
+
+def makeNewOrganism(parent=None):
+	if parent: 		# add also: if type(parent) is Organism:
+		generation = parent.generation + 1
+		name = parent.name.split("gen")[0] + "gen" + str(generation)
+		decays = de_negativize(mutateGRN(parent.decays,decay_mutation_rate,thresh_decay_mut_bounds,0,None))
+		thresholds = de_negativize(mutateGRN(parent.thresholds,thresh_mutation_rate,thresh_decay_mut_bounds,prob_thresh_change,thresh_decay_mut_bounds))
+		start_vect = parent.start_vect
+		grn = mutateGRN(parent.grn,grn_mutation_rate,link_mutation_bounds,prob_grn_change,new_link_bounds)
+		development = develop(start_vect,grn,decays,thresholds,parent.dev_steps)
+		fitness = calcFitness(development)
+		if fitness == 0:
+			sequences = None
+		else:
+			sequences = mutateGenome(parent.sequences,seq_mutation_rate)
+		out_org = Organism(name,generation,parent.num_genes,parent.prop_unlinked,parent.prop_no_threshold,parent.thresh_boundaries,parent.decay_boundaries,parent.dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences)	
+	else:
+		name = "Org" + str(int(np.random.random() * 1000000)) + "gen0"
+		decays = randomMaskedVector(num_genes,0,decay_boundaries[0],decay_boundaries[1])
+		thresholds = randomMaskedVector(num_genes,prop_no_threshold,thresh_boundaries[0],thresh_boundaries[1])
+		start_vect = makeStartVect(num_genes)
+		grn = makeGRN(num_genes,prop_unlinked)
+		development = develop(start_vect,grn,decays,thresholds,dev_steps)
+		fitness = calcFitness(development)
+		if fitness == 0:
+			sequences = None
+		else:
+			sequences = makeRandomSequenceArray(seq_length,base_props,num_genes)
+		out_org = Organism(name,0,num_genes,prop_unlinked,prop_no_threshold,thresh_boundaries,decay_boundaries,dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences)
+	return(out_org)
 
 
 """ The population class below is of unrelated GRNs. This is only useful
@@ -49,17 +71,22 @@ Organisms in the population (here, the "name"), use something like:
 >>> np.array([x.name for x in founder_pop.individuals])
 
 """
-class NewPopulation(object):
-	def __init__(self,pop_size):
+class Population(object):
+	def __init__(self,pop_size,parent=None):
 		self.pop_size = pop_size
-		self.individuals = individuals = producePop(pop_size)
+		self.individuals = individuals = producePop(pop_size,parent)
 
-
-def producePop(pop_size):
+def producePop(pop_size,parent=None):
 	pop = np.ndarray((pop_size,),dtype=np.object)
-	for i in range(pop_size):
-		name = "Org" + str(i)
-		pop[i] = NewOrganism(name,num_genes,dev_steps)
+	if not parent:
+		for i in range(pop_size):
+			pop[i] = makeNewOrganism()
+	else:
+		if type(parent) is Organism:
+			for i in range(pop_size):
+				pop[i] = makeNewOrganism(parent)
+		else:
+			print("The type of the parent is not correct",type(parent))
 	return(pop)
 
 def makeGRN(numGenes,prop_unlinked):
@@ -232,18 +259,40 @@ def calcFitness(development):
 	fitness_val = is_alive * np.mean([genes_on,exp_stab,sim_to_exp])
 	return(fitness_val)
 
-######
 
-def mutateOrganism(organism):
-	organism.generation = organism.generation + 1
-	organism.grn = mutateGRN(organism.grn,grn_mutation_rate,link_mutation_bounds,prob_grn_change,new_link_bounds)
-	organism.decays = de_negativize(mutateGRN(organism.decays,decay_mutation_rate,thresh_decay_mut_bounds,0,None))
-	organism.thresholds = de_negativize(mutateGRN(organism.thresholds,thresh_mutation_rate,thresh_decay_mut_bounds,prob_thresh_change,thresh_decay_mut_bounds))
-	organism.development = develop(organism.start_vect,organism.grn,organism.decays,organism.thresholds,organism.dev_steps)
-	organism.fitness = fitness = calcFitness(organism.development)
-	if organism.fitness != 0:
-		organism.sequences = mutateGenome(organism.sequences,seq_mutation_rate)
-	else:
-		None
-	
+
+###### FUNCTION SEMATARY #######
+#class Offspring(object):
+#	def __init__(self,name,parent):
+#		self.name = name
+#		self.parent = parent
+
+#def mutateOrganism(old_organism):
+#	organism = Organism(old_organism.name) # this is not a good idea. change.
+#	organism.generation = organism.generation + 1
+#	organism.grn = mutateGRN(organism.grn,grn_mutation_rate,link_mutation_bounds,prob_grn_change,new_link_bounds)
+#	organism.decays = de_negativize(mutateGRN(organism.decays,decay_mutation_rate,thresh_decay_mut_bounds,0,None))
+#	organism.thresholds = de_negativize(mutateGRN(organism.thresholds,thresh_mutation_rate,thresh_decay_mut_bounds,prob_thresh_change,thresh_decay_mut_bounds))
+#	organism.development = develop(organism.start_vect,organism.grn,organism.decays,organism.thresholds,organism.dev_steps)
+#	organism.fitness = fitness = calcFitness(organism.development)
+#	if organism.fitness != 0:
+#		organism.sequences = mutateGenome(organism.sequences,seq_mutation_rate)
+#	else:
+#		None
+#	return(organism)
+
+
+	# NOT SURE I WANT TO USE THIS YET...
+#	def mutate(self):
+#		self.generation = self.generation + 1
+#		self.grn = mutateGRN(self.grn,grn_mutation_rate,link_mutation_bounds,prob_grn_change,new_link_bounds)
+#		self.decays = de_negativize(mutateGRN(self.decays,decay_mutation_rate,thresh_decay_mut_bounds,0,None))
+#		self.thresholds = de_negativize(mutateGRN(self.thresholds,thresh_mutation_rate,thresh_decay_mut_bounds,prob_thresh_change,thresh_decay_mut_bounds))
+#		self.development = develop(self.start_vect,self.grn,self.decays,self.thresholds,self.dev_steps)
+#		self.fitness = calcFitness(self.development)
+#		if self.fitness != 0:
+#			self.sequences = mutateGenome(self.sequences,seq_mutation_rate)
+#		else:
+#			None
+
 
