@@ -92,7 +92,7 @@ def producePop(pop_size,parent=None):
 	return(pop)
 
 
-# CHAPTER 3. FUNCTIONS FOR MAKING AND ORGANISM FROM SCRATCH
+# CHAPTER 3. SUPPORT FUNCTIONS FOR MAKING AND ORGANISM FROM SCRATCH
 
 ########## ----- GRN RELATED ----- ##########
 def makeGRN(numGenes,prop_unlinked):
@@ -244,10 +244,13 @@ def develop(startingVect,grn,decays,thresholds,developmentSteps):
 ##### ----- ##### (MAIN FUNC)
 def calcFitness(development):
 	is_alive = lastGeneExpressed(development,min_reproducin)
-	genes_on = propGenesOn(development)
-	exp_stab = expressionStability(development)
-	sim_to_exp = exponentialSimilarity(development)
-	fitness_val = is_alive * np.mean([genes_on,exp_stab,sim_to_exp])
+	if is_alive:
+		genes_on = propGenesOn(development)
+		exp_stab = expressionStability(development)
+		sim_to_exp = exponentialSimilarity(development)
+		fitness_val = np.mean([genes_on,exp_stab,sim_to_exp])
+	else:
+		fitness_val = 0
 	return(fitness_val)
 
 ##### ----- #####
@@ -286,8 +289,36 @@ def exponentialSimilarity(development):
 	return(r_squared)
 
 
+# CHAPTER 7: SELECTION FUNCTION
 
+##### ----- #####
+def select(parental_pop,prop_survivors):
+	num_parents = parental_pop.individuals.flatten().size
+	num_survivors = round(num_parents * prop_survivors)
+	fitness_vals = np.array([ x.fitness for x in parental_pop.individuals ])
+	select_table = np.array([ i for i in enumerate(fitness_vals) ])
+	living_select_table = np.array([ x for i,x in enumerate(select_table) if x[1] > 0 ])
+	living_select_table = living_select_table[np.argsort(living_select_table[:,1])]
+	num_parentals_alive = living_select_table[:,1].size
+	if num_survivors <= num_parentals_alive:
+		x = np.array(range(num_survivors)) + 1
+		goods_table = living_select_table[num_parentals_alive - x,:] # ACHTUNG: This table is ordered decreasing!!
+		surviving_orgs = parental_pop.individuals[goods_table[:,0].astype(int)]
+	else:
+		print("Watch out: Only",living_select_table[:,1].size,"offspring alive, but you asked for",num_survivors)
+		surviving_orgs = parental_pop.individuals[living_select_table[:,0].astype(int)]
+	return(surviving_orgs)
 
+#def reproduce(survivors,pop_size,equal_fertility):
+	
+
+#def offspringNumTuple(tot_offspring,num_survivors,equal_fertility):
+	# returns a tuple in which each element i is the amount of offspring the ith best fitting organism will have
+
+#### IDEA ####
+# When a new population is made, determine the population
+# size from a random draw of a normal distribution with
+# mean pop_size and stdev pop_stdev
 
 ###### FUNCTION SEMATARY #######
 #class Offspring(object):

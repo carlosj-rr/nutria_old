@@ -5,9 +5,11 @@ prop_unlinked = 0.7
 prop_no_threshold = 0.5
 thresh_boundaries = (0.2,2)
 decay_boundaries = (0,2)
-dev_steps = 20 # For the moment, no more than 999
+dev_steps = 20 # For the moment, no more than 999 is possible
 base_props = (0.25,0.25,0.25,0.25) # T,C,A,G
-min_reproducin = 0
+min_reproducin = 0.1
+pop_size = 100
+pop_stdev = 10
 
 # MUTATION PARAMETERS
 thresh_decay_mut_bounds = (-0.01,0.01)
@@ -27,3 +29,7 @@ link_mutation_bounds = (-0.01,0.01)
 prob_grn_change = 0.001 	# Probability that grn mutation will change grn structure
 				# (i.e. it will create a new link or remove an existing one).
 new_link_bounds = (-2,2)
+
+# SELECTION PARAMETERS
+prop_survivors = 0.1
+tot_offspring = pop_size
