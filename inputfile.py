@@ -8,8 +8,8 @@ decay_boundaries = (0,2)
 dev_steps = 20 # For the moment, no more than 999 is possible
 base_props = (0.25,0.25,0.25,0.25) # T,C,A,G
 min_reproducin = 0.1
-pop_size = 100
-pop_stdev = 10
+pop_size = 100 # For the moment, Multiple of 10
+pop_stdev = 10 # Not yet in use. Future plan to take pop size of a new generation from a random draw from a distribution
 
 # MUTATION PARAMETERS
 thresh_decay_mut_bounds = (-0.01,0.01)
@@ -31,5 +31,9 @@ prob_grn_change = 0.001 	# Probability that grn mutation will change grn structu
 new_link_bounds = (-2,2)
 
 # SELECTION PARAMETERS
-prop_survivors = 0.1
+prop_survivors = 0.1 # For the moment, it must result in a whole number when multiplied by the pop_size
 tot_offspring = pop_size
+select_strategy = "greedy"
+
+# REPRODUCTION PARAMETERS
+reproductive_strategy = "equal" # for the moment, just "equal"

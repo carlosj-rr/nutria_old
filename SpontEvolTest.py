@@ -40,7 +40,10 @@ class Population(object):
 	>>> np.array([x.name for x in founder_pop.individuals])"""
 	def __init__(self,pop_size,parent=None):
 		self.pop_size = pop_size
-		self.individuals = individuals = producePop(pop_size,parent)
+		self.parent = parent
+		self.individuals = None
+	def populate(self):
+		self.individuals = producePop(pop_size,self.parent)
 
 
 # CHAPTER 2. MAIN FUNCTIONS TO CREATE AN ORGANISM, AND A POPULATION
@@ -292,7 +295,7 @@ def exponentialSimilarity(development):
 # CHAPTER 7: SELECTION FUNCTION
 
 ##### ----- #####
-def select(parental_pop,prop_survivors):
+def select(parental_pop,prop_survivors,select_strategy = "greedy"):
 	num_parents = parental_pop.individuals.flatten().size
 	num_survivors = round(num_parents * prop_survivors)
 	fitness_vals = np.array([ x.fitness for x in parental_pop.individuals ])
@@ -300,17 +303,85 @@ def select(parental_pop,prop_survivors):
 	living_select_table = np.array([ x for i,x in enumerate(select_table) if x[1] > 0 ])
 	living_select_table = living_select_table[np.argsort(living_select_table[:,1])]
 	num_parentals_alive = living_select_table[:,1].size
-	if num_survivors <= num_parentals_alive:
-		x = np.array(range(num_survivors)) + 1
-		goods_table = living_select_table[num_parentals_alive - x,:] # ACHTUNG: This table is ordered decreasing!!
-		surviving_orgs = parental_pop.individuals[goods_table[:,0].astype(int)]
+	if select_strategy == "greedy":
+		if num_survivors <= num_parentals_alive:
+			x = np.array(range(num_survivors)) + 1
+			goods_table = living_select_table[num_parentals_alive - x,:] # ACHTUNG: This table is ordered decreasing!!
+			surviving_orgs = parental_pop.individuals[goods_table[:,0].astype(int)]
+		else:
+			print("Watch out: Only",living_select_table[:,1].size,"offspring alive, but you asked for",num_survivors)
+			surviving_orgs = parental_pop.individuals[living_select_table[:,0].astype(int)]
 	else:
-		print("Watch out: Only",living_select_table[:,1].size,"offspring alive, but you asked for",num_survivors)
-		surviving_orgs = parental_pop.individuals[living_select_table[:,0].astype(int)]
-	return(surviving_orgs)
+		None
+	survivors_pop = Population(surviving_orgs.size)
+	survivors_pop.individuals = surviving_orgs
+	return(survivors_pop)
 
-#def reproduce(survivors,pop_size,equal_fertility):
-	
+def reproduce(survivors_pop,final_pop_size,reproductive_strategy="equal"):
+	survivors = survivors_pop.individuals
+	if reproductive_strategy == "equal":
+		offspring_per_parent = round(final_pop_size/survivors.size)
+		final_pop_array = np.ndarray((survivors.size,offspring_per_parent),dtype=np.object)
+		for i in range(survivors.size):
+			for j in range(offspring_per_parent):
+				final_pop_array[i][j] = makeNewOrganism(survivors[i])
+		final_pop_array = final_pop_array.flatten()
+	else:
+		None
+	new_pop_indivs = final_pop_array.flatten()
+	new_gen_pop = Population(new_pop_indivs.size)
+	new_gen_pop.individuals = new_pop_indivs
+	return(new_gen_pop)
+
+# For the moment, not used. When vectorized, it can be used in an array of individuals
+def replicatorMutator(parent,num_offspring):
+	out_array = np.ndarray((num_offspring,),dtype=np.object)
+	for i in range(num_offspring):
+		out_array[i] = makeNewOrganism(parent)
+	return(out_array)
+		
+def runThisStuff(num_generations = 1000,founder=None):
+	death_count = np.ndarray((num_generations + 1,),dtype=np.object)
+	living_fitness_mean = np.ndarray((num_generations + 1,),dtype=np.object)
+	living_fitness_sd = np.ndarray((num_generations + 1,),dtype=np.object)
+	if founder:
+		if type(founder) == Organism:
+			print("A founder organism was provided")
+			founder = founder
+			founder_pop = Population(pop_size,founder)
+			founder_pop.populate()	
+		elif type(founder) == Population:
+			print("A founder population was provided")
+			founder_pop = founder
+		else:
+			print("Error: A founder was provided but it is neither type Organism nor Population")
+			return
+	else:
+		print("No founder provided, making founder Organism and Population")
+		founder = makeNewOrganism()
+		founder_pop = Population(pop_size,founder)
+		founder_pop.populate()
+	curr_pop = founder_pop
+	fitnesses = np.array([ indiv.fitness for indiv in curr_pop.individuals ])
+	death_count[0] = sum(fitnesses == 0)
+	fitnesses_no_zeroes = np.array([ x for i,x in enumerate(fitnesses) if x > 0 ])
+	living_fitness_mean[0] = np.mean(fitnesses_no_zeroes)
+	living_fitness_sd[0] = np.std(fitnesses_no_zeroes)
+	for i in range(num_generations):
+		print("Generation",i,"is currently having a beautiful life...")
+		survivor_pop = select(curr_pop,0.25,"greedy")
+		curr_pop = reproduce(survivor_pop,100,"equal")
+		fitnesses = np.array([ indiv.fitness for indiv in curr_pop.individuals ])
+		death_count[i + 1] = sum(fitnesses == 0)
+		if death_count[i + 1]:
+			fitnesses_no_zeroes = np.array([ x for i,x in enumerate(fitnesses) if x > 0 ])
+		else:
+			fitnesses_no_zeroes = fitnesses
+		living_fitness_mean[i +  1] = np.mean(fitnesses_no_zeroes)
+		living_fitness_sd[i + 1] = np.std(fitnesses_no_zeroes)
+	summary_table = np.array((death_count,living_fitness_mean,living_fitness_sd))
+	return(summary_table.T)
+
 
 #def offspringNumTuple(tot_offspring,num_survivors,equal_fertility):
 	# returns a tuple in which each element i is the amount of offspring the ith best fitting organism will have
