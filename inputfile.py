@@ -1,11 +1,11 @@
 # CONSTRUCTION PARAMETERS
-num_genes = 30
+num_genes = 10
 seq_length = 1000
 prop_unlinked = 0.7
 prop_no_threshold = 0.5
 thresh_boundaries = (0.2,2)
 decay_boundaries = (0,2)
-dev_steps = 20 # For the moment, no more than 999 is possible
+dev_steps = 10 # For the moment, no more than 999 is possible
 base_props = (0.25,0.25,0.25,0.25) # T,C,A,G
 min_reproducin = 0.1
 pop_size = 100 # For the moment, Multiple of 10
@@ -33,7 +33,7 @@ new_link_bounds = (-2,2)
 # SELECTION PARAMETERS
 prop_survivors = 0.1 # For the moment, it must result in a whole number when multiplied by the pop_size
 tot_offspring = pop_size
-select_strategy = "greedy"
+select_strategy = "greedy" # For the moment, just "greedy"
 
 # REPRODUCTION PARAMETERS
 reproductive_strategy = "equal" # for the moment, just "equal"

@@ -299,8 +299,8 @@ def select(parental_pop,prop_survivors,select_strategy = "greedy"):
 	num_parents = parental_pop.individuals.flatten().size
 	num_survivors = round(num_parents * prop_survivors)
 	fitness_vals = np.array([ x.fitness for x in parental_pop.individuals ])
-	select_table = np.array([ i for i in enumerate(fitness_vals) ])
-	living_select_table = np.array([ x for i,x in enumerate(select_table) if x[1] > 0 ])
+	select_table = np.array((np.array(range(fitness_vals.size)),fitness_vals)).T
+	living_select_table = select_table[select_table[:,1] > 0]
 	living_select_table = living_select_table[np.argsort(living_select_table[:,1])]
 	num_parentals_alive = living_select_table[:,1].size
 	if select_strategy == "greedy":
@@ -359,6 +359,8 @@ def runThisStuff(num_generations = 1000,founder=None):
 	else:
 		print("No founder provided, making founder Organism and Population")
 		founder = makeNewOrganism()
+		while founder.fitness == 0:
+			founder = makeNewOrganism()
 		founder_pop = Population(pop_size,founder)
 		founder_pop.populate()
 	curr_pop = founder_pop
@@ -380,8 +382,31 @@ def runThisStuff(num_generations = 1000,founder=None):
 		living_fitness_mean[i +  1] = np.mean(fitnesses_no_zeroes)
 		living_fitness_sd[i + 1] = np.std(fitnesses_no_zeroes)
 	summary_table = np.array((death_count,living_fitness_mean,living_fitness_sd))
-	return(summary_table.T)
+	return(summary_table.T,founder_pop,curr_pop)
 
+##### EXPORTATION FUNCTIONS #####
+def exportOrgSequences(organism,outfilename="outfile.fas"):
+	with open(outfilename,"w") as outfile:
+		for i in range(organism.num_genes):
+			counter = i + 1
+			gene_name = ">" + organism.name + "_gene" + str(counter)
+			sequence = ''.join(organism.sequences[i])
+			print(gene_name, file=outfile)
+			print(sequence, file=outfile)
+
+def exportAlignments(organism_array,outfile_prefix="outfile"):
+	num_orgs = organism_array.size
+	num_genes = np.max(np.array([ x.num_genes for x in organism_array ]))
+	sequences_array = np.array([ x.sequences for x in organism_array ])
+	for i in range(num_genes):
+		filename = outfile_prefix + "_gene" + str(i+1) + ".fas"
+		with open(filename,"w") as gene_file:
+			for j in range(num_orgs):
+				seq_name = ">" + organism_array[j].name + "_gene" + str(i+1) + "_" + str(j+1)
+				sequence = ''.join(sequences_array[j,i,:])
+				print(seq_name, file=gene_file)
+				print(sequence, file=gene_file)
+		print("Gene",i+1,"done")
 
 #def offspringNumTuple(tot_offspring,num_survivors,equal_fertility):
 	# returns a tuple in which each element i is the amount of offspring the ith best fitting organism will have
