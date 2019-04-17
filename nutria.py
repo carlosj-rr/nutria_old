@@ -370,7 +370,7 @@ def runThisStuff(num_generations = 1000,founder=None):
 		if type(founder) == Organism:
 			print("A founder organism was provided")
 			founder = founder
-			founder_pop = Population(pop_size,founder)
+			founder_pop = Population(pf.pop_size,founder)
 			founder_pop.populate()	
 		elif type(founder) == Population:
 			print("A founder population was provided")
