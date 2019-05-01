@@ -44,7 +44,10 @@ class Population(object):
 		self.individuals = None
 	def populate(self):
 		self.individuals = producePop(self.pop_size,self.parent)
-
+	def remove_dead(self):
+		fitnesses = np.array([ x.fitness for x in self.individuals ])
+		self.individuals = self.individuals[ fitnesses > 0 ]
+		self.pop_size = self.individuals.size
 
 # CHAPTER 2. MAIN FUNCTIONS TO CREATE AN ORGANISM, AND A POPULATION
 # -- from scratch, or as a next generation
@@ -121,7 +124,7 @@ def makeGRN(numGenes,prop_unlinked):
 	return(grn)
 
 ########## ----- SEQUENCE RELATED ----- ##########
-def makeRandomSequence(seq_length,base_props):
+def makeRandomSequence(seq_length,base_props=(0.25,0.25,0.25,0.25)):
 	bases = ("T","C","A","G")
 	sequence = np.random.choice(bases,seq_length,p=base_props)
 	return(sequence)
@@ -220,21 +223,26 @@ def mutateLink(link_value,link_mutation_bounds): # If a numpy array is passed, i
 
 ########## ----- SEQUENCE RELATED ----- ##########
 def mutateGenome(genome,seq_mutation_rate):
-	original_dimensions = genome.shape
-	flat_seq = genome.flatten()
-	genome_length = flat_seq.size
+	genome_length = genome.size
 	ones_to_mutate = np.random.choice((0,1),genome_length,p=(1-seq_mutation_rate,seq_mutation_rate))
-	if sum(ones_to_mutate):
-		mutated_nucs = [i for i,x in enumerate(ones_to_mutate) if x == 1 ]
-		for i in mutated_nucs:
-			flat_seq[i] = mutateBase(flat_seq[i])
-	final_seq = flat_seq.reshape(original_dimensions)
+	num_to_mut = sum(ones_to_mutate)
+	if num_to_mut:
+		original_dimensions = genome.shape
+		flat_seq = genome.flatten()
+		new_bases = np.ndarray((num_to_mut),dtype=np.object)
+		mutated_nucs = np.where(ones_to_mutate == 1)[0]
+		for i in range(mutated_nucs.size):
+			new_bases[i] = mutateBase(flat_seq[mutated_nucs[i]])
+		flat_seq[mutated_nucs] = new_bases
+		final_seq = flat_seq.reshape(original_dimensions)
+	else:
+		final_seq = genome
 	return(final_seq)
 
 ##### ----- #####
 def mutateBase(base):				# This mutation function is equivalent to
-	Bases = ("T","C","A","G")		# the JC model of sequence evolution
-	change = [x for x in Bases if x != base]# CAN THIS BE VECTORIZED? (must include prob of no change)
+	bases = ("T","C","A","G")		# the JC model of sequence evolution
+	change = [x for x in bases if x != base]# CAN THIS BE VECTORIZED? (must include prob of no change)
 	new_base = np.random.choice(change)
 	return(new_base)
 
@@ -394,7 +402,7 @@ def runThisStuff(num_generations = 1000,founder=None):
 	select_strategy = pf.select_strategy
 	for i in range(num_generations):
 		print("Generation",i,"is currently having a beautiful life...")
-		survivor_pop = select(curr_pop,0.25,select_strategy)
+		survivor_pop = select(curr_pop,pf.prop_survivors,select_strategy)
 		curr_pop = reproduce(survivor_pop,pf.pop_size,"equal")
 		fitnesses = np.array([ indiv.fitness for indiv in curr_pop.individuals ])
 		death_count[i + 1] = sum(fitnesses == 0)
@@ -435,6 +443,26 @@ def exportAlignments(organism_array,outfile_prefix="outfile"):
 ##### TEST TO RUN: THE SAME AS I DID YESTERDAY (10 GENES, 15 STEPS, 5K GENERATION), BUT WITHOUT SELECTION.
 ##### TO SEE IF, LIKE IN YESTERDAY'S RUN, THE FINAL BEST GRN HAS MORE CONNECTIONS THAN THE FOUNDER
 ##### TO SEE IF IT'S THAT SUCH GRNs ARE FAVORED, OR NOT.
+
+def base_mutator(old_base,trans_prob_row):
+	bases = ('T','C','A','G')
+	new_base = np.random.choice(bases,p=trans_prob_row)
+	return(new_base)
+
+def base_mutator(some_array):
+	bases = ('T','C','A','G')
+	new_base = np.random.choice(bases,p=trans_prob_row)
+	return(new_base)
+
+def base_mutator(old_base,model="JC",mut_rate = 1.1e-8): # mut_rate default from table 1.2 on p.5 of Yang's book
+	bases = ('T','C','A','G')
+	if model == "JC":
+		lambda_t = mut_rate/3
+		subst_matrix = np.array(([1-3*lambda_t,lambda_t,lambda_t,lambda_t],[lambda_t,1-3*lambda_t,lambda_t,lambda_t],[lambda_t,lambda_t,1-3*lambda_t,lambda_t],[lambda_t,lambda_t,lambda_t,1-3*lambda_t]))
+	change_rates = subst_matrix[bases.index(old_base),:]
+	new_base = np.random.choice(('T','C','A','G'),p=change_rates)
+	return(new_base)
+
 
 #def offspringNumTuple(tot_offspring,num_survivors,equal_fertility):
 	# returns a tuple in which each element i is the amount of offspring the ith best fitting organism will have
@@ -477,5 +505,54 @@ def exportAlignments(organism_array,outfile_prefix="outfile"):
 #			self.sequences = mutateGenome(self.sequences,seq_mutation_rate)
 #		else:
 #			None
+
+#def mutateGenome_old(genome,seq_mutation_rate):
+#	original_dimensions = genome.shape
+#	flat_seq = genome.flatten()
+#	genome_length = flat_seq.size
+#	ones_to_mutate = np.random.choice((0,1),genome_length,p=(1-seq_mutation_rate,seq_mutation_rate))
+#	if sum(ones_to_mutate):
+#		mutated_nucs = [i for i,x in enumerate(ones_to_mutate) if x == 1 ]
+#		for i in mutated_nucs:
+#			flat_seq[i] = mutateBase(flat_seq[i])
+#	final_seq = flat_seq.reshape(original_dimensions)
+#	return(final_seq)
+
+#def mutateGRN_2(grn,mutation_rate,mutation_bounds,change_rate,change_bounds): # Func also used for thresholds + decays
+#	original_shape = grn.shape
+#	flat_grn = grn.flatten()
+#	actives = np.where(flat_grn != 0)[0]
+#	mutator_vector = np.random.choice((False,True),actives.size,p=(1-mutation_rate,mutation_rate))
+#	if sum(mutator_vector) == 0:
+#		curr_flat_grn = flat_grn
+#	else:
+#		muts_indexes = actives[mutator_vector]
+#		new_vals = np.ndarray((muts_indexes.size),dtype=np.object)
+#		for i in range(new_vals.size):
+#			new_vals[i] = mutateLink(flat_grn[muts_indexes[i]],mutation_bounds)
+#		flat_grn[muts_indexes] = new_vals
+#		curr_flat_grn = flat_grn
+#	changer_vector = np.random.choice((False,True),curr_flat_grn.size,p=(1-change_rate,change_rate))
+#	num_changes = sum(changer_vector)
+#	if num_changes == 0:
+#		final_flat_grn = curr_flat_grn
+#	else:
+#		inactives = np.where(curr_flat_grn == 0)[0]
+#		np.random.shuffle(actives)
+#		np.random.shuffle(inactives)
+#		select_array = np.array([inactives,actives])
+#		selector = np.random.choice((0,1),num_changes,p=(1-pf.prop_unlinked,pf.prop_unlinked))
+#		from_inactives = selector.size - sum(selector)
+#		from_actives = sum(selector)
+#		change_indexes = np.hstack(np.array([inactives[0:from_inactives],actives[0:from_actives]]))
+#		changed_vals = np.ndarray((change_indexes.size),dtype=np.object)
+#		for i in range(change_indexes.size):
+#			changed_vals[i] = changeGRNLink(curr_flat_grn[change_indexes[i]],min(change_bounds),max(change_bounds))
+#		curr_flat_grn[change_indexes] = changed_vals
+#		final_flat_grn = curr_flat_grn
+#	final_grn = final_flat_grn.reshape(original_shape)
+#	return(final_grn)
+		
+		
 
 
