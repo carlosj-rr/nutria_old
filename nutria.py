@@ -16,7 +16,7 @@ class Organism(object):
 	""" To access attributes from the Organism class, do
 	smth along the lines of:
 	>>> founder_pop.individuals[0].grn"""
-	def __init__(self,name,generation,num_genes,prop_unlinked,prop_no_threshold,thresh_boundaries,decay_boundaries,dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences):
+	def __init__(self,name,generation,num_genes,prop_unlinked,prop_no_threshold,thresh_boundaries,decay_boundaries,dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences,proteome):
 		self.name = name
 		self.generation = generation
 		self.num_genes = num_genes
@@ -32,6 +32,7 @@ class Organism(object):
 		self.development = development
 		self.fitness = fitness
 		self.sequences = sequences
+		self.proteome = proteome
 
 ##### ----- #####
 class Population(object):
@@ -110,12 +111,15 @@ def makeNewOrganism(parent=None):
 		grn = mutateGRN(parent.grn,grn_mutation_rate,link_mutation_bounds,prob_grn_change,new_link_bounds)
 		development = develop(start_vect,grn,decays,thresholds,parent.dev_steps)
 		fitness = calcFitness(development)
+###### ******* Mutation of the sequence will determine the grn ********** #######
 		if fitness == 0:
 			sequences = None
+			proteome = None
 		else:
 			seq_mutation_rate = pf.seq_mutation_rate
 			sequences = mutateGenome(parent.sequences,seq_mutation_rate)
-		out_org = Organism(name,generation,parent.num_genes,parent.prop_unlinked,parent.prop_no_threshold,parent.thresh_boundaries,parent.decay_boundaries,parent.dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences)	
+		out_org = Organism(name,generation,parent.num_genes,parent.prop_unlinked,parent.prop_no_threshold,parent.thresh_boundaries,parent.decay_boundaries,parent.dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences,proteome)	
+###### ******** ******** #######
 	else:
 		num_genes = pf.num_genes
 		decay_boundaries = pf.decay_boundaries
@@ -132,11 +136,13 @@ def makeNewOrganism(parent=None):
 		fitness = calcFitness(development)
 		if fitness == 0:
 			sequences = None
+			proteome = None
 		else:
 			seq_length = pf.seq_length
 			base_props = pf.base_props
-			sequences = makeCodingSequenceArray(seq_length,base_props,num_genes)
-		out_org = Organism(name,0,num_genes,prop_unlinked,prop_no_threshold,thresh_boundaries,decay_boundaries,dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences)
+			sequences = makeCodingSequenceArray(seq_length,num_genes)
+			proteome = translate_genome(sequences)
+		out_org = Organism(name,0,num_genes,prop_unlinked,prop_no_threshold,thresh_boundaries,decay_boundaries,dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences,proteome)
 	return(out_org)
 
 ##### ----- #####
@@ -293,7 +299,7 @@ def mutateLink(link_value,link_mutation_bounds): # If a numpy array is passed, i
 	return(result)
 
 ########## ----- SEQUENCE RELATED ----- ##########
-def translateSeq(sequence):
+def translate_seq(sequence):
 	start = 0
 	stop = 3
 	codons = np.int(sequence.size / 3)
@@ -304,6 +310,13 @@ def translateSeq(sequence):
 		start = start + 3
 		stop = stop + 3
 	return(translated_seq)
+
+def translate_genome(in_genome):
+	num_genes,num_bases = in_genome.shape[0],in_genome.shape[1]
+	out_genome = np.ndarray((num_genes,(np.int(num_bases/3))),dtype='<U1')
+	for i in range(num_genes):
+		out_genome[i] = translate_seq(in_genome[i])
+	return(out_genome)
 
 def mutateGenome(genome,seq_mutation_rate):
 	genome_length = genome.size
