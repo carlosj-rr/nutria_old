@@ -359,6 +359,21 @@ def mutateGenomeNew(genome,seq_mutation_rate):
 		final_seq = genome
 	return(final_seq)
 
+def nonsyn_muts(p_proteome,o_proteome):
+	nonsyns = np.where(p_proteome != o_proteome)
+	num_genes = p_proteome.shape[0]
+	changes_array = np.ndarray(num_genes,dtype=np.object)
+	if len(nonsyns[0]) != 0:
+		mutated_genes = nonsyns[0]
+		for i in range(num_genes):
+			if np.any(o_proteome[i] == "_"):
+				changes_array[i] = 99999999
+			else:
+				changes_array[i] = np.count_nonzero(mutated_genes == i)
+	else:
+		changes_array[:] = 0
+	return(changes_array)
+
 ##### ----- #####
 def mutateBase(base):				# This mutation function is equivalent to
 	bases = ("T","C","A","G")		# the JC model of sequence evolution
