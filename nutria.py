@@ -30,6 +30,7 @@ class Organism(object):
 		self.start_vect = start_vect
 		self.grn = grn
 		self.development = development
+		self.genes_on = np.int_(self.development.sum(axis=0) != 0)
 		self.fitness = fitness
 		self.sequences = sequences
 		self.proteome = proteome
@@ -94,6 +95,66 @@ coding_codons = {
 
 ##### ----- #####
 def makeNewOrganism(parent=None):
+	if parent: 		# add also: if type(parent) is Organism:
+		prob_grn_change = pf.prob_grn_change
+		prob_thresh_change = pf.prob_thresh_change
+		grn_mutation_rate = pf.grn_mutation_rate
+		thresh_mutation_rate = pf.thresh_mutation_rate
+		decay_mutation_rate = pf.decay_mutation_rate
+		thresh_decay_mut_bounds = pf.thresh_decay_mut_bounds
+		new_link_bounds = pf.new_link_bounds
+		link_mutation_bounds = pf.link_mutation_bounds
+		generation = parent.generation + 1
+		name = parent.name.split("gen")[0] + "gen" + str(generation)
+		start_vect = parent.start_vect
+		seq_mutation_rate = pf.seq_mutation_rate
+		sequences = mutateGenome(parent.sequences,seq_mutation_rate)
+		proteome = translate_genome(sequences)
+		parent_genes_on = np.int_(parent.development.sum(axis=0) != 0)
+		non_syn_muts = nonsyn_muts(parent.proteome,proteome)
+		nonsense_muts_vector = np.int_(non_syn_muts != 99999999)
+#		decays = de_negativize(mutateGRN(parent.decays,decay_mutation_rate,thresh_decay_mut_bounds,0,None))
+#		thresholds = de_negativize(mutateGRN(parent.thresholds,thresh_mutation_rate,thresh_decay_mut_bounds,prob_thresh_change,thresh_decay_mut_bounds))
+#		grn = mutateGRN(parent.grn,grn_mutation_rate,link_mutation_bounds,prob_grn_change,new_link_bounds)
+#		development = develop(start_vect,grn,decays,thresholds,parent.dev_steps)
+		fitness = calcFitness(development)
+###### ******* Mutation of the sequence will determine the grn ********** #######
+		if fitness == 0:
+			sequences = None
+			proteome = None
+		out_org = Organism(name,generation,parent.num_genes,parent.prop_unlinked,parent.prop_no_threshold,parent.thresh_boundaries,parent.decay_boundaries,parent.dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences,proteome)	
+###### ******** ******** #######
+	else:
+		num_genes = pf.num_genes
+		decay_boundaries = pf.decay_boundaries
+		prop_no_threshold = pf.prop_no_threshold
+		thresh_boundaries = pf.thresh_boundaries
+		prop_unlinked = pf.prop_unlinked
+		dev_steps = pf.dev_steps
+		name = "Lin" + str(int(np.random.random() * 1000000)) + "gen0"
+		decays = randomMaskedVector(num_genes,0,decay_boundaries[0],decay_boundaries[1]) #BUG: check why some values are zero. Decays must never be zero
+		thresholds = randomMaskedVector(num_genes,prop_no_threshold,thresh_boundaries[0],thresh_boundaries[1])
+		start_vect = makeStartVect(num_genes)
+		grn = makeGRN(num_genes,prop_unlinked)
+		development = develop(start_vect,grn,decays,thresholds,dev_steps)
+		fitness = calcFitness(development)
+		if fitness == 0:
+			sequences = None
+			proteome = None
+		else:
+			seq_length = pf.seq_length
+			base_props = pf.base_props
+			sequences = makeCodingSequenceArray(seq_length,num_genes)
+			proteome = translate_genome(sequences)
+		out_org = Organism(name,0,num_genes,prop_unlinked,prop_no_threshold,thresh_boundaries,decay_boundaries,dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences,proteome)
+	return(out_org)
+
+
+
+
+
+##### ----- #####
+def makeNewOrganismOld(parent=None):
 	if parent: 		# add also: if type(parent) is Organism:
 		prob_grn_change = pf.prob_grn_change
 		prob_thresh_change = pf.prob_thresh_change
@@ -240,7 +301,30 @@ def randomMaskedVector(num_vals,prop_zero=0,min_val=0,max_val=1):
 
 # CHAPTER 4. MUTATION FUNCTIONS
 
-########## ----- GRN RELATED ----- ##########
+########## ----- MASTER MUTATOR ----- ##########
+def master_mutator(parental_grn,parental_decays,parental_thresholds,non_syn_muts,parent_genes_on,nonsense_muts_vector,start_vect,dev_steps):
+	total_num_muts = sum(non_syn_muts[np.where(nonsense_muts_vector == 1)])
+	if total_num_muts == 0:
+		out_grn = parental_grn
+		out_decays = parental_decays
+		out_thresholds = parental_thresholds
+	else:
+		mutated_genes = np.hstack(np.where( (non_syn_muts != 0) & (non_syn_muts != 99999999) ))
+		curr_grn = parental_grn
+		curr_decays = parental_decays
+		curr_thresholds = parental_thresholds
+		x = np.array([parent_genes_on])
+		non_neutral_grn_cells = x.T.dot(x)
+		for i in mutated_genes:
+			gene = i
+			gene_mutations = non_syn_muts[gene]
+			# Make some grn/decays/threshold-mutating function
+			# Mutations and stuff
+	out_dev = develop(start_vect,out_grn,out_decays,out_thresholds,dev_steps,nonsense_muts_vector)
+	out_fitness = calcFitness(out_dev)
+	return(out_grn,out_decays,out_thresholds,out_dev,out_fitness)
+	
+
 def mutateGRN(grn,mutation_rate,mutation_bounds,change_rate,change_bounds): # Func also used for thresholds + decays
 	original_shape = grn.shape
 	flat_grn = grn.flatten()
@@ -337,42 +421,26 @@ def mutateGenome(genome,seq_mutation_rate):
 		final_seq = genome
 	return(final_seq)
 
-def mutateGenomeNew(genome,seq_mutation_rate):
-	genome_length = genome.size
-	if genome_length > 99999999:
-		num_to_mut = np.int(seq_mutation_rate * genome_length) #Could eventually be given more stochasticity
-		ones_to_mutate = np.array(random.sample(range(genome_length),num_to_mut))
-	else:
-		bin_vector = np.random.choice((0,1),genome_length,p=(1-seq_mutation_rate,seq_mutation_rate))
-		ones_to_mutate = np.where(ones_to_mutate == 1)
-		num_to_mut = bin_vector.sum()
-	if num_to_mut:
-		original_dimensions = genome.shape
-		flat_seq = genome.flatten()
-		new_bases = np.ndarray((num_to_mut),dtype=np.object)
-		mutated_nucs = np.where(ones_to_mutate == 1)[0]
-		for i in range(mutated_nucs.size):
-			new_bases[i] = mutateBase(flat_seq[mutated_nucs[i]])
-		flat_seq[mutated_nucs] = new_bases
-		final_seq = flat_seq.reshape(original_dimensions)
-	else:
-		final_seq = genome
-	return(final_seq)
-
-def nonsyn_muts(p_proteome,o_proteome):
+def syn_nonsyn_muts(p_genome,o_genome,p_proteome,o_proteome):
+	all_muts = np.where(p_genome != o_genome)
 	nonsyns = np.where(p_proteome != o_proteome)
 	num_genes = p_proteome.shape[0]
-	changes_array = np.ndarray(num_genes,dtype=np.object)
-	if len(nonsyns[0]) != 0:
-		mutated_genes = nonsyns[0]
+	syn_array = np.ndarray(num_genes,dtype=np.object)
+	nonsyn_array = np.ndarray(num_genes,dtype=np.object)
+	if all_muts[0].size != 0:
+		total_mutated_genes = all_muts[0]
+		nonsyn_mutated_genes = nonsyns[0]
 		for i in range(num_genes):
 			if np.any(o_proteome[i] == "_"):
-				changes_array[i] = 99999999
+				nonsyn_array[i] = 99999999
+				syn_array[i] = np.count_nonzero(total_mutated_genes == i) # If gene has a KO mutation, all mutations are synonymous
 			else:
-				changes_array[i] = np.count_nonzero(mutated_genes == i)
+				nonsyn_array[i] = np.count_nonzero(nonsyn_mutated_genes == i)
+				syn_array[i] = np.count_nonzero(total_mutated_genes == i) - nonsyn_array[i]
 	else:
-		changes_array[:] = 0
-	return(changes_array)
+		syn_array[:] = 0
+		nonsyn_array[:] = 0
+	return(syn_array,nonsyn_array)
 
 ##### ----- #####
 def mutateBase(base):				# This mutation function is equivalent to
@@ -385,12 +453,14 @@ def mutateBase(base):				# This mutation function is equivalent to
 #CHAPTER 5. THE DEVELOPMENT FUNCTION
 
 ##### ----- #####
-def develop(start_vect,grn,decays,thresholds,dev_steps):
+def develop(start_vect,grn,decays,thresholds,dev_steps,nonsenses = 1):
+	start_vect = start_vect * nonsenses
 	geneExpressionProfile = np.array([start_vect])
 	#Running the organism's development, and outputting the results
 	#in an array called geneExpressionProfile
 	invect = start_vect
 	for i in range(dev_steps):
+		invect = invect * nonsenses
 		decayed_invect = exponentialDecay(invect,decays)
 		currV = grn.dot(invect) - thresholds	      # Here the threshold is subtracted.
 		currV = de_negativize(currV) + decayed_invect # Think about how the thresholds
@@ -481,45 +551,6 @@ def select(parental_pop,prop_survivors,select_strategy = "random"):
 	survivors_pop = Population(surviving_orgs.size)
 	survivors_pop.individuals = surviving_orgs
 	return(survivors_pop)
-
-def recombine_pop(individuals_array,recomb_pairing="panmictic"):	# Function INcomplete
-	if recomb_pairing == "panmictic":
-		#Recomb
-		None
-	else:
-		print("Recombination style",recomb_style,"not recognized")
-
-def recombine_pair(indiv_1,indiv_2,recomb_style="vertical"):		# Function complete
-	chiasma = np.random.choice(range(1,indiv_1.num_genes))
-	indiv_out = makeNewOrganism(indiv_1)
-	if recomb_style == "vertical":
-		indiv_out.grn = np.append(indiv_1.grn[:,:chiasma],indiv_2.grn[:,chiasma:],axis=1)
-	elif recomb_style == "horizontal":
-		indiv_out.grn = np.append(indiv_1.grn[:chiasma,:],indiv_2.grn[chiasma:,:],axis=0)
-	elif recomb_style == "minimal":
-		print("Minimal style of recombination still not programmed")
-	elif recomb_style == "maximal":
-		print("Maximal style of recombination still not programmed")
-	indiv_out.sequences = np.append(indiv_1.sequences[:chiasma],indiv_2.sequences[chiasma:],axis=0)
-	indiv_out.decays = np.append(indiv_1.decays[:chiasma],indiv_2.decays[chiasma:])
-	indiv_out.thresholds = np.append(indiv_1.thresholds[:chiasma],indiv_2.thresholds[chiasma:])
-	indiv_out.development = develop(indiv_out.start_vect,indiv_out.grn,indiv_out.decays,indiv_out.thresholds,indiv_out.dev_steps)
-	indiv_out.fitness = calcFitness(indiv_out.development)
-	return(indiv_out)
-
-def make_recomb_index_pairs(total_individuals):				# Function complete
-	first_col = np.array(range(total_individuals))
-	second_col = np.ndarray(total_individuals,dtype=np.object)
-	value_pool = list(range(total_individuals))
-	counter = 0
-	for i in first_col:
-		pair = np.random.choice([ x for x in value_pool if x != i ])
-		second_col[counter] = pair
-		value_pool = [ x for x in value_pool if x != pair ]
-		counter += 1
-	out_table = np.append(first_col,second_col).reshape(2,total_individuals).T
-	return(out_table)
-	
 
 def reproduce(survivors_pop,final_pop_size,reproductive_strategy="equal"):
 	survivors = survivors_pop.individuals
@@ -614,10 +645,6 @@ def exportAlignments(organism_array,outfile_prefix="outfile"):
 				print(sequence, file=gene_file)
 		print("Gene",i+1,"done")
 
-##### TEST TO RUN: THE SAME AS I DID YESTERDAY (10 GENES, 15 STEPS, 5K GENERATION), BUT WITHOUT SELECTION.
-##### TO SEE IF, LIKE IN YESTERDAY'S RUN, THE FINAL BEST GRN HAS MORE CONNECTIONS THAN THE FOUNDER
-##### TO SEE IF IT'S THAT SUCH GRNs ARE FAVORED, OR NOT.
-
 def base_mutator(old_base,trans_prob_row):
 	bases = ('T','C','A','G')
 	new_base = np.random.choice(bases,p=trans_prob_row)
@@ -637,6 +664,73 @@ def base_mutator(old_base,model="JC",mut_rate = 1.1e-8): # mut_rate default from
 	new_base = np.random.choice(('T','C','A','G'),p=change_rates)
 	return(new_base)
 
+#*************** END OF THE PROGRAM *********************#
+
+
+
+
+
+
+
+
+
+############### RECOMBINATION FUNCTIONS - TO WORK WITH LATER ###############
+
+
+
+
+
+
+
+#def recombine_pop(individuals_array,recomb_pairing="panmictic"):	# Function INcomplete
+#	if recomb_pairing == "panmictic":
+#		#Recomb
+#		None
+#	else:
+#		print("Recombination style",recomb_style,"not recognized")
+
+#def recombine_pair(indiv_1,indiv_2,recomb_style="vertical"):		# Function complete
+#	chiasma = np.random.choice(range(1,indiv_1.num_genes))
+#	indiv_out = makeNewOrganism(indiv_1)
+#	if recomb_style == "vertical":
+#		indiv_out.grn = np.append(indiv_1.grn[:,:chiasma],indiv_2.grn[:,chiasma:],axis=1)
+#	elif recomb_style == "horizontal":
+#		indiv_out.grn = np.append(indiv_1.grn[:chiasma,:],indiv_2.grn[chiasma:,:],axis=0)
+#	elif recomb_style == "minimal":
+#		print("Minimal style of recombination still not programmed")
+#	elif recomb_style == "maximal":
+#		print("Maximal style of recombination still not programmed")
+#	indiv_out.sequences = np.append(indiv_1.sequences[:chiasma],indiv_2.sequences[chiasma:],axis=0)
+#	indiv_out.decays = np.append(indiv_1.decays[:chiasma],indiv_2.decays[chiasma:])
+#	indiv_out.thresholds = np.append(indiv_1.thresholds[:chiasma],indiv_2.thresholds[chiasma:])
+#	indiv_out.development = develop(indiv_out.start_vect,indiv_out.grn,indiv_out.decays,indiv_out.thresholds,indiv_out.dev_steps)
+#	indiv_out.fitness = calcFitness(indiv_out.development)
+#	return(indiv_out)
+
+#def make_recomb_index_pairs(total_individuals):				# Function complete
+#	first_col = np.array(range(total_individuals))
+#	second_col = np.ndarray(total_individuals,dtype=np.object)
+#	value_pool = list(range(total_individuals))
+#	counter = 0
+#	for i in first_col:
+#		pair = np.random.choice([ x for x in value_pool if x != i ])
+#		second_col[counter] = pair
+#		value_pool = [ x for x in value_pool if x != pair ]
+#		counter += 1
+#	out_table = np.append(first_col,second_col).reshape(2,total_individuals).T
+#	return(out_table)
+	
+
+
+
+
+
+
+
+############################################################################
+
+
+
 
 #def offspringNumTuple(tot_offspring,num_survivors,equal_fertility):
 	# returns a tuple in which each element i is the amount of offspring the ith best fitting organism will have
@@ -647,6 +741,46 @@ def base_mutator(old_base,model="JC",mut_rate = 1.1e-8): # mut_rate default from
 # mean pop_size and stdev pop_stdev
 
 ###### FUNCTION SEMATARY #######
+
+#def develop_old(start_vect,grn,decays,thresholds,dev_steps):
+#	geneExpressionProfile = np.array([start_vect])
+	#Running the organism's development, and outputting the results
+	#in an array called geneExpressionProfile
+#	invect = start_vect
+#	for i in range(dev_steps):
+#		decayed_invect = exponentialDecay(invect,decays)
+#		currV = grn.dot(invect) - thresholds	      # Here the threshold is subtracted.
+#		currV = de_negativize(currV) + decayed_invect # Think about how the thresholds
+							      # should affect gene expression
+#		geneExpressionProfile = np.append(geneExpressionProfile,[currV],axis=0)
+#		invect = currV
+#	return(geneExpressionProfile)
+
+
+#def mutateGenomeNew(genome,seq_mutation_rate):
+#	genome_length = genome.size
+#	if genome_length > 99999999:
+#		num_to_mut = np.int(seq_mutation_rate * genome_length) #Could eventually be given more stochasticity
+#		ones_to_mutate = np.array(random.sample(range(genome_length),num_to_mut))
+#	else:
+#		bin_vector = np.random.choice((0,1),genome_length,p=(1-seq_mutation_rate,seq_mutation_rate))
+#		ones_to_mutate = np.where(ones_to_mutate == 1)
+#		num_to_mut = bin_vector.sum()
+#	if num_to_mut:
+#		original_dimensions = genome.shape
+#		flat_seq = genome.flatten()
+#		new_bases = np.ndarray((num_to_mut),dtype=np.object)
+#		mutated_nucs = np.where(ones_to_mutate == 1)[0]
+#		for i in range(mutated_nucs.size):
+#			new_bases[i] = mutateBase(flat_seq[mutated_nucs[i]])
+#		flat_seq[mutated_nucs] = new_bases
+#		final_seq = flat_seq.reshape(original_dimensions)
+#	else:
+#		final_seq = genome
+#	return(final_seq)
+
+
+
 #class Offspring(object):
 #	def __init__(self,name,parent):
 #		self.name = name
