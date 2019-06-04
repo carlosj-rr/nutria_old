@@ -110,9 +110,6 @@ def makeNewOrganism(parent=None):
 		seq_mutation_rate = pf.seq_mutation_rate
 		sequences = mutateGenome(parent.sequences,seq_mutation_rate)
 		proteome = translate_genome(sequences)
-		parent_genes_on = np.int_(parent.development.sum(axis=0) != 0)
-		non_syn_muts = nonsyn_muts(parent.proteome,proteome)
-		nonsense_muts_vector = np.int_(non_syn_muts != 99999999)
 #		decays = de_negativize(mutateGRN(parent.decays,decay_mutation_rate,thresh_decay_mut_bounds,0,None))
 #		thresholds = de_negativize(mutateGRN(parent.thresholds,thresh_mutation_rate,thresh_decay_mut_bounds,prob_thresh_change,thresh_decay_mut_bounds))
 #		grn = mutateGRN(parent.grn,grn_mutation_rate,link_mutation_bounds,prob_grn_change,new_link_bounds)
@@ -302,25 +299,40 @@ def randomMaskedVector(num_vals,prop_zero=0,min_val=0,max_val=1):
 # CHAPTER 4. MUTATION FUNCTIONS
 
 ########## ----- MASTER MUTATOR ----- ##########
-def master_mutator(parental_grn,parental_decays,parental_thresholds,non_syn_muts,parent_genes_on,nonsense_muts_vector,start_vect,dev_steps):
-	total_num_muts = sum(non_syn_muts[np.where(nonsense_muts_vector == 1)])
+def master_mutator(parent,offsp_genome,offsp_proteome):
+	num_genes = offsp_genome.shape[0]
+	syn_muts_table,nonsyn_muts_table = syn_nonsyn_muts(parent.sequences,offsp_genome,parent.proteome,offsp_proteome)
+	new_ko_muts = new_kos(parent.proteome,offsp_proteome)
+	total_num_muts = syn_muts_table.sum() + nonsyn_muts_table[nonsyn_muts_table != 99999999].sum() + new_ko_muts
+	active_genes = np.bool_(parent.genes_on * (nonsyn_muts_table != 99999999)) #Change to bool?
 	if total_num_muts == 0:
-		out_grn = parental_grn
-		out_decays = parental_decays
-		out_thresholds = parental_thresholds
+		out_grn = parent.grn
+		out_decays = parent.decays
+		out_thresholds = parent.thresholds
 	else:
-		mutated_genes = np.hstack(np.where( (non_syn_muts != 0) & (non_syn_muts != 99999999) ))
-		curr_grn = parental_grn
-		curr_decays = parental_decays
-		curr_thresholds = parental_thresholds
-		x = np.array([parent_genes_on])
-		non_neutral_grn_cells = x.T.dot(x)
-		for i in mutated_genes:
-			gene = i
-			gene_mutations = non_syn_muts[gene]
-			# Make some grn/decays/threshold-mutating function
-			# Mutations and stuff
-	out_dev = develop(start_vect,out_grn,out_decays,out_thresholds,dev_steps,nonsense_muts_vector)
+		non_neutral_grn_cells = active_genes.reshape(1,num_genes).T.dot(active_genes.reshape(1,num_genes))
+		neutral_grn_cells = np.invert(non_neutral_grn_cells)
+		out_grn = parent.grn
+		out_decays = parent.decays
+		out_thresholds = parent_thresholds
+		for gene in range(num_genes):
+			gene_syn_muts = syn_muts_table[gene]
+			gene_nonsyn_muts = nonsyn_muts_table[gene] if nonsyn_muts_table[gene] != 99999999 else 0
+			gene_total_muts = gene_syn_muts + gene_nonsyn_muts
+			if gene_total_muts > 0:
+				if (not active_genes[gene]):
+					gene_syn_muts = gene_total_muts
+					gene_nonsyn_muts = 0
+				
+				for i in range(gene_syn_muts):
+					gene_d_t_synmask = np.invert(np.bool_(active_genes))
+					gene_grn_synmask = neutral_grn_cells
+					# Do synonymous mutations, if present
+				for i in range(gene_nonsyn_muts):
+					gene_d_t_nonsynmask = np.bool_(active_genes)
+					gene_grn_nonsynmask = 
+					# Do nonsynonymous mutations, if present
+	out_dev = develop(start_vect,out_grn,out_decays,out_thresholds,parent.dev_steps,active_genes)
 	out_fitness = calcFitness(out_dev)
 	return(out_grn,out_decays,out_thresholds,out_dev,out_fitness)
 	
@@ -433,7 +445,13 @@ def syn_nonsyn_muts(p_genome,o_genome,p_proteome,o_proteome):
 		for i in range(num_genes):
 			if np.any(o_proteome[i] == "_"):
 				nonsyn_array[i] = 99999999
-				syn_array[i] = np.count_nonzero(total_mutated_genes == i) # If gene has a KO mutation, all mutations are synonymous
+				# (BELOW) If gene has a KO mutation, all mutations are synonymous,
+				# except if the KO is new. In this case the KO is subtracted from
+				# the amount of synonymous muts.
+				if np.any(p_proteome[i] == "_"):
+					syn_array[i] = np.count_nonzero(total_mutated_genes == i)
+				else:
+					syn_array[i] = np.count_nonzero(total_mutated_genes == i) - 1
 			else:
 				nonsyn_array[i] = np.count_nonzero(nonsyn_mutated_genes == i)
 				syn_array[i] = np.count_nonzero(total_mutated_genes == i) - nonsyn_array[i]
@@ -441,6 +459,19 @@ def syn_nonsyn_muts(p_genome,o_genome,p_proteome,o_proteome):
 		syn_array[:] = 0
 		nonsyn_array[:] = 0
 	return(syn_array,nonsyn_array)
+
+def new_kos(p_proteome,o_proteome):
+	if np.any(o_proteome == "_"):
+		outnum = 0
+		for i in range(p_proteome.shape[0]):
+			p_gene_ko = np.any(p_proteome[i] == "_")
+			o_gene_ko = np.any(o_proteome[i] == "_")
+			if (p_gene_ko == False) & (o_gene_ko == True):
+				outnum += 1
+	else:
+		outnum = 0
+	return(outnum)
+	
 
 ##### ----- #####
 def mutateBase(base):				# This mutation function is equivalent to
@@ -460,11 +491,11 @@ def develop(start_vect,grn,decays,thresholds,dev_steps,nonsenses = 1):
 	#in an array called geneExpressionProfile
 	invect = start_vect
 	for i in range(dev_steps):
-		invect = invect * nonsenses
 		decayed_invect = exponentialDecay(invect,decays)
 		currV = grn.dot(invect) - thresholds	      # Here the threshold is subtracted.
 		currV = de_negativize(currV) + decayed_invect # Think about how the thresholds
 							      # should affect gene expression
+		currV = currV * nonsenses
 		geneExpressionProfile = np.append(geneExpressionProfile,[currV],axis=0)
 		invect = currV
 	return(geneExpressionProfile)
