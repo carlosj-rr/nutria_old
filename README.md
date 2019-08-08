@@ -7,7 +7,7 @@ nutria is a prototype simulator of biological life. It simultaneously simulates 
 ## A synthetic organism
 Each organism is defined by a network of genes that have regulatory interactions with each other and themselves (a gene regulatory network, GRN), and each node in the GRN (=gene) has a protein-coding nucleotide sequence associated to it.
 
-Concretely, this is an NxN matrix (for N genes), and each value represents the regulatory effects of a gene's expression on all other genes. This number can be zero (no effect), positive (upregulation), or negative (downregulation). The sequences are just an array of N coding sequences.
+Concretely, this is an NxN matrix (for N genes), and each column represents the regulatory effects of a gene's expression on all other genes. This number can be zero (no effect), positive (upregulation), or negative (downregulation). The sequences are just an array of N coding sequences.
 
 Development is simulated by multiplying (dot product) the GRN matrix by an arbitrary starting vector of N size (the starting amounts of each gene), and then repeating the operation with the output of this dot product for a user-defined amount of iterations. There are some details to this operation that I'm not explaining and which are already in the code but I will explain those in detail later, in the wiki page. The data resulting from this operation is a set of N-size vectors that show the progression of the amounts of each gene as development progresses. This can be converted into a more specific phenotype, but for the moment, the 'gene expression profiles' are the phenotype.
 
