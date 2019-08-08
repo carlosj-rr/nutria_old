@@ -1,5 +1,5 @@
 # nutria
-An Artificial Life Simulator for Evo-Devo studies
+An Artificial Life Simulator for Evo-Devo Studies. Python 3
 
 # General Description
 nutria is a prototype simulator of biological life. It simultaneously simulates development, gene regulation, and genomic encoding on each organism, and these elements are allowed to evolve through a classical genetic algorithm.
