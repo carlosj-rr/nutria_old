@@ -7,6 +7,7 @@ import params_file as pf # Must add a check the the file exists, and that the
 			 # variables are valid
 from numpy import exp
 from scipy import stats
+import math
 
 
 # CHAPTER 1. CLASS DECLARATIONS
@@ -34,6 +35,7 @@ class Organism(object):
 		self.fitness = fitness
 		self.sequences = sequences
 		self.proteome = proteome
+		self.num_mutable_values = (self.num_genes*2)+1
 
 ##### ----- #####
 class Population(object):
@@ -94,6 +96,13 @@ coding_codons = {
 # -- from scratch, or as a next generation
 
 ##### ----- #####
+def founderFinder():
+	founder = makeNewOrganism()
+	while founder.fitness == 0:
+		founder = makeNewOrganism()
+	return(founder)
+
+##### ----- #####
 def makeNewOrganism(parent=None):
 	if parent: 		# add also: if type(parent) is Organism:
 		prob_grn_change = pf.prob_grn_change
@@ -137,55 +146,6 @@ def makeNewOrganism(parent=None):
 		out_org = Organism(name,0,num_genes,prop_unlinked,prop_no_threshold,thresh_boundaries,decay_boundaries,dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences,proteome)
 	return(out_org)
 
-
-
-
-
-##### ----- #####
-def makeNewOrganismOld(parent=None): # AN OUTDATED VERSION THAT I SCREWED UP LATER BY CONFUSING IT WITH THE REAL ONE
-	if parent: 		# add also: if type(parent) is Organism:
-		prob_grn_change = pf.prob_grn_change
-		prob_thresh_change = pf.prob_thresh_change
-		grn_mutation_rate = pf.grn_mutation_rate
-		thresh_mutation_rate = pf.thresh_mutation_rate
-		decay_mutation_rate = pf.decay_mutation_rate
-		thresh_decay_mut_bounds = pf.thresh_decay_mut_bounds
-		new_link_bounds = pf.new_link_bounds
-		link_mutation_bounds = pf.link_mutation_bounds
-		generation = parent.generation + 1
-		name = parent.name.split("gen")[0] + "gen" + str(generation)
-		start_vect = parent.start_vect
-		seq_mutation_rate = pf.seq_mutation_rate
-		sequences = mutateGenome(parent.sequences,seq_mutation_rate)
-		proteome = translate_genome(sequences)
-		grn,decays,thresholds,development,fitness = master_mutator(parent,sequences,proteome)
-		out_org = Organism(name,generation,parent.num_genes,parent.prop_unlinked,parent.prop_no_threshold,parent.thresh_boundaries,parent.decay_boundaries,parent.dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences,proteome)
-	else:
-		num_genes = pf.num_genes
-		decay_boundaries = pf.decay_boundaries
-		prop_no_threshold = pf.prop_no_threshold
-		thresh_boundaries = pf.thresh_boundaries
-		prop_unlinked = pf.prop_unlinked
-		dev_steps = pf.dev_steps
-		name = "Lin" + str(int(np.random.random() * 1000000)) + "gen0"
-		decays = randomMaskedVector(num_genes,0,decay_boundaries[0],decay_boundaries[1]) #BUG: check why some values are zero. Decays must never be zero
-		thresholds = randomMaskedVector(num_genes,prop_no_threshold,thresh_boundaries[0],thresh_boundaries[1])
-		start_vect = makeStartVect(num_genes)
-		grn = makeGRN(num_genes,prop_unlinked)
-		development = develop(start_vect,grn,decays,thresholds,dev_steps)
-		fitness = calcFitness(development)
-		if fitness == 0:
-			sequences = None
-			proteome = None
-		else:
-			seq_length = pf.seq_length
-			base_props = pf.base_props
-			sequences = makeCodingSequenceArray(seq_length,num_genes)
-			proteome = translate_genome(sequences)
-		out_org = Organism(name,0,num_genes,prop_unlinked,prop_no_threshold,thresh_boundaries,decay_boundaries,dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences,proteome)
-	return(out_org)
-
-##### ----- #####
 def producePop(pop_size,parent=None):
 	pop = np.ndarray((pop_size,),dtype=np.object)
 	if not parent:
@@ -371,7 +331,7 @@ def gene_mutator(gene_index,num_syn_muts,num_nonsyn_muts,in_grn,in_decays,in_thr
 			elif num_syn_muts_options >= num_syn_muts:
 				to_mutate = np.random.choice(range(num_syn_muts_options),num_syn_muts,replace=False)
 #			print("gene",gene_index,"syn muts:",to_mutate)
-			if to_mutate != None:
+			if to_mutate is not None:
 				for i in to_mutate:
 					if i < syn_grn_sites_rows.size:
 #						print("	",i,"syn mut is in grn")
@@ -509,7 +469,7 @@ def translate_genome(in_genome):
 def mutateGenome(genome,seq_mutation_rate):
 	genome_length = genome.size
 	if genome_length > 10000000:
-		print("Danger: bases assessed for mutation is too big")
+		print("Danger: number of bases assessed for mutation is too large")
 	ones_to_mutate = np.random.choice((0,1),genome_length,p=(1-seq_mutation_rate,seq_mutation_rate))
 	num_to_mut = ones_to_mutate.sum()
 	if num_to_mut:
@@ -521,8 +481,10 @@ def mutateGenome(genome,seq_mutation_rate):
 			new_bases[i] = mutateBase(flat_seq[mutated_nucs[i]])
 		flat_seq[mutated_nucs] = new_bases
 		final_seq = flat_seq.reshape(original_dimensions)
+#		different_sites = np.where(genome != final_seq)
 	else:
 		final_seq = genome
+#		different_sites = None
 	return(final_seq)
 
 def syn_nonsyn_muts(p_genome,o_genome,p_proteome,o_proteome):
@@ -787,6 +749,19 @@ def base_mutator(old_base,model="JC",mut_rate = 1.1e-8): # mut_rate default from
 	new_base = np.random.choice(('T','C','A','G'),p=change_rates)
 	return(new_base)
 
+# The function that uses sine waves to determine a 'connectome' -- takes in two values (which will determine the frequencies of two sine waves), and it returns a 1D vector of 1's and 0's that can be reshaped into a 2D matrix that determines which neurons are connected with which.
+def sin_01_vect(param1,param2,num_values):
+	if param1 == 0 or param2 == 0:
+		return([0] * num_values)
+	else:
+		omega_closest_to_0 = min(abs(param1),abs(param2))
+		set_period = 2*math.pi/omega_closest_to_0
+		step_size = set_period/num_values
+		read_points = np.arange(0+(step_size/2),set_period,step_size)
+		added_func_reads = np.sin(param1*read_points) + np.sin(param2*read_points)
+		output = np.int_(added_func_reads > 0)
+	return(output)
+
 #*************** END OF THE PROGRAM *********************#
 
 
@@ -798,11 +773,6 @@ def base_mutator(old_base,model="JC",mut_rate = 1.1e-8): # mut_rate default from
 
 
 ############### RECOMBINATION FUNCTIONS - TO WORK WITH LATER ###############
-
-
-
-
-
 
 
 #def recombine_pop(individuals_array,recomb_pairing="panmictic"):	# Function INcomplete
@@ -844,15 +814,59 @@ def base_mutator(old_base,model="JC",mut_rate = 1.1e-8): # mut_rate default from
 #	return(out_table)
 	
 
-
-
-
-
-
-
 ############################################################################
 
 
+
+
+
+
+
+##### ----- #####
+#def makeNewOrganismOld(parent=None): # AN OUTDATED VERSION THAT I SCREWED UP LATER BY CONFUSING IT WITH THE REAL ONE
+#	if parent: 		# add also: if type(parent) is Organism:
+#		prob_grn_change = pf.prob_grn_change
+#		prob_thresh_change = pf.prob_thresh_change
+#		grn_mutation_rate = pf.grn_mutation_rate
+#		thresh_mutation_rate = pf.thresh_mutation_rate
+#		decay_mutation_rate = pf.decay_mutation_rate
+#		thresh_decay_mut_bounds = pf.thresh_decay_mut_bounds
+#		new_link_bounds = pf.new_link_bounds
+#		link_mutation_bounds = pf.link_mutation_bounds
+#		generation = parent.generation + 1
+#		name = parent.name.split("gen")[0] + "gen" + str(generation)
+#		start_vect = parent.start_vect
+#		seq_mutation_rate = pf.seq_mutation_rate
+#		sequences = mutateGenome(parent.sequences,seq_mutation_rate)
+#		proteome = translate_genome(sequences)
+#		grn,decays,thresholds,development,fitness = master_mutator(parent,sequences,proteome)
+#		out_org = Organism(name,generation,parent.num_genes,parent.prop_unlinked,parent.prop_no_threshold,parent.thresh_boundaries,parent.decay_boundaries,parent.dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences,proteome)
+#	else:
+#		num_genes = pf.num_genes
+#		decay_boundaries = pf.decay_boundaries
+#		prop_no_threshold = pf.prop_no_threshold
+#		thresh_boundaries = pf.thresh_boundaries
+#		prop_unlinked = pf.prop_unlinked
+#		dev_steps = pf.dev_steps
+#		name = "Lin" + str(int(np.random.random() * 1000000)) + "gen0"
+#		decays = randomMaskedVector(num_genes,0,decay_boundaries[0],decay_boundaries[1]) #BUG: check why some values are zero. Decays must never be zero
+#		thresholds = randomMaskedVector(num_genes,prop_no_threshold,thresh_boundaries[0],thresh_boundaries[1])
+#		start_vect = makeStartVect(num_genes)
+#		grn = makeGRN(num_genes,prop_unlinked)
+#		development = develop(start_vect,grn,decays,thresholds,dev_steps)
+#		fitness = calcFitness(development)
+#		if fitness == 0:
+#			sequences = None
+#			proteome = None
+#		else:
+#			seq_length = pf.seq_length
+#			base_props = pf.base_props
+#			sequences = makeCodingSequenceArray(seq_length,num_genes)
+#			proteome = translate_genome(sequences)
+#		out_org = Organism(name,0,num_genes,prop_unlinked,prop_no_threshold,thresh_boundaries,decay_boundaries,dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences,proteome)
+#	return(out_org)
+
+##### ----- #####
 
 
 #def offspringNumTuple(tot_offspring,num_survivors,equal_fertility):
