@@ -1,0 +1,36 @@
+Evolutionary history - 10 genes, 1000 bp, greedy, population size = 100
+[remaining problem: started with a sparseness of 60%, but it went to 50%]
+
+founder (Fitness = 0.6033471487278886)
+founder_pop (Fitness mean = 0.6036866896545956, sd = 0.0033755314281700742)
+|
+|
+|
+|
+| 10k generations
+|
+|
+|
+|
+|
+Pop1 (Fitness mean = 0.7824404314978927, sd = 0.02756870124675953, dead = 1)
+|_______________________________________________________________________
+|									|
+|									|
+| 5k generations							| 5k generations
+|									|
+|									|
+Pop2									Pop3
+F mu = 0.7856879173836105						F mu = 0.7859934057494793
+F sd = 0.011789027342278048						F sd = 0.018993474041079785
+dead = 0								dead = 0
+|________________________		      __________________________|
+|			 |		     |				|
+|			 |		     |				|
+| 5k gens		 | 5k gens	     | 5k gens			| 5k gens
+|			 |		     |				|
+|			 |		     |				|
+Pop4			Pop5		    Pop6			Pop7
+F mu = 0.78807314	F mu = 0.78759945    F mu = 0.78654003		F mu = 0.78795535
+F sd = 0.00831790	F sd = 0.00822163    F sd = 0.01086741		F sd = 0.00773384
+dead = 0		dead = 0	     dead = 0			dead = 0

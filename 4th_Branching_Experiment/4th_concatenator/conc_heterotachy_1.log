@@ -1,0 +1,60 @@
+IQ-TREE multicore version 1.6.9 for Linux 64-bit built Dec 20 2018
+Developed by Bui Quang Minh, Nguyen Lam Tung, Olga Chernomor,
+Heiko Schmidt, Dominik Schrempf, Michael Woodhams.
+
+Host:    gallonegro (AVX, 7 GB RAM)
+Command: iqtree -s 4th_branched_test_pops78910111213_concat.fas -m JC+H1 -pre conc_heterotachy_1
+Seed:    437614 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Wed May  8 15:46:46 2019
+Kernel:  AVX - 1 threads (4 CPU cores detected)
+
+HINT: Use -nt option to specify number of threads because your CPU has 4 cores!
+HINT: -nt AUTO will automatically determine the best number of threads to use.
+
+Reading alignment file 4th_branched_test_pops78910111213_concat.fas ... Fasta format detected
+Alignment most likely contains DNA/RNA sequences
+Alignment has 8 sequences with 10000 columns, 2501 distinct patterns
+4544 parsimony-informative, 2973 singleton sites, 2483 constant sites
+                     Gap/Ambiguity  Composition  p-value
+   1  Lin478089gen30001_1    0.00%    passed     30.50%
+   2  Lin478089gen30001_2    0.00%    passed     64.79%
+   3  Lin478089gen30001_3    0.00%    passed     64.10%
+   4  Lin478089gen30001_4    0.00%    passed     63.21%
+   5  Lin478089gen30001_5    0.00%    passed     44.73%
+   6  Lin478089gen30001_6    0.00%    passed     59.36%
+   7  Lin478089gen30002_7    0.00%    passed     73.87%
+   8  Lin478089gen30002_8    0.00%    passed     63.07%
+****  TOTAL                  0.00%  0 sequences failed composition chi2 test (p-value<5%; df=3)
+
+Create initial parsimony tree by phylogenetic likelihood library (PLL)... 0.002 seconds
+
+NOTE: 0 MB RAM (0 GB) is required!
+Estimate model parameters (epsilon = 0.100)
+Initial LogL: -65312.145, Site proportion and rates:  (1.000,1.000)
+relative_treelen: 1.576
+1. Initial log-likelihood: -65312.145
+2. Current log-likelihood: -65216.530
+Optimal log-likelihood: -65216.515
+Rate parameters:  A-C: 1.00000  A-G: 1.00000  A-T: 1.00000  C-G: 1.00000  C-T: 1.00000  G-T: 1.00000
+Base frequencies:  A: 0.250  C: 0.250  G: 0.250  T: 0.250
+Heterotachy weights:      1.000
+Heterotachy tree lengths: 1.400
+Parameters optimization took 2 rounds (0.012 sec)
+Computing ML distances based on estimated model parameters... 0.001 sec
+Computing BIONJ tree...
+0.000 seconds
+Log-likelihood of BIONJ tree: -65216.515
+--------------------------------------------------------------------
+|             INITIALIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Generating 99 parsimony trees... 0.154 second
+Computing log-likelihood of 55 initial trees ... 0.353 seconds
+Current best score: -65216.515
+
+Do NNI search on 20 best initial trees
+ERROR: STACK TRACE FOR DEBUGGING:
+ERROR: 
+ERROR: *** IQ-TREE CRASHES WITH SIGNAL SEGMENTATION FAULT
+ERROR: *** For bug report please send to developers:
+ERROR: ***    Log file: conc_heterotachy_1.log
+ERROR: ***    Alignment files (if possible)

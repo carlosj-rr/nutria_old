@@ -1,0 +1,108 @@
+IQ-TREE 1.6.9 built Dec 20 2018
+
+Input file name: 4th_branched_test_pops78910111213_concat.fas
+Type of analysis: tree reconstruction
+Random seed number: 916036
+
+REFERENCES
+----------
+
+To cite IQ-TREE please use:
+
+Lam-Tung Nguyen, Heiko A. Schmidt, Arndt von Haeseler, and Bui Quang Minh
+(2015) IQ-TREE: A fast and effective stochastic algorithm for estimating
+maximum likelihood phylogenies. Mol Biol Evol, 32:268-274.
+https://doi.org/10.1093/molbev/msu300
+
+SEQUENCE ALIGNMENT
+------------------
+
+Input data: 8 sequences with 10000 nucleotide sites
+Number of constant sites: 2483 (= 24.83% of all sites)
+Number of invariant (constant or ambiguous constant) sites: 2483 (= 24.83% of all sites)
+Number of parsimony informative sites: 4544
+Number of distinct site patterns: 2501
+
+SUBSTITUTION PROCESS
+--------------------
+
+Model of substitution: JC+H10
+
+Rate parameter R:
+
+  A-C: 1.0000
+  A-G: 1.0000
+  A-T: 1.0000
+  C-G: 1.0000
+  C-T: 1.0000
+  G-T: 1.0000
+
+State frequencies: (equal frequencies)
+
+Rate matrix Q:
+
+  A        -1    0.3333    0.3333    0.3333
+  C    0.3333        -1    0.3333    0.3333
+  G    0.3333    0.3333        -1    0.3333
+  T    0.3333    0.3333    0.3333        -1
+
+Model of rate heterogeneity: Rate heterotachy with 10 categories
+Heterotachy weights:      0.1163 0.1062 0.09637 0.1396 0.1086 0.1242 0.1193 0.02832 0.06507 0.09602
+Heterotachy tree lengths: 0.9439 1.03 1.393 1.269 1.292 1.889 1.955 3.556 2.191 2.168
+
+ Category  Relative_rate  Proportion
+  1         1              0.1163
+  2         1              0.1062
+  3         1              0.09637
+  4         1              0.1396
+  5         1              0.1086
+  6         1              0.1242
+  7         1              0.1193
+  8         1              0.02832
+  9         1              0.06507
+  10         1              0.09602
+
+MAXIMUM LIKELIHOOD TREE
+-----------------------
+
+Log-likelihood of the tree: -65142.1946 (s.e. 286.6165)
+Unconstrained log-likelihood (without tree): -61142.4428
+Number of free parameters (#branches + #model parameters): 139
+Akaike information criterion (AIC) score: 130562.3892
+Corrected Akaike information criterion (AICc) score: 130566.3365
+Bayesian information criterion (BIC) score: 131564.6265
+
+Total tree length (sum of branch lengths): 1.5902
+Sum of internal branch lengths: 0.6999 (44.0140% of tree length)
+
+Class tree lengths:  0.9439 1.0301 1.3933 1.2693 1.2921 1.8890 1.9550 3.5565 2.1912 2.1676
+NOTE: Tree is UNROOTED although outgroup taxon 'Lin478089gen30001_1' is drawn at root
+NOTE: Branch lengths are weighted average over heterotachy classes
+
++---------------Lin478089gen30001_1
+|
++----------Lin478089gen30001_2
+|
+|                       +----------Lin478089gen30001_3
+|          +------------|
+|          |            +---------Lin478089gen30001_4
++----------|
+           |                                  +---------Lin478089gen30001_5
+           |                       +----------|
+           |                       |          +----------Lin478089gen30001_6
+           +-----------------------|
+                                   |          +---------Lin478089gen30002_7
+                                   +----------|
+                                              +---------Lin478089gen30002_8
+
+Tree in newick format: (class branch lengths are given in [...] and separated by '/' )
+
+(Lin478089gen30001_1[0.117736/0.115203/0.003080/0.000002/0.000002/0.000002/0.004306/2.777802/0.273153/0.355723]:0.157344,Lin478089gen30001_2[0.175517/0.000002/0.093851/0.031369/0.227313/0.312059/0.040117/0.000109/0.168849/0.000002]:0.113062,((Lin478089gen30001_3[0.029100/0.209827/0.000002/0.079364/0.009586/0.200488/0.240102/0.047625/0.000002/0.146143]:0.106717,Lin478089gen30001_4[0.075544/0.000002/0.153740/0.198646/0.150552/0.091322/0.000002/0.166404/0.045291/0.156794]:0.101739)[0.019350/0.119157/0.019256/0.185921/0.001096/0.288899/0.028669/0.000003/0.048785/0.483722]:0.131759,((Lin478089gen30001_5[0.002702/0.238089/0.405391/0.018887/0.003360/0.124662/0.000002/0.047044/0.145804/0.089501]:0.102578,Lin478089gen30001_6[0.118154/0.000002/0.031825/0.147090/0.007571/0.057016/0.241384/0.000027/0.485465/0.064658]:0.111832)[0.000003/0.115844/0.000448/0.156577/0.109265/0.021508/0.000002/0.000030/0.760054/0.130909]:0.110775,(Lin478089gen30002_7[0.000002/0.085160/0.036515/0.146975/0.241063/0.126550/0.105883/0.238706/0.090530/0.000002]:0.100266,Lin478089gen30002_8[0.134386/0.034832/0.138288/0.135665/0.074359/0.079972/0.056266/0.055173/0.083161/0.140503]:0.096777)[0.219096/0.045145/0.110658/0.001547/0.000003/0.139989/0.399545/0.223571/0.000002/0.000002]:0.112531)[0.044619/0.028900/0.377754/0.039551/0.367272/0.000003/0.710485/0.000002/0.000003/0.599620]:0.232392)[0.007687/0.037941/0.022541/0.127659/0.100634/0.446544/0.128241/0.000001/0.090137/0.000002]:0.112475);
+
+TIME STAMP
+----------
+
+Date and time: Wed May  8 16:00:22 2019
+Total CPU time used: 219.782 seconds (0h:3m:39s)
+Total wall-clock time used: 219.851 seconds (0h:3m:39s)
+

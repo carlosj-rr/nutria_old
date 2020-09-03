@@ -1,5 +1,5 @@
 # CONSTRUCTION PARAMETERS
-num_genes = 10
+num_genes = 6
 seq_length = 1500
 prop_unlinked = 0.7
 prop_no_threshold = 0.5

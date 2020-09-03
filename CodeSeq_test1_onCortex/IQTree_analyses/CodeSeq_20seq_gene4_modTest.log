@@ -1,0 +1,229 @@
+IQ-TREE multicore version 1.6.9 for Linux 64-bit built Dec 20 2018
+Developed by Bui Quang Minh, Nguyen Lam Tung, Olga Chernomor,
+Heiko Schmidt, Dominik Schrempf, Michael Woodhams.
+
+Host:    gallonegro (AVX, 7 GB RAM)
+Command: iqtree -s CodeSeq_test1_onCortex_20seq_gene4.fas -m TEST -pre CodeSeq_20seq_gene4_modTest
+Seed:    988130 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Fri Jun  7 12:40:43 2019
+Kernel:  AVX - 1 threads (4 CPU cores detected)
+
+HINT: Use -nt option to specify number of threads because your CPU has 4 cores!
+HINT: -nt AUTO will automatically determine the best number of threads to use.
+
+Reading alignment file CodeSeq_test1_onCortex_20seq_gene4.fas ... Fasta format detected
+Alignment most likely contains DNA/RNA sequences
+Alignment has 20 sequences with 1500 columns, 112 distinct patterns
+796 parsimony-informative, 0 singleton sites, 704 constant sites
+                            Gap/Ambiguity  Composition  p-value
+   1  Lin938910gen20001_gene4_1     0.00%    passed     95.85%
+   2  Lin938910gen20001_gene4_2     0.00%    passed     95.85%
+   3  Lin938910gen20001_gene4_3     0.00%    passed     95.85%
+   4  Lin938910gen20001_gene4_4     0.00%    passed     95.85%
+   5  Lin938910gen20001_gene4_5     0.00%    passed     95.85%
+   6  Lin938910gen20001_gene4_6     0.00%    passed     87.05%
+   7  Lin938910gen20001_gene4_7     0.00%    passed     87.05%
+   8  Lin938910gen20001_gene4_8     0.00%    passed     87.05%
+   9  Lin938910gen20001_gene4_9     0.00%    passed     87.05%
+  10  Lin938910gen20001_gene4_10    0.00%    passed     87.05%
+  11  Lin938910gen20001_gene4_11    0.00%    passed     85.04%
+  12  Lin938910gen20001_gene4_12    0.00%    passed     85.04%
+  13  Lin938910gen20001_gene4_13    0.00%    passed     85.04%
+  14  Lin938910gen20001_gene4_14    0.00%    passed     85.04%
+  15  Lin938910gen20001_gene4_15    0.00%    passed     85.04%
+  16  Lin938910gen20001_gene4_16    0.00%    passed     97.33%
+  17  Lin938910gen20001_gene4_17    0.00%    passed     97.33%
+  18  Lin938910gen20001_gene4_18    0.00%    passed     97.33%
+  19  Lin938910gen20001_gene4_19    0.00%    passed     97.33%
+  20  Lin938910gen20001_gene4_20    0.00%    passed     97.33%
+****  TOTAL                         0.00%  0 sequences failed composition chi2 test (p-value<5%; df=3)
+NOTE: Lin938910gen20001_gene4_2 is identical to Lin938910gen20001_gene4_1 but kept for subsequent analysis
+NOTE: Lin938910gen20001_gene4_7 is identical to Lin938910gen20001_gene4_6 but kept for subsequent analysis
+NOTE: Lin938910gen20001_gene4_12 is identical to Lin938910gen20001_gene4_11 but kept for subsequent analysis
+NOTE: Lin938910gen20001_gene4_17 is identical to Lin938910gen20001_gene4_16 but kept for subsequent analysis
+NOTE: 12 identical sequences (see below) will be ignored for subsequent analysis
+NOTE: Lin938910gen20001_gene4_3 (identical to Lin938910gen20001_gene4_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene4_4 (identical to Lin938910gen20001_gene4_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene4_5 (identical to Lin938910gen20001_gene4_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene4_8 (identical to Lin938910gen20001_gene4_6) is ignored but added at the end
+NOTE: Lin938910gen20001_gene4_9 (identical to Lin938910gen20001_gene4_6) is ignored but added at the end
+NOTE: Lin938910gen20001_gene4_10 (identical to Lin938910gen20001_gene4_6) is ignored but added at the end
+NOTE: Lin938910gen20001_gene4_13 (identical to Lin938910gen20001_gene4_11) is ignored but added at the end
+NOTE: Lin938910gen20001_gene4_14 (identical to Lin938910gen20001_gene4_11) is ignored but added at the end
+NOTE: Lin938910gen20001_gene4_15 (identical to Lin938910gen20001_gene4_11) is ignored but added at the end
+NOTE: Lin938910gen20001_gene4_18 (identical to Lin938910gen20001_gene4_16) is ignored but added at the end
+NOTE: Lin938910gen20001_gene4_19 (identical to Lin938910gen20001_gene4_16) is ignored but added at the end
+NOTE: Lin938910gen20001_gene4_20 (identical to Lin938910gen20001_gene4_16) is ignored but added at the end
+
+For your convenience alignment with unique sequences printed to CodeSeq_20seq_gene4_modTest.uniqueseq.phy
+
+
+Create initial parsimony tree by phylogenetic likelihood library (PLL)... 0.000 seconds
+NOTE: ModelFinder requires 0 MB RAM!
+ModelFinder will test 88 DNA models (sample size: 1500) ...
+ No. Model         -LnL         df  AIC          AICc         BIC
+  1  JC            5344.520     13  10715.040    10715.285    10784.112
+  2  JC+I          5344.403     14  10716.807    10717.089    10791.192
+  3  JC+G4         5344.528     14  10717.055    10717.338    10791.440
+  4  JC+I+G4       5345.948     15  10721.896    10722.220    10801.595
+  5  F81+F         5343.191     16  10718.383    10718.749    10803.394
+  6  F81+F+I       5343.056     17  10720.112    10720.525    10810.437
+  7  F81+F+G4      5343.192     17  10720.384    10720.797    10810.709
+  8  F81+F+I+G4    5344.402     18  10724.803    10725.265    10820.441
+  9  K2P           5343.678     14  10715.356    10715.638    10789.741
+ 10  K2P+I         5343.556     15  10717.111    10717.435    10796.810
+ 11  K2P+G4        5343.678     15  10717.357    10717.680    10797.055
+ 12  K2P+I+G4      5344.810     16  10721.619    10721.986    10806.631
+ 13  HKY+F         5342.349     17  10718.697    10719.110    10809.022
+ 14  HKY+F+I       5342.213     18  10720.427    10720.889    10816.065
+ 15  HKY+F+G4      5342.349     18  10720.698    10721.160    10816.336
+ 16  HKY+F+I+G4    5343.311     19  10724.623    10725.136    10825.574
+ 17  TNe           5343.135     15  10716.270    10716.594    10795.968
+ 18  TNe+I         5343.008     16  10718.016    10718.382    10803.027
+ 19  TNe+G4        5343.136     16  10718.271    10718.638    10803.283
+ 20  TNe+I+G4      5344.029     17  10722.057    10722.470    10812.382
+ 21  TN+F          5341.605     18  10719.210    10719.672    10814.848
+ 22  TN+F+I        5341.461     19  10720.923    10721.436    10821.874
+ 23  TN+F+G4       5341.606     19  10721.211    10721.725    10822.162
+ 24  TN+F+I+G4     5342.351     20  10724.702    10725.270    10830.967
+ 25  K3P           5343.678     15  10717.355    10717.679    10797.054
+ 26  K3P+I         5343.556     16  10719.111    10719.478    10804.123
+ 27  K3P+G4        5343.679     16  10719.358    10719.725    10804.369
+ 28  K3P+I+G4      5344.422     17  10722.843    10723.256    10813.168
+ 29  K3Pu+F        5342.349     18  10720.698    10721.160    10816.336
+ 30  K3Pu+F+I      5342.214     19  10722.428    10722.941    10823.379
+ 31  K3Pu+F+G4     5342.350     19  10722.699    10723.213    10823.650
+ 32  K3Pu+F+I+G4   5342.979     20  10725.958    10726.526    10832.223
+ 33  TPM2+F        5342.217     18  10720.435    10720.897    10816.073
+ 34  TPM2+F+I      5342.082     19  10722.164    10722.678    10823.115
+ 35  TPM2+F+G4     5342.218     19  10722.436    10722.949    10823.387
+ 36  TPM2+F+I+G4   5342.788     20  10725.575    10726.143    10831.840
+ 37  TPM2u+F       5342.218     18  10720.435    10720.897    10816.073
+ 38  TPM2u+F+I     5342.082     19  10722.165    10722.678    10823.116
+ 39  TPM2u+F+G4    5342.218     19  10722.436    10722.949    10823.387
+ 40  TPM2u+F+I+G4  5342.734     20  10725.468    10726.036    10831.732
+ 41  TPM3+F        5342.109     18  10720.217    10720.679    10815.855
+ 42  TPM3+F+I      5341.958     19  10721.917    10722.430    10822.868
+ 43  TPM3+F+G4     5342.109     19  10722.218    10722.732    10823.169
+ 44  TPM3+F+I+G4   5342.527     20  10725.054    10725.622    10831.318
+ 45  TPM3u+F       5342.109     18  10720.217    10720.679    10815.855
+ 46  TPM3u+F+I     5341.958     19  10721.917    10722.430    10822.868
+ 47  TPM3u+F+G4    5342.109     19  10722.218    10722.732    10823.169
+ 48  TPM3u+F+I+G4  5342.487     20  10724.973    10725.541    10831.238
+ 49  TIMe          5343.135     16  10718.270    10718.637    10803.282
+ 50  TIMe+I        5343.008     17  10720.015    10720.428    10810.340
+ 51  TIMe+G4       5343.136     17  10720.271    10720.684    10810.596
+ 52  TIMe+I+G4     5343.549     18  10723.098    10723.559    10818.736
+ 53  TIM+F         5341.606     19  10721.212    10721.725    10822.163
+ 54  TIM+F+I       5341.462     20  10722.924    10723.492    10829.188
+ 55  TIM+F+G4      5341.606     20  10723.212    10723.780    10829.477
+ 56  TIM+F+I+G4    5341.936     21  10725.871    10726.497    10837.449
+ 57  TIM2e         5342.785     16  10717.570    10717.937    10802.581
+ 58  TIM2e+I       5342.655     17  10719.310    10719.723    10809.635
+ 59  TIM2e+G4      5342.785     17  10719.571    10719.984    10809.896
+ 60  TIM2e+I+G4    5343.122     18  10722.245    10722.707    10817.883
+ 61  TIM2+F        5341.476     19  10720.952    10721.466    10821.904
+ 62  TIM2+F+I      5341.332     20  10722.665    10723.232    10828.929
+ 63  TIM2+F+G4     5341.477     20  10722.953    10723.521    10829.218
+ 64  TIM2+F+I+G4   5341.745     21  10725.491    10726.116    10837.068
+ 65  TIM3e         5342.651     16  10717.302    10717.669    10802.313
+ 66  TIM3e+I       5342.498     17  10718.996    10719.409    10809.321
+ 67  TIM3e+G4      5342.651     17  10719.302    10719.715    10809.627
+ 68  TIM3e+I+G4    5342.867     18  10721.735    10722.196    10817.373
+ 69  TIM3+F        5341.356     19  10720.711    10721.225    10821.663
+ 70  TIM3+F+I      5341.195     20  10722.389    10722.957    10828.654
+ 71  TIM3+F+G4     5341.356     20  10722.712    10723.280    10828.976
+ 72  TIM3+F+I+G4   5341.531     21  10725.062    10725.687    10836.640
+ 73  TVMe          5342.852     17  10719.704    10720.116    10810.028
+ 74  TVMe+I        5342.702     18  10721.404    10721.866    10817.042
+ 75  TVMe+G4       5342.852     18  10721.704    10722.166    10817.342
+ 76  TVMe+I+G4     5343.033     19  10724.067    10724.580    10825.018
+ 77  TVM+F         5341.977     20  10723.954    10724.522    10830.219
+ 78  TVM+F+I       5341.826     21  10725.652    10726.277    10837.230
+ 79  TVM+F+G4      5341.977     21  10725.954    10726.579    10837.532
+ 80  TVM+F+I+G4    5342.137     22  10728.273    10728.959    10845.164
+ 81  SYM           5342.300     18  10720.600    10721.062    10816.238
+ 82  SYM+I         5342.144     19  10722.288    10722.801    10823.239
+ 83  SYM+G4        5342.300     19  10722.600    10723.114    10823.552
+ 84  SYM+I+G4      5342.430     20  10724.860    10725.428    10831.124
+ 85  GTR+F         5341.226     21  10724.452    10725.077    10836.029
+ 86  GTR+F+I       5341.065     22  10726.129    10726.814    10843.020
+ 87  GTR+F+G4      5341.226     22  10726.452    10727.137    10843.343
+ 88  GTR+F+I+G4    5341.329     23  10728.657    10729.405    10850.862
+Akaike Information Criterion:           JC
+Corrected Akaike Information Criterion: JC
+Bayesian Information Criterion:         JC
+Best-fit model: JC chosen according to BIC
+
+All model information printed to CodeSeq_20seq_gene4_modTest.model.gz
+CPU time for ModelFinder: 0.160 seconds (0h:0m:0s)
+Wall-clock time for ModelFinder: 0.168 seconds (0h:0m:0s)
+
+NOTE: 0 MB RAM (0 GB) is required!
+Estimate model parameters (epsilon = 0.100)
+1. Initial log-likelihood: -5344.520
+Optimal log-likelihood: -5344.518
+Rate parameters:  A-C: 1.00000  A-G: 1.00000  A-T: 1.00000  C-G: 1.00000  C-T: 1.00000  G-T: 1.00000
+Base frequencies:  A: 0.250  C: 0.250  G: 0.250  T: 0.250
+Parameters optimization took 1 rounds (0.000 sec)
+Computing ML distances based on estimated model parameters... 0.000 sec
+Computing BIONJ tree...
+0.000 seconds
+Log-likelihood of BIONJ tree: -5344.502
+--------------------------------------------------------------------
+|             INITIALIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Generating 99 parsimony trees... 0.032 second
+Computing log-likelihood of 50 initial trees ... 0.014 seconds
+Current best score: -5344.502
+
+Do NNI search on 20 best initial trees
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 1: -5344.502
+Iteration 10 / LogL: -5347.896 / Time: 0h:0m:0s
+Iteration 20 / LogL: -5346.544 / Time: 0h:0m:0s
+Finish initializing candidate tree set (1)
+Current best tree score: -5344.502 / CPU time: 0.068
+Number of iterations: 20
+--------------------------------------------------------------------
+|               OPTIMIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Iteration 30 / LogL: -5345.093 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 40 / LogL: -5344.525 / Time: 0h:0m:0s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -5344.502
+Iteration 50 / LogL: -5345.686 / Time: 0h:0m:0s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -5344.502
+UPDATE BEST LOG-LIKELIHOOD: -5344.502
+Iteration 60 / LogL: -5347.875 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 70 / LogL: -5345.070 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 80 / LogL: -5347.875 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 90 / LogL: -5349.474 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 100 / LogL: -5345.523 / Time: 0h:0m:0s (0h:0m:0s left)
+TREE SEARCH COMPLETED AFTER 102 ITERATIONS / Time: 0h:0m:0s
+
+--------------------------------------------------------------------
+|                    FINALIZING TREE SEARCH                        |
+--------------------------------------------------------------------
+Performs final model parameters optimization
+Estimate model parameters (epsilon = 0.010)
+1. Initial log-likelihood: -5344.502
+Optimal log-likelihood: -5344.502
+Rate parameters:  A-C: 1.00000  A-G: 1.00000  A-T: 1.00000  C-G: 1.00000  C-T: 1.00000  G-T: 1.00000
+Base frequencies:  A: 0.250  C: 0.250  G: 0.250  T: 0.250
+Parameters optimization took 1 rounds (0.000 sec)
+BEST SCORE FOUND : -5344.502
+Total tree length: 0.811
+
+Total number of iterations: 102
+CPU time used for tree search: 0.163 sec (0h:0m:0s)
+Wall-clock time used for tree search: 0.171 sec (0h:0m:0s)
+Total CPU time used: 0.171 sec (0h:0m:0s)
+Total wall-clock time used: 0.179 sec (0h:0m:0s)
+
+Analysis results written to: 
+  IQ-TREE report:                CodeSeq_20seq_gene4_modTest.iqtree
+  Maximum-likelihood tree:       CodeSeq_20seq_gene4_modTest.treefile
+  Likelihood distances:          CodeSeq_20seq_gene4_modTest.mldist
+  Screen log file:               CodeSeq_20seq_gene4_modTest.log
+
+Date and Time: Fri Jun  7 12:40:44 2019

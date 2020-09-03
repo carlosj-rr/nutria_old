@@ -1,0 +1,84 @@
+IQ-TREE 1.6.9 built Dec 20 2018
+
+Input file name: Founder_a3456_rep6_gene9.fas
+Type of analysis: tree reconstruction
+Random seed number: 993685
+
+REFERENCES
+----------
+
+To cite IQ-TREE please use:
+
+Lam-Tung Nguyen, Heiko A. Schmidt, Arndt von Haeseler, and Bui Quang Minh
+(2015) IQ-TREE: A fast and effective stochastic algorithm for estimating
+maximum likelihood phylogenies. Mol Biol Evol, 32:268-274.
+https://doi.org/10.1093/molbev/msu300
+
+SEQUENCE ALIGNMENT
+------------------
+
+Input data: 4 sequences with 1000 nucleotide sites
+Number of constant sites: 915 (= 91.5% of all sites)
+Number of invariant (constant or ambiguous constant) sites: 915 (= 91.5% of all sites)
+Number of parsimony informative sites: 30
+Number of distinct site patterns: 46
+
+SUBSTITUTION PROCESS
+--------------------
+
+Model of substitution: JC
+
+Rate parameter R:
+
+  A-C: 1.0000
+  A-G: 1.0000
+  A-T: 1.0000
+  C-G: 1.0000
+  C-T: 1.0000
+  G-T: 1.0000
+
+State frequencies: (equal frequencies)
+
+Rate matrix Q:
+
+  A        -1    0.3333    0.3333    0.3333
+  C    0.3333        -1    0.3333    0.3333
+  G    0.3333    0.3333        -1    0.3333
+  T    0.3333    0.3333    0.3333        -1
+
+Model of rate heterogeneity: Uniform
+
+MAXIMUM LIKELIHOOD TREE
+-----------------------
+
+Log-likelihood of the tree: -1912.9172 (s.e. 46.1163)
+Unconstrained log-likelihood (without tree): -1857.5434
+Number of free parameters (#branches + #model parameters): 5
+Akaike information criterion (AIC) score: 3835.8343
+Corrected Akaike information criterion (AICc) score: 3835.8947
+Bayesian information criterion (BIC) score: 3860.3731
+
+Total tree length (sum of branch lengths): 0.0890
+Sum of internal branch lengths: 0.0320 (35.9324% of tree length)
+
+NOTE: Tree is UNROOTED although outgroup taxon 'Lin403259gen20001_gene9_1' is drawn at root
+
++----------------Lin403259gen20001_gene9_1
+|
++----------------Lin403259gen20001_gene9_2
+|
+|                                       +--------------Lin403259gen20001_gene9_3
++---------------------------------------|
+                                        +------------------Lin403259gen20001_gene9_4
+
+Tree in newick format:
+
+(Lin403259gen20001_gene9_1:0.0141822675,Lin403259gen20001_gene9_2:0.0142271222,(Lin403259gen20001_gene9_3:0.0126651316,Lin403259gen20001_gene9_4:0.0159293438):0.0319706290);
+
+TIME STAMP
+----------
+
+Date and time: Tue May 28 17:13:07 2019
+Total CPU time used: 0.04542 seconds (0h:0m:0s)
+Total wall-clock time used: 0.05127 seconds (0h:0m:0s)
+

@@ -1,0 +1,149 @@
+IQ-TREE multicore version 1.6.9 for Linux 64-bit built Dec 20 2018
+Developed by Bui Quang Minh, Nguyen Lam Tung, Olga Chernomor,
+Heiko Schmidt, Dominik Schrempf, Michael Woodhams.
+
+Host:    gallonegro (AVX, 7 GB RAM)
+Command: iqtree -s CodeSeq_test1_onCortex_20seq_gene1.fas -m JC+H4 -pre CodeSeq_test1_onCortex_20seq_gene1_heterotachy_4
+Seed:    184508 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Fri Jun  7 14:35:56 2019
+Kernel:  AVX - 1 threads (4 CPU cores detected)
+
+HINT: Use -nt option to specify number of threads because your CPU has 4 cores!
+HINT: -nt AUTO will automatically determine the best number of threads to use.
+
+Reading alignment file CodeSeq_test1_onCortex_20seq_gene1.fas ... Fasta format detected
+Alignment most likely contains DNA/RNA sequences
+Alignment has 20 sequences with 1500 columns, 112 distinct patterns
+730 parsimony-informative, 0 singleton sites, 770 constant sites
+                            Gap/Ambiguity  Composition  p-value
+   1  Lin938910gen20001_gene1_1     0.00%    passed     92.37%
+   2  Lin938910gen20001_gene1_2     0.00%    passed     92.37%
+   3  Lin938910gen20001_gene1_3     0.00%    passed     90.14%
+   4  Lin938910gen20001_gene1_4     0.00%    passed     90.14%
+   5  Lin938910gen20001_gene1_5     0.00%    passed     90.14%
+   6  Lin938910gen20001_gene1_6     0.00%    passed     87.62%
+   7  Lin938910gen20001_gene1_7     0.00%    passed     87.62%
+   8  Lin938910gen20001_gene1_8     0.00%    passed     87.62%
+   9  Lin938910gen20001_gene1_9     0.00%    passed     87.62%
+  10  Lin938910gen20001_gene1_10    0.00%    passed     87.62%
+  11  Lin938910gen20001_gene1_11    0.00%    passed     92.10%
+  12  Lin938910gen20001_gene1_12    0.00%    passed     92.10%
+  13  Lin938910gen20001_gene1_13    0.00%    passed     92.10%
+  14  Lin938910gen20001_gene1_14    0.00%    passed     92.10%
+  15  Lin938910gen20001_gene1_15    0.00%    passed     92.10%
+  16  Lin938910gen20001_gene1_16    0.00%    passed     82.70%
+  17  Lin938910gen20001_gene1_17    0.00%    passed     82.70%
+  18  Lin938910gen20001_gene1_18    0.00%    passed     82.70%
+  19  Lin938910gen20001_gene1_19    0.00%    passed     82.70%
+  20  Lin938910gen20001_gene1_20    0.00%    passed     82.70%
+****  TOTAL                         0.00%  0 sequences failed composition chi2 test (p-value<5%; df=3)
+NOTE: Lin938910gen20001_gene1_2 is identical to Lin938910gen20001_gene1_1 but kept for subsequent analysis
+NOTE: Lin938910gen20001_gene1_4 is identical to Lin938910gen20001_gene1_3 but kept for subsequent analysis
+NOTE: Lin938910gen20001_gene1_7 is identical to Lin938910gen20001_gene1_6 but kept for subsequent analysis
+NOTE: Lin938910gen20001_gene1_12 is identical to Lin938910gen20001_gene1_11 but kept for subsequent analysis
+NOTE: Lin938910gen20001_gene1_17 is identical to Lin938910gen20001_gene1_16 but kept for subsequent analysis
+NOTE: 10 identical sequences (see below) will be ignored for subsequent analysis
+NOTE: Lin938910gen20001_gene1_5 (identical to Lin938910gen20001_gene1_3) is ignored but added at the end
+NOTE: Lin938910gen20001_gene1_8 (identical to Lin938910gen20001_gene1_6) is ignored but added at the end
+NOTE: Lin938910gen20001_gene1_9 (identical to Lin938910gen20001_gene1_6) is ignored but added at the end
+NOTE: Lin938910gen20001_gene1_10 (identical to Lin938910gen20001_gene1_6) is ignored but added at the end
+NOTE: Lin938910gen20001_gene1_13 (identical to Lin938910gen20001_gene1_11) is ignored but added at the end
+NOTE: Lin938910gen20001_gene1_14 (identical to Lin938910gen20001_gene1_11) is ignored but added at the end
+NOTE: Lin938910gen20001_gene1_15 (identical to Lin938910gen20001_gene1_11) is ignored but added at the end
+NOTE: Lin938910gen20001_gene1_18 (identical to Lin938910gen20001_gene1_16) is ignored but added at the end
+NOTE: Lin938910gen20001_gene1_19 (identical to Lin938910gen20001_gene1_16) is ignored but added at the end
+NOTE: Lin938910gen20001_gene1_20 (identical to Lin938910gen20001_gene1_16) is ignored but added at the end
+
+For your convenience alignment with unique sequences printed to CodeSeq_test1_onCortex_20seq_gene1_heterotachy_4.uniqueseq.phy
+
+Create initial parsimony tree by phylogenetic likelihood library (PLL)... 0.000 seconds
+
+NOTE: 0 MB RAM (0 GB) is required!
+Estimate model parameters (epsilon = 0.100)
+Initial LogL: -5116.655, Site proportion and rates:  (0.213,0.292) (0.250,0.749) (0.273,1.149) (0.264,1.658)
+relative_treelen: 0.213 0.545 0.835 1.205
+1. Initial log-likelihood: -5116.655
+2. Current log-likelihood: -5092.718
+3. Current log-likelihood: -5091.807
+4. Current log-likelihood: -5091.367
+Optimal log-likelihood: -5091.218
+Rate parameters:  A-C: 1.00000  A-G: 1.00000  A-T: 1.00000  C-G: 1.00000  C-T: 1.00000  G-T: 1.00000
+Base frequencies:  A: 0.250  C: 0.250  G: 0.250  T: 0.250
+Heterotachy weights:      0.152 0.345 0.305 0.198
+Heterotachy tree lengths: 0.311 0.621 0.848 1.122
+Parameters optimization took 4 rounds (0.006 sec)
+Computing ML distances based on estimated model parameters... 0.000 sec
+Computing BIONJ tree...
+0.000 seconds
+Log-likelihood of BIONJ tree: -5089.613
+--------------------------------------------------------------------
+|             INITIALIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Generating 98 parsimony trees... 0.039 second
+Computing log-likelihood of 86 initial trees ... 0.151 seconds
+Current best score: -5089.613
+
+Do NNI search on 20 best initial trees
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 1: -5089.599
+Iteration 10 / LogL: -5090.811 / Time: 0h:0m:0s
+Iteration 20 / LogL: -5091.617 / Time: 0h:0m:1s
+Optimizing model parameters for top 3 candidate trees... 
+Estimate model parameters (epsilon = 0.010)
+Tree 1 / LogL: -5089.597
+Estimate model parameters (epsilon = 0.010)
+Tree 2 / LogL: -5089.765
+Estimate model parameters (epsilon = 0.010)
+Tree 3 / LogL: -5089.755
+0.025 seconds
+Finish initializing candidate tree set (3)
+Current best tree score: -5089.597 / CPU time: 1.610
+Number of iterations: 20
+--------------------------------------------------------------------
+|               OPTIMIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+WARNING: NNI search needs unusual large number of steps (10) to converge!
+Iteration 30 / LogL: -5090.187 / Time: 0h:0m:2s (0h:0m:5s left)
+Iteration 40 / LogL: -5091.305 / Time: 0h:0m:2s (0h:0m:4s left)
+UPDATE BEST LOG-LIKELIHOOD: -5089.597
+WARNING: NNI search needs unusual large number of steps (10) to converge!
+Iteration 50 / LogL: -5116.936 / Time: 0h:0m:3s (0h:0m:3s left)
+UPDATE BEST LOG-LIKELIHOOD: -5089.596
+Iteration 60 / LogL: -5090.688 / Time: 0h:0m:4s (0h:0m:2s left)
+UPDATE BEST LOG-LIKELIHOOD: -5089.591
+Iteration 70 / LogL: -5091.115 / Time: 0h:0m:4s (0h:0m:2s left)
+Iteration 80 / LogL: -5089.594 / Time: 0h:0m:5s (0h:0m:1s left)
+Iteration 90 / LogL: -5089.815 / Time: 0h:0m:5s (0h:0m:0s left)
+Iteration 100 / LogL: -5092.089 / Time: 0h:0m:6s (0h:0m:0s left)
+Estimate model parameters (epsilon = 0.100)
+UPDATE BEST LOG-LIKELIHOOD: -5089.554
+TREE SEARCH COMPLETED AFTER 102 ITERATIONS / Time: 0h:0m:6s
+
+--------------------------------------------------------------------
+|                    FINALIZING TREE SEARCH                        |
+--------------------------------------------------------------------
+Performs final model parameters optimization
+Estimate model parameters (epsilon = 0.010)
+1. Initial log-likelihood: -5089.554
+Optimal log-likelihood: -5089.547
+Rate parameters:  A-C: 1.00000  A-G: 1.00000  A-T: 1.00000  C-G: 1.00000  C-T: 1.00000  G-T: 1.00000
+Base frequencies:  A: 0.250  C: 0.250  G: 0.250  T: 0.250
+Heterotachy weights:      0.160 0.336 0.303 0.201
+Heterotachy tree lengths: 0.126 0.649 1.023 1.295
+Parameters optimization took 1 rounds (0.001 sec)
+BEST SCORE FOUND : -5089.547
+Total tree length: 0.808
+
+Total number of iterations: 102
+CPU time used for tree search: 6.576 sec (0h:0m:6s)
+Wall-clock time used for tree search: 6.584 sec (0h:0m:6s)
+Total CPU time used: 6.640 sec (0h:0m:6s)
+Total wall-clock time used: 6.653 sec (0h:0m:6s)
+
+Analysis results written to: 
+  IQ-TREE report:                CodeSeq_test1_onCortex_20seq_gene1_heterotachy_4.iqtree
+  Maximum-likelihood tree:       CodeSeq_test1_onCortex_20seq_gene1_heterotachy_4.treefile
+  Likelihood distances:          CodeSeq_test1_onCortex_20seq_gene1_heterotachy_4.mldist
+  Screen log file:               CodeSeq_test1_onCortex_20seq_gene1_heterotachy_4.log
+
+Date and Time: Fri Jun  7 14:36:02 2019

@@ -1,0 +1,104 @@
+IQ-TREE 1.6.9 built Dec 20 2018
+
+Input file name: 4th_branched_test_pops78910111213_concat.fas
+Type of analysis: tree reconstruction
+Random seed number: 334007
+
+REFERENCES
+----------
+
+To cite IQ-TREE please use:
+
+Lam-Tung Nguyen, Heiko A. Schmidt, Arndt von Haeseler, and Bui Quang Minh
+(2015) IQ-TREE: A fast and effective stochastic algorithm for estimating
+maximum likelihood phylogenies. Mol Biol Evol, 32:268-274.
+https://doi.org/10.1093/molbev/msu300
+
+SEQUENCE ALIGNMENT
+------------------
+
+Input data: 8 sequences with 10000 nucleotide sites
+Number of constant sites: 2483 (= 24.83% of all sites)
+Number of invariant (constant or ambiguous constant) sites: 2483 (= 24.83% of all sites)
+Number of parsimony informative sites: 4544
+Number of distinct site patterns: 2501
+
+SUBSTITUTION PROCESS
+--------------------
+
+Model of substitution: JC+H6
+
+Rate parameter R:
+
+  A-C: 1.0000
+  A-G: 1.0000
+  A-T: 1.0000
+  C-G: 1.0000
+  C-T: 1.0000
+  G-T: 1.0000
+
+State frequencies: (equal frequencies)
+
+Rate matrix Q:
+
+  A        -1    0.3333    0.3333    0.3333
+  C    0.3333        -1    0.3333    0.3333
+  G    0.3333    0.3333        -1    0.3333
+  T    0.3333    0.3333    0.3333        -1
+
+Model of rate heterogeneity: Rate heterotachy with 6 categories
+Heterotachy weights:      0.1958 0.2404 0.1106 0.2705 0.1555 0.02722
+Heterotachy tree lengths: 1.203 1.307 1.592 1.447 1.892 10.69
+
+ Category  Relative_rate  Proportion
+  1         1              0.1958
+  2         1              0.2404
+  3         1              0.1106
+  4         1              0.2705
+  5         1              0.1555
+  6         1              0.02722
+
+MAXIMUM LIKELIHOOD TREE
+-----------------------
+
+Log-likelihood of the tree: -65162.2312 (s.e. 286.8571)
+Unconstrained log-likelihood (without tree): -61142.4428
+Number of free parameters (#branches + #model parameters): 83
+Akaike information criterion (AIC) score: 130490.4624
+Corrected Akaike information criterion (AICc) score: 130491.8686
+Bayesian information criterion (BIC) score: 131088.9206
+
+Total tree length (sum of branch lengths): 1.7020
+Sum of internal branch lengths: 0.6352 (37.3185% of tree length)
+
+Class tree lengths:  1.2026 1.3065 1.5919 1.4467 1.8918 10.6874
+NOTE: Tree is UNROOTED although outgroup taxon 'Lin478089gen30001_1' is drawn at root
+NOTE: Branch lengths are weighted average over heterotachy classes
+
++---------------------------------------Lin478089gen30001_1
+|
++-----------Lin478089gen30001_2
+|
+|                         +-----------Lin478089gen30001_3
+|           +-------------|
+|           |             +----------Lin478089gen30001_4
++-----------|
+            |                                +-----------Lin478089gen30001_5
+            |                     +----------|
+            |                     |          +----------Lin478089gen30001_6
+            +---------------------|
+                                  |          +----------Lin478089gen30002_7
+                                  +----------|
+                                             +----------Lin478089gen30002_8
+
+Tree in newick format: (class branch lengths are given in [...] and separated by '/' )
+
+(Lin478089gen30001_1[0.011755/0.056514/0.259150/0.000002/0.231569/9.999999]:0.352743,Lin478089gen30001_2[0.136005/0.035881/0.093756/0.211313/0.008320/0.000192]:0.104076,((Lin478089gen30001_3[0.009911/0.149393/0.000002/0.109205/0.258282/0.024037]:0.108221,Lin478089gen30001_4[0.199841/0.042184/0.060927/0.091593/0.097473/0.151101]:0.100047)[0.079592/0.031855/0.102566/0.116658/0.372629/0.000002]:0.124088,((Lin478089gen30001_5[0.101902/0.134828/0.253367/0.037512/0.115551/0.000021]:0.108500,Lin478089gen30001_6[0.047085/0.123159/0.196413/0.105182/0.058060/0.000030]:0.098029)[0.083128/0.069785/0.328500/0.055857/0.120282/0.000011]:0.103192,(Lin478089gen30002_7[0.122739/0.061563/0.095098/0.138297/0.052478/0.169885]:0.099538,Lin478089gen30002_8[0.149566/0.078172/0.083917/0.064953/0.121661/0.067778]:0.095688)[0.000002/0.200997/0.000002/0.169897/0.000003/0.274303]:0.101749)[0.244490/0.303613/0.015651/0.126867/0.245615/0.000001]:0.195105)[0.016564/0.018592/0.102553/0.219347/0.209896/0.000003]:0.111028);
+
+TIME STAMP
+----------
+
+Date and time: Wed May  8 15:50:01 2019
+Total CPU time used: 73.8234 seconds (0h:1m:13s)
+Total wall-clock time used: 73.8391 seconds (0h:1m:13s)
+

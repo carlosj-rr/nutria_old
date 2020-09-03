@@ -1,0 +1,112 @@
+IQ-TREE multicore version 1.6.9 for Linux 64-bit built Dec 20 2018
+Developed by Bui Quang Minh, Nguyen Lam Tung, Olga Chernomor,
+Heiko Schmidt, Dominik Schrempf, Michael Woodhams.
+
+Host:    gallonegro (AVX, 7 GB RAM)
+Command: iqtree -s CodeSeq_test1_onCortex_4seq_gene7.fas -m JC+H6 -pre CodeSeq_test1_onCortex_4seq_gene7_heterotachy_6
+Seed:    854148 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Fri Jun  7 14:55:12 2019
+Kernel:  AVX - 1 threads (4 CPU cores detected)
+
+HINT: Use -nt option to specify number of threads because your CPU has 4 cores!
+HINT: -nt AUTO will automatically determine the best number of threads to use.
+
+Reading alignment file CodeSeq_test1_onCortex_4seq_gene7.fas ... Fasta format detected
+Alignment most likely contains DNA/RNA sequences
+Alignment has 4 sequences with 1500 columns, 131 distinct patterns
+174 parsimony-informative, 450 singleton sites, 876 constant sites
+                           Gap/Ambiguity  Composition  p-value
+   1  Lin938910gen20001_gene7_1    0.00%    passed     88.68%
+   2  Lin938910gen20001_gene7_2    0.00%    passed     98.94%
+   3  Lin938910gen20001_gene7_3    0.00%    passed     74.39%
+   4  Lin938910gen20001_gene7_4    0.00%    passed     98.34%
+****  TOTAL                        0.00%  0 sequences failed composition chi2 test (p-value<5%; df=3)
+
+Create initial parsimony tree by phylogenetic likelihood library (PLL)... 0.000 seconds
+
+NOTE: 0 MB RAM (0 GB) is required!
+Estimate model parameters (epsilon = 0.100)
+Initial LogL: -5114.151, Site proportion and rates:  (0.141,0.219) (0.158,0.558) (0.171,0.833) (0.180,1.085) (0.183,1.347) (0.168,1.768)
+relative_treelen: 0.124 0.316 0.472 0.615 0.763 1.002
+1. Initial log-likelihood: -5114.151
+2. Current log-likelihood: -5109.698
+3. Current log-likelihood: -5109.520
+Optimal log-likelihood: -5109.405
+Rate parameters:  A-C: 1.00000  A-G: 1.00000  A-T: 1.00000  C-G: 1.00000  C-T: 1.00000  G-T: 1.00000
+Base frequencies:  A: 0.250  C: 0.250  G: 0.250  T: 0.250
+Heterotachy weights:      0.031 0.204 0.289 0.251 0.166 0.060
+Heterotachy tree lengths: 0.184 0.389 0.516 0.615 0.703 0.824
+Parameters optimization took 3 rounds (0.004 sec)
+Computing ML distances based on estimated model parameters... 0.000 sec
+Computing BIONJ tree...
+0.000 seconds
+Log-likelihood of BIONJ tree: -5107.474
+--------------------------------------------------------------------
+|             INITIALIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Generating 99 parsimony trees... 0.011 second
+Computing log-likelihood of 2 initial trees ... 0.002 seconds
+Current best score: -5107.474
+
+Do NNI search on 3 best initial trees
+Optimizing model parameters for top 3 candidate trees... 
+Estimate model parameters (epsilon = 0.010)
+Tree 1 / LogL: -5107.467
+Estimate model parameters (epsilon = 0.010)
+Tree 2 / LogL: -5188.436
+Estimate model parameters (epsilon = 0.010)
+Tree 3 / LogL: -5185.927
+0.044 seconds
+Finish initializing candidate tree set (3)
+Current best tree score: -5107.467 / CPU time: 0.082
+Number of iterations: 3
+--------------------------------------------------------------------
+|               OPTIMIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Iteration 10 / LogL: -5109.136 / Time: 0h:0m:0s
+Iteration 20 / LogL: -5107.858 / Time: 0h:0m:0s
+Iteration 30 / LogL: -5109.136 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 40 / LogL: -5118.842 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 50 / LogL: -5118.842 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 60 / LogL: -5118.842 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 70 / LogL: -5118.842 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 80 / LogL: -5107.858 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 90 / LogL: -5118.842 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 100 / LogL: -5107.858 / Time: 0h:0m:1s (0h:0m:0s left)
+TREE SEARCH COMPLETED AFTER 101 ITERATIONS / Time: 0h:0m:1s
+
+--------------------------------------------------------------------
+|                    FINALIZING TREE SEARCH                        |
+--------------------------------------------------------------------
+Performs final model parameters optimization
+Estimate model parameters (epsilon = 0.010)
+1. Initial log-likelihood: -5172.355
+2. Current log-likelihood: -5108.502
+3. Current log-likelihood: -5107.993
+4. Current log-likelihood: -5107.795
+5. Current log-likelihood: -5107.692
+6. Current log-likelihood: -5107.629
+7. Current log-likelihood: -5107.587
+8. Current log-likelihood: -5107.565
+Optimal log-likelihood: -5107.548
+Rate parameters:  A-C: 1.00000  A-G: 1.00000  A-T: 1.00000  C-G: 1.00000  C-T: 1.00000  G-T: 1.00000
+Base frequencies:  A: 0.250  C: 0.250  G: 0.250  T: 0.250
+Heterotachy weights:      0.451 0.009 0.007 0.213 0.178 0.143
+Heterotachy tree lengths: 0.340 0.616 0.723 0.727 0.762 0.859
+Parameters optimization took 8 rounds (0.007 sec)
+BEST SCORE FOUND : -5107.548
+Total tree length: 0.576
+
+Total number of iterations: 101
+CPU time used for tree search: 1.044 sec (0h:0m:1s)
+Wall-clock time used for tree search: 1.044 sec (0h:0m:1s)
+Total CPU time used: 1.100 sec (0h:0m:1s)
+Total wall-clock time used: 1.100 sec (0h:0m:1s)
+
+Analysis results written to: 
+  IQ-TREE report:                CodeSeq_test1_onCortex_4seq_gene7_heterotachy_6.iqtree
+  Maximum-likelihood tree:       CodeSeq_test1_onCortex_4seq_gene7_heterotachy_6.treefile
+  Likelihood distances:          CodeSeq_test1_onCortex_4seq_gene7_heterotachy_6.mldist
+  Screen log file:               CodeSeq_test1_onCortex_4seq_gene7_heterotachy_6.log
+
+Date and Time: Fri Jun  7 14:55:13 2019

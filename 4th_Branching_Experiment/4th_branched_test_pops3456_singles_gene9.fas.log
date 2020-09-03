@@ -1,0 +1,90 @@
+IQ-TREE multicore version 1.6.9 for Linux 64-bit built Dec 20 2018
+Developed by Bui Quang Minh, Nguyen Lam Tung, Olga Chernomor,
+Heiko Schmidt, Dominik Schrempf, Michael Woodhams.
+
+Host:    gallonegro (AVX, 7 GB RAM)
+Command: iqtree -s 4th_branched_test_pops3456_singles_gene9.fas -m JC
+Seed:    9216 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Mon May  6 15:44:56 2019
+Kernel:  AVX - 1 threads (4 CPU cores detected)
+
+HINT: Use -nt option to specify number of threads because your CPU has 4 cores!
+HINT: -nt AUTO will automatically determine the best number of threads to use.
+
+Reading alignment file 4th_branched_test_pops3456_singles_gene9.fas ... Fasta format detected
+Alignment most likely contains DNA/RNA sequences
+Alignment has 4 sequences with 1000 columns, 126 distinct patterns
+132 parsimony-informative, 306 singleton sites, 562 constant sites
+                           Gap/Ambiguity  Composition  p-value
+   1  Lin478089gen20001_gene9_1    0.00%    passed     88.87%
+   2  Lin478089gen20001_gene9_2    0.00%    passed     55.97%
+   3  Lin478089gen20001_gene9_3    0.00%    passed     84.17%
+   4  Lin478089gen20001_gene9_4    0.00%    passed     75.10%
+****  TOTAL                        0.00%  0 sequences failed composition chi2 test (p-value<5%; df=3)
+
+Create initial parsimony tree by phylogenetic likelihood library (PLL)... 0.000 seconds
+
+NOTE: 0 MB RAM (0 GB) is required!
+Estimate model parameters (epsilon = 0.100)
+1. Initial log-likelihood: -3511.217
+Optimal log-likelihood: -3508.689
+Rate parameters:  A-C: 1.00000  A-G: 1.00000  A-T: 1.00000  C-G: 1.00000  C-T: 1.00000  G-T: 1.00000
+Base frequencies:  A: 0.250  C: 0.250  G: 0.250  T: 0.250
+Parameters optimization took 1 rounds (0.000 sec)
+Computing ML distances based on estimated model parameters... 0.000 sec
+Computing BIONJ tree...
+0.000 seconds
+Log-likelihood of BIONJ tree: -3508.689
+--------------------------------------------------------------------
+|             INITIALIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Generating 99 parsimony trees... 0.012 second
+Computing log-likelihood of 2 initial trees ... 0.000 seconds
+Current best score: -3508.689
+
+Do NNI search on 3 best initial trees
+Finish initializing candidate tree set (3)
+Current best tree score: -3508.689 / CPU time: 0.014
+Number of iterations: 3
+--------------------------------------------------------------------
+|               OPTIMIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+UPDATE BEST LOG-LIKELIHOOD: -3508.689
+Iteration 10 / LogL: -3509.218 / Time: 0h:0m:0s
+Iteration 20 / LogL: -3509.218 / Time: 0h:0m:0s
+Iteration 30 / LogL: -3509.137 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 40 / LogL: -3509.137 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 50 / LogL: -3508.689 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 60 / LogL: -3508.805 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 70 / LogL: -3509.137 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 80 / LogL: -3509.218 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 90 / LogL: -3508.805 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 100 / LogL: -3508.805 / Time: 0h:0m:0s (0h:0m:0s left)
+TREE SEARCH COMPLETED AFTER 101 ITERATIONS / Time: 0h:0m:0s
+
+--------------------------------------------------------------------
+|                    FINALIZING TREE SEARCH                        |
+--------------------------------------------------------------------
+Performs final model parameters optimization
+Estimate model parameters (epsilon = 0.010)
+1. Initial log-likelihood: -3508.689
+Optimal log-likelihood: -3508.689
+Rate parameters:  A-C: 1.00000  A-G: 1.00000  A-T: 1.00000  C-G: 1.00000  C-T: 1.00000  G-T: 1.00000
+Base frequencies:  A: 0.250  C: 0.250  G: 0.250  T: 0.250
+Parameters optimization took 1 rounds (0.000 sec)
+BEST SCORE FOUND : -3508.689
+Total tree length: 0.592
+
+Total number of iterations: 101
+CPU time used for tree search: 0.056 sec (0h:0m:0s)
+Wall-clock time used for tree search: 0.056 sec (0h:0m:0s)
+Total CPU time used: 0.063 sec (0h:0m:0s)
+Total wall-clock time used: 0.063 sec (0h:0m:0s)
+
+Analysis results written to: 
+  IQ-TREE report:                4th_branched_test_pops3456_singles_gene9.fas.iqtree
+  Maximum-likelihood tree:       4th_branched_test_pops3456_singles_gene9.fas.treefile
+  Likelihood distances:          4th_branched_test_pops3456_singles_gene9.fas.mldist
+  Screen log file:               4th_branched_test_pops3456_singles_gene9.fas.log
+
+Date and Time: Mon May  6 15:44:56 2019

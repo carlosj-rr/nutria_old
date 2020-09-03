@@ -1,0 +1,1041 @@
+IQ-TREE multicore version 1.6.9 for Linux 64-bit built Dec 20 2018
+Developed by Bui Quang Minh, Nguyen Lam Tung, Olga Chernomor,
+Heiko Schmidt, Dominik Schrempf, Michael Woodhams.
+
+Host:    gallonegro (AVX, 7 GB RAM)
+Command: iqtree -s CodeSeq_test1_onCortex_all_gene2.fas -m TEST -pre CodeSeq_all_gene2_modTest
+Seed:    855099 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Wed Jun 12 16:56:09 2019
+Kernel:  AVX - 1 threads (4 CPU cores detected)
+
+HINT: Use -nt option to specify number of threads because your CPU has 4 cores!
+HINT: -nt AUTO will automatically determine the best number of threads to use.
+
+Reading alignment file CodeSeq_test1_onCortex_all_gene2.fas ... Fasta format detected
+Alignment most likely contains DNA/RNA sequences
+Alignment has 400 sequences with 1500 columns, 112 distinct patterns
+760 parsimony-informative, 5 singleton sites, 735 constant sites
+                             Gap/Ambiguity  Composition  p-value
+   1  Lin938910gen20001_gene2_1      0.00%    passed     41.27%
+   2  Lin938910gen20001_gene2_2      0.00%    passed     41.27%
+   3  Lin938910gen20001_gene2_3      0.00%    passed     41.27%
+   4  Lin938910gen20001_gene2_4      0.00%    passed     41.27%
+   5  Lin938910gen20001_gene2_5      0.00%    passed     41.27%
+   6  Lin938910gen20001_gene2_6      0.00%    passed     41.27%
+   7  Lin938910gen20001_gene2_7      0.00%    passed     41.27%
+   8  Lin938910gen20001_gene2_8      0.00%    passed     41.27%
+   9  Lin938910gen20001_gene2_9      0.00%    passed     41.27%
+  10  Lin938910gen20001_gene2_10     0.00%    passed     41.27%
+  11  Lin938910gen20001_gene2_11     0.00%    passed     41.27%
+  12  Lin938910gen20001_gene2_12     0.00%    passed     41.27%
+  13  Lin938910gen20001_gene2_13     0.00%    passed     41.27%
+  14  Lin938910gen20001_gene2_14     0.00%    passed     41.27%
+  15  Lin938910gen20001_gene2_15     0.00%    passed     41.27%
+  16  Lin938910gen20001_gene2_16     0.00%    passed     41.27%
+  17  Lin938910gen20001_gene2_17     0.00%    passed     41.27%
+  18  Lin938910gen20001_gene2_18     0.00%    passed     41.27%
+  19  Lin938910gen20001_gene2_19     0.00%    passed     41.27%
+  20  Lin938910gen20001_gene2_20     0.00%    passed     41.27%
+  21  Lin938910gen20001_gene2_21     0.00%    passed     41.27%
+  22  Lin938910gen20001_gene2_22     0.00%    passed     41.27%
+  23  Lin938910gen20001_gene2_23     0.00%    passed     41.27%
+  24  Lin938910gen20001_gene2_24     0.00%    passed     41.27%
+  25  Lin938910gen20001_gene2_25     0.00%    passed     41.27%
+  26  Lin938910gen20001_gene2_26     0.00%    passed     41.27%
+  27  Lin938910gen20001_gene2_27     0.00%    passed     41.27%
+  28  Lin938910gen20001_gene2_28     0.00%    passed     41.27%
+  29  Lin938910gen20001_gene2_29     0.00%    passed     44.32%
+  30  Lin938910gen20001_gene2_30     0.00%    passed     41.27%
+  31  Lin938910gen20001_gene2_31     0.00%    passed     41.27%
+  32  Lin938910gen20001_gene2_32     0.00%    passed     41.27%
+  33  Lin938910gen20001_gene2_33     0.00%    passed     41.27%
+  34  Lin938910gen20001_gene2_34     0.00%    passed     41.27%
+  35  Lin938910gen20001_gene2_35     0.00%    passed     41.27%
+  36  Lin938910gen20001_gene2_36     0.00%    passed     41.27%
+  37  Lin938910gen20001_gene2_37     0.00%    passed     41.27%
+  38  Lin938910gen20001_gene2_38     0.00%    passed     41.27%
+  39  Lin938910gen20001_gene2_39     0.00%    passed     41.27%
+  40  Lin938910gen20001_gene2_40     0.00%    passed     41.27%
+  41  Lin938910gen20001_gene2_41     0.00%    passed     41.27%
+  42  Lin938910gen20001_gene2_42     0.00%    passed     41.27%
+  43  Lin938910gen20001_gene2_43     0.00%    passed     41.27%
+  44  Lin938910gen20001_gene2_44     0.00%    passed     41.27%
+  45  Lin938910gen20001_gene2_45     0.00%    passed     41.27%
+  46  Lin938910gen20001_gene2_46     0.00%    passed     41.27%
+  47  Lin938910gen20001_gene2_47     0.00%    passed     41.27%
+  48  Lin938910gen20001_gene2_48     0.00%    passed     41.27%
+  49  Lin938910gen20001_gene2_49     0.00%    passed     41.27%
+  50  Lin938910gen20001_gene2_50     0.00%    passed     41.27%
+  51  Lin938910gen20001_gene2_51     0.00%    passed     41.27%
+  52  Lin938910gen20001_gene2_52     0.00%    passed     41.27%
+  53  Lin938910gen20001_gene2_53     0.00%    passed     41.27%
+  54  Lin938910gen20001_gene2_54     0.00%    passed     41.27%
+  55  Lin938910gen20001_gene2_55     0.00%    passed     41.27%
+  56  Lin938910gen20001_gene2_56     0.00%    passed     41.27%
+  57  Lin938910gen20001_gene2_57     0.00%    passed     41.27%
+  58  Lin938910gen20001_gene2_58     0.00%    passed     41.27%
+  59  Lin938910gen20001_gene2_59     0.00%    passed     41.27%
+  60  Lin938910gen20001_gene2_60     0.00%    passed     41.27%
+  61  Lin938910gen20001_gene2_61     0.00%    passed     41.27%
+  62  Lin938910gen20001_gene2_62     0.00%    passed     41.27%
+  63  Lin938910gen20001_gene2_63     0.00%    passed     41.27%
+  64  Lin938910gen20001_gene2_64     0.00%    passed     41.27%
+  65  Lin938910gen20001_gene2_65     0.00%    passed     41.27%
+  66  Lin938910gen20001_gene2_66     0.00%    passed     41.27%
+  67  Lin938910gen20001_gene2_67     0.00%    passed     41.27%
+  68  Lin938910gen20001_gene2_68     0.00%    passed     41.27%
+  69  Lin938910gen20001_gene2_69     0.00%    passed     41.27%
+  70  Lin938910gen20001_gene2_70     0.00%    passed     41.27%
+  71  Lin938910gen20001_gene2_71     0.00%    passed     41.27%
+  72  Lin938910gen20001_gene2_72     0.00%    passed     41.27%
+  73  Lin938910gen20001_gene2_73     0.00%    passed     41.27%
+  74  Lin938910gen20001_gene2_74     0.00%    passed     41.27%
+  75  Lin938910gen20001_gene2_75     0.00%    passed     41.27%
+  76  Lin938910gen20001_gene2_76     0.00%    passed     41.27%
+  77  Lin938910gen20001_gene2_77     0.00%    passed     41.27%
+  78  Lin938910gen20001_gene2_78     0.00%    passed     41.27%
+  79  Lin938910gen20001_gene2_79     0.00%    passed     41.27%
+  80  Lin938910gen20001_gene2_80     0.00%    passed     41.27%
+  81  Lin938910gen20001_gene2_81     0.00%    passed     41.27%
+  82  Lin938910gen20001_gene2_82     0.00%    passed     41.27%
+  83  Lin938910gen20001_gene2_83     0.00%    passed     41.27%
+  84  Lin938910gen20001_gene2_84     0.00%    passed     41.27%
+  85  Lin938910gen20001_gene2_85     0.00%    passed     41.27%
+  86  Lin938910gen20001_gene2_86     0.00%    passed     41.27%
+  87  Lin938910gen20001_gene2_87     0.00%    passed     41.27%
+  88  Lin938910gen20001_gene2_88     0.00%    passed     41.27%
+  89  Lin938910gen20001_gene2_89     0.00%    passed     41.27%
+  90  Lin938910gen20001_gene2_90     0.00%    passed     41.27%
+  91  Lin938910gen20001_gene2_91     0.00%    passed     41.27%
+  92  Lin938910gen20001_gene2_92     0.00%    passed     41.27%
+  93  Lin938910gen20001_gene2_93     0.00%    passed     41.27%
+  94  Lin938910gen20001_gene2_94     0.00%    passed     41.27%
+  95  Lin938910gen20001_gene2_95     0.00%    passed     41.27%
+  96  Lin938910gen20001_gene2_96     0.00%    passed     41.27%
+  97  Lin938910gen20001_gene2_97     0.00%    passed     41.27%
+  98  Lin938910gen20001_gene2_98     0.00%    passed     41.27%
+  99  Lin938910gen20001_gene2_99     0.00%    passed     41.27%
+ 100  Lin938910gen20001_gene2_100    0.00%    passed     41.27%
+ 101  Lin938910gen20001_gene2_101    0.00%    passed     76.14%
+ 102  Lin938910gen20001_gene2_102    0.00%    passed     76.14%
+ 103  Lin938910gen20001_gene2_103    0.00%    passed     76.14%
+ 104  Lin938910gen20001_gene2_104    0.00%    passed     76.14%
+ 105  Lin938910gen20001_gene2_105    0.00%    passed     76.14%
+ 106  Lin938910gen20001_gene2_106    0.00%    passed     76.14%
+ 107  Lin938910gen20001_gene2_107    0.00%    passed     76.14%
+ 108  Lin938910gen20001_gene2_108    0.00%    passed     77.61%
+ 109  Lin938910gen20001_gene2_109    0.00%    passed     76.14%
+ 110  Lin938910gen20001_gene2_110    0.00%    passed     76.14%
+ 111  Lin938910gen20001_gene2_111    0.00%    passed     76.14%
+ 112  Lin938910gen20001_gene2_112    0.00%    passed     76.14%
+ 113  Lin938910gen20001_gene2_113    0.00%    passed     76.14%
+ 114  Lin938910gen20001_gene2_114    0.00%    passed     76.14%
+ 115  Lin938910gen20001_gene2_115    0.00%    passed     76.14%
+ 116  Lin938910gen20001_gene2_116    0.00%    passed     76.14%
+ 117  Lin938910gen20001_gene2_117    0.00%    passed     76.14%
+ 118  Lin938910gen20001_gene2_118    0.00%    passed     76.14%
+ 119  Lin938910gen20001_gene2_119    0.00%    passed     76.14%
+ 120  Lin938910gen20001_gene2_120    0.00%    passed     76.14%
+ 121  Lin938910gen20001_gene2_121    0.00%    passed     76.14%
+ 122  Lin938910gen20001_gene2_122    0.00%    passed     76.14%
+ 123  Lin938910gen20001_gene2_123    0.00%    passed     76.14%
+ 124  Lin938910gen20001_gene2_124    0.00%    passed     76.14%
+ 125  Lin938910gen20001_gene2_125    0.00%    passed     76.14%
+ 126  Lin938910gen20001_gene2_126    0.00%    passed     76.14%
+ 127  Lin938910gen20001_gene2_127    0.00%    passed     76.14%
+ 128  Lin938910gen20001_gene2_128    0.00%    passed     76.14%
+ 129  Lin938910gen20001_gene2_129    0.00%    passed     76.14%
+ 130  Lin938910gen20001_gene2_130    0.00%    passed     76.14%
+ 131  Lin938910gen20001_gene2_131    0.00%    passed     76.14%
+ 132  Lin938910gen20001_gene2_132    0.00%    passed     76.14%
+ 133  Lin938910gen20001_gene2_133    0.00%    passed     76.14%
+ 134  Lin938910gen20001_gene2_134    0.00%    passed     76.14%
+ 135  Lin938910gen20001_gene2_135    0.00%    passed     76.14%
+ 136  Lin938910gen20001_gene2_136    0.00%    passed     76.14%
+ 137  Lin938910gen20001_gene2_137    0.00%    passed     76.14%
+ 138  Lin938910gen20001_gene2_138    0.00%    passed     76.14%
+ 139  Lin938910gen20001_gene2_139    0.00%    passed     76.14%
+ 140  Lin938910gen20001_gene2_140    0.00%    passed     76.14%
+ 141  Lin938910gen20001_gene2_141    0.00%    passed     76.14%
+ 142  Lin938910gen20001_gene2_142    0.00%    passed     76.14%
+ 143  Lin938910gen20001_gene2_143    0.00%    passed     76.14%
+ 144  Lin938910gen20001_gene2_144    0.00%    passed     76.14%
+ 145  Lin938910gen20001_gene2_145    0.00%    passed     76.14%
+ 146  Lin938910gen20001_gene2_146    0.00%    passed     76.14%
+ 147  Lin938910gen20001_gene2_147    0.00%    passed     76.14%
+ 148  Lin938910gen20001_gene2_148    0.00%    passed     76.14%
+ 149  Lin938910gen20001_gene2_149    0.00%    passed     76.14%
+ 150  Lin938910gen20001_gene2_150    0.00%    passed     76.14%
+ 151  Lin938910gen20001_gene2_151    0.00%    passed     76.14%
+ 152  Lin938910gen20001_gene2_152    0.00%    passed     76.14%
+ 153  Lin938910gen20001_gene2_153    0.00%    passed     76.14%
+ 154  Lin938910gen20001_gene2_154    0.00%    passed     76.14%
+ 155  Lin938910gen20001_gene2_155    0.00%    passed     76.14%
+ 156  Lin938910gen20001_gene2_156    0.00%    passed     76.14%
+ 157  Lin938910gen20001_gene2_157    0.00%    passed     76.14%
+ 158  Lin938910gen20001_gene2_158    0.00%    passed     76.14%
+ 159  Lin938910gen20001_gene2_159    0.00%    passed     76.14%
+ 160  Lin938910gen20001_gene2_160    0.00%    passed     76.14%
+ 161  Lin938910gen20001_gene2_161    0.00%    passed     76.14%
+ 162  Lin938910gen20001_gene2_162    0.00%    passed     76.14%
+ 163  Lin938910gen20001_gene2_163    0.00%    passed     76.14%
+ 164  Lin938910gen20001_gene2_164    0.00%    passed     76.14%
+ 165  Lin938910gen20001_gene2_165    0.00%    passed     76.14%
+ 166  Lin938910gen20001_gene2_166    0.00%    passed     76.14%
+ 167  Lin938910gen20001_gene2_167    0.00%    passed     76.14%
+ 168  Lin938910gen20001_gene2_168    0.00%    passed     76.14%
+ 169  Lin938910gen20001_gene2_169    0.00%    passed     76.14%
+ 170  Lin938910gen20001_gene2_170    0.00%    passed     76.14%
+ 171  Lin938910gen20001_gene2_171    0.00%    passed     76.14%
+ 172  Lin938910gen20001_gene2_172    0.00%    passed     76.14%
+ 173  Lin938910gen20001_gene2_173    0.00%    passed     76.14%
+ 174  Lin938910gen20001_gene2_174    0.00%    passed     76.14%
+ 175  Lin938910gen20001_gene2_175    0.00%    passed     76.14%
+ 176  Lin938910gen20001_gene2_176    0.00%    passed     76.14%
+ 177  Lin938910gen20001_gene2_177    0.00%    passed     76.14%
+ 178  Lin938910gen20001_gene2_178    0.00%    passed     76.14%
+ 179  Lin938910gen20001_gene2_179    0.00%    passed     76.14%
+ 180  Lin938910gen20001_gene2_180    0.00%    passed     76.14%
+ 181  Lin938910gen20001_gene2_181    0.00%    passed     76.14%
+ 182  Lin938910gen20001_gene2_182    0.00%    passed     76.14%
+ 183  Lin938910gen20001_gene2_183    0.00%    passed     76.14%
+ 184  Lin938910gen20001_gene2_184    0.00%    passed     76.14%
+ 185  Lin938910gen20001_gene2_185    0.00%    passed     76.14%
+ 186  Lin938910gen20001_gene2_186    0.00%    passed     76.14%
+ 187  Lin938910gen20001_gene2_187    0.00%    passed     72.64%
+ 188  Lin938910gen20001_gene2_188    0.00%    passed     76.14%
+ 189  Lin938910gen20001_gene2_189    0.00%    passed     76.14%
+ 190  Lin938910gen20001_gene2_190    0.00%    passed     76.14%
+ 191  Lin938910gen20001_gene2_191    0.00%    passed     76.14%
+ 192  Lin938910gen20001_gene2_192    0.00%    passed     76.14%
+ 193  Lin938910gen20001_gene2_193    0.00%    passed     76.14%
+ 194  Lin938910gen20001_gene2_194    0.00%    passed     76.14%
+ 195  Lin938910gen20001_gene2_195    0.00%    passed     76.14%
+ 196  Lin938910gen20001_gene2_196    0.00%    passed     76.14%
+ 197  Lin938910gen20001_gene2_197    0.00%    passed     76.14%
+ 198  Lin938910gen20001_gene2_198    0.00%    passed     76.14%
+ 199  Lin938910gen20001_gene2_199    0.00%    passed     76.14%
+ 200  Lin938910gen20001_gene2_200    0.00%    passed     76.14%
+ 201  Lin938910gen20001_gene2_201    0.00%    passed     19.57%
+ 202  Lin938910gen20001_gene2_202    0.00%    passed     19.57%
+ 203  Lin938910gen20001_gene2_203    0.00%    passed     19.57%
+ 204  Lin938910gen20001_gene2_204    0.00%    passed     19.57%
+ 205  Lin938910gen20001_gene2_205    0.00%    passed     19.57%
+ 206  Lin938910gen20001_gene2_206    0.00%    passed     19.57%
+ 207  Lin938910gen20001_gene2_207    0.00%    passed     19.57%
+ 208  Lin938910gen20001_gene2_208    0.00%    passed     19.57%
+ 209  Lin938910gen20001_gene2_209    0.00%    passed     19.57%
+ 210  Lin938910gen20001_gene2_210    0.00%    passed     19.57%
+ 211  Lin938910gen20001_gene2_211    0.00%    passed     19.57%
+ 212  Lin938910gen20001_gene2_212    0.00%    passed     19.57%
+ 213  Lin938910gen20001_gene2_213    0.00%    passed     19.57%
+ 214  Lin938910gen20001_gene2_214    0.00%    passed     19.57%
+ 215  Lin938910gen20001_gene2_215    0.00%    passed     19.57%
+ 216  Lin938910gen20001_gene2_216    0.00%    passed     19.57%
+ 217  Lin938910gen20001_gene2_217    0.00%    passed     19.57%
+ 218  Lin938910gen20001_gene2_218    0.00%    passed     19.57%
+ 219  Lin938910gen20001_gene2_219    0.00%    passed     19.57%
+ 220  Lin938910gen20001_gene2_220    0.00%    passed     19.57%
+ 221  Lin938910gen20001_gene2_221    0.00%    passed     19.57%
+ 222  Lin938910gen20001_gene2_222    0.00%    passed     19.57%
+ 223  Lin938910gen20001_gene2_223    0.00%    passed     19.57%
+ 224  Lin938910gen20001_gene2_224    0.00%    passed     19.57%
+ 225  Lin938910gen20001_gene2_225    0.00%    passed     19.57%
+ 226  Lin938910gen20001_gene2_226    0.00%    passed     19.57%
+ 227  Lin938910gen20001_gene2_227    0.00%    passed     19.57%
+ 228  Lin938910gen20001_gene2_228    0.00%    passed     19.57%
+ 229  Lin938910gen20001_gene2_229    0.00%    passed     19.57%
+ 230  Lin938910gen20001_gene2_230    0.00%    passed     19.57%
+ 231  Lin938910gen20001_gene2_231    0.00%    passed     19.57%
+ 232  Lin938910gen20001_gene2_232    0.00%    passed     19.57%
+ 233  Lin938910gen20001_gene2_233    0.00%    passed     19.57%
+ 234  Lin938910gen20001_gene2_234    0.00%    passed     19.57%
+ 235  Lin938910gen20001_gene2_235    0.00%    passed     19.57%
+ 236  Lin938910gen20001_gene2_236    0.00%    passed     19.57%
+ 237  Lin938910gen20001_gene2_237    0.00%    passed     19.57%
+ 238  Lin938910gen20001_gene2_238    0.00%    passed     19.57%
+ 239  Lin938910gen20001_gene2_239    0.00%    passed     19.57%
+ 240  Lin938910gen20001_gene2_240    0.00%    passed     19.57%
+ 241  Lin938910gen20001_gene2_241    0.00%    passed     19.57%
+ 242  Lin938910gen20001_gene2_242    0.00%    passed     19.57%
+ 243  Lin938910gen20001_gene2_243    0.00%    passed     19.57%
+ 244  Lin938910gen20001_gene2_244    0.00%    passed     19.57%
+ 245  Lin938910gen20001_gene2_245    0.00%    passed     19.57%
+ 246  Lin938910gen20001_gene2_246    0.00%    passed     19.57%
+ 247  Lin938910gen20001_gene2_247    0.00%    passed     19.57%
+ 248  Lin938910gen20001_gene2_248    0.00%    passed     19.57%
+ 249  Lin938910gen20001_gene2_249    0.00%    passed     19.57%
+ 250  Lin938910gen20001_gene2_250    0.00%    passed     19.57%
+ 251  Lin938910gen20001_gene2_251    0.00%    passed     19.57%
+ 252  Lin938910gen20001_gene2_252    0.00%    passed     19.57%
+ 253  Lin938910gen20001_gene2_253    0.00%    passed     19.57%
+ 254  Lin938910gen20001_gene2_254    0.00%    passed     19.57%
+ 255  Lin938910gen20001_gene2_255    0.00%    passed     19.57%
+ 256  Lin938910gen20001_gene2_256    0.00%    passed     19.57%
+ 257  Lin938910gen20001_gene2_257    0.00%    passed     19.57%
+ 258  Lin938910gen20001_gene2_258    0.00%    passed     19.57%
+ 259  Lin938910gen20001_gene2_259    0.00%    passed     19.57%
+ 260  Lin938910gen20001_gene2_260    0.00%    passed     19.57%
+ 261  Lin938910gen20001_gene2_261    0.00%    passed     19.57%
+ 262  Lin938910gen20001_gene2_262    0.00%    passed     19.57%
+ 263  Lin938910gen20001_gene2_263    0.00%    passed     19.57%
+ 264  Lin938910gen20001_gene2_264    0.00%    passed     19.57%
+ 265  Lin938910gen20001_gene2_265    0.00%    passed     19.57%
+ 266  Lin938910gen20001_gene2_266    0.00%    passed     21.09%
+ 267  Lin938910gen20001_gene2_267    0.00%    passed     19.57%
+ 268  Lin938910gen20001_gene2_268    0.00%    passed     21.09%
+ 269  Lin938910gen20001_gene2_269    0.00%    passed     19.57%
+ 270  Lin938910gen20001_gene2_270    0.00%    passed     19.57%
+ 271  Lin938910gen20001_gene2_271    0.00%    passed     19.57%
+ 272  Lin938910gen20001_gene2_272    0.00%    passed     19.57%
+ 273  Lin938910gen20001_gene2_273    0.00%    passed     19.57%
+ 274  Lin938910gen20001_gene2_274    0.00%    passed     19.57%
+ 275  Lin938910gen20001_gene2_275    0.00%    passed     19.57%
+ 276  Lin938910gen20001_gene2_276    0.00%    passed     19.57%
+ 277  Lin938910gen20001_gene2_277    0.00%    passed     17.22%
+ 278  Lin938910gen20001_gene2_278    0.00%    passed     19.57%
+ 279  Lin938910gen20001_gene2_279    0.00%    passed     19.57%
+ 280  Lin938910gen20001_gene2_280    0.00%    passed     19.57%
+ 281  Lin938910gen20001_gene2_281    0.00%    passed     19.57%
+ 282  Lin938910gen20001_gene2_282    0.00%    passed     19.57%
+ 283  Lin938910gen20001_gene2_283    0.00%    passed     19.57%
+ 284  Lin938910gen20001_gene2_284    0.00%    passed     19.57%
+ 285  Lin938910gen20001_gene2_285    0.00%    passed     19.57%
+ 286  Lin938910gen20001_gene2_286    0.00%    passed     19.57%
+ 287  Lin938910gen20001_gene2_287    0.00%    passed     19.57%
+ 288  Lin938910gen20001_gene2_288    0.00%    passed     19.57%
+ 289  Lin938910gen20001_gene2_289    0.00%    passed     19.57%
+ 290  Lin938910gen20001_gene2_290    0.00%    passed     19.57%
+ 291  Lin938910gen20001_gene2_291    0.00%    passed     19.57%
+ 292  Lin938910gen20001_gene2_292    0.00%    passed     19.57%
+ 293  Lin938910gen20001_gene2_293    0.00%    passed     19.57%
+ 294  Lin938910gen20001_gene2_294    0.00%    passed     19.57%
+ 295  Lin938910gen20001_gene2_295    0.00%    passed     19.57%
+ 296  Lin938910gen20001_gene2_296    0.00%    passed     19.57%
+ 297  Lin938910gen20001_gene2_297    0.00%    passed     19.57%
+ 298  Lin938910gen20001_gene2_298    0.00%    passed     19.57%
+ 299  Lin938910gen20001_gene2_299    0.00%    passed     19.57%
+ 300  Lin938910gen20001_gene2_300    0.00%    passed     19.57%
+ 301  Lin938910gen20001_gene2_301    0.00%    passed     95.74%
+ 302  Lin938910gen20001_gene2_302    0.00%    passed     95.74%
+ 303  Lin938910gen20001_gene2_303    0.00%    passed     95.74%
+ 304  Lin938910gen20001_gene2_304    0.00%    passed     95.74%
+ 305  Lin938910gen20001_gene2_305    0.00%    passed     95.74%
+ 306  Lin938910gen20001_gene2_306    0.00%    passed     95.74%
+ 307  Lin938910gen20001_gene2_307    0.00%    passed     95.74%
+ 308  Lin938910gen20001_gene2_308    0.00%    passed     95.74%
+ 309  Lin938910gen20001_gene2_309    0.00%    passed     95.74%
+ 310  Lin938910gen20001_gene2_310    0.00%    passed     96.91%
+ 311  Lin938910gen20001_gene2_311    0.00%    passed     95.74%
+ 312  Lin938910gen20001_gene2_312    0.00%    passed     95.74%
+ 313  Lin938910gen20001_gene2_313    0.00%    passed     95.74%
+ 314  Lin938910gen20001_gene2_314    0.00%    passed     95.74%
+ 315  Lin938910gen20001_gene2_315    0.00%    passed     95.74%
+ 316  Lin938910gen20001_gene2_316    0.00%    passed     95.74%
+ 317  Lin938910gen20001_gene2_317    0.00%    passed     95.74%
+ 318  Lin938910gen20001_gene2_318    0.00%    passed     95.74%
+ 319  Lin938910gen20001_gene2_319    0.00%    passed     95.74%
+ 320  Lin938910gen20001_gene2_320    0.00%    passed     95.74%
+ 321  Lin938910gen20001_gene2_321    0.00%    passed     95.74%
+ 322  Lin938910gen20001_gene2_322    0.00%    passed     95.74%
+ 323  Lin938910gen20001_gene2_323    0.00%    passed     95.74%
+ 324  Lin938910gen20001_gene2_324    0.00%    passed     95.74%
+ 325  Lin938910gen20001_gene2_325    0.00%    passed     95.74%
+ 326  Lin938910gen20001_gene2_326    0.00%    passed     95.74%
+ 327  Lin938910gen20001_gene2_327    0.00%    passed     95.74%
+ 328  Lin938910gen20001_gene2_328    0.00%    passed     95.74%
+ 329  Lin938910gen20001_gene2_329    0.00%    passed     95.74%
+ 330  Lin938910gen20001_gene2_330    0.00%    passed     95.74%
+ 331  Lin938910gen20001_gene2_331    0.00%    passed     95.74%
+ 332  Lin938910gen20001_gene2_332    0.00%    passed     95.74%
+ 333  Lin938910gen20001_gene2_333    0.00%    passed     95.74%
+ 334  Lin938910gen20001_gene2_334    0.00%    passed     95.74%
+ 335  Lin938910gen20001_gene2_335    0.00%    passed     95.74%
+ 336  Lin938910gen20001_gene2_336    0.00%    passed     95.74%
+ 337  Lin938910gen20001_gene2_337    0.00%    passed     95.74%
+ 338  Lin938910gen20001_gene2_338    0.00%    passed     95.74%
+ 339  Lin938910gen20001_gene2_339    0.00%    passed     95.74%
+ 340  Lin938910gen20001_gene2_340    0.00%    passed     95.74%
+ 341  Lin938910gen20001_gene2_341    0.00%    passed     95.74%
+ 342  Lin938910gen20001_gene2_342    0.00%    passed     95.74%
+ 343  Lin938910gen20001_gene2_343    0.00%    passed     95.74%
+ 344  Lin938910gen20001_gene2_344    0.00%    passed     95.74%
+ 345  Lin938910gen20001_gene2_345    0.00%    passed     95.74%
+ 346  Lin938910gen20001_gene2_346    0.00%    passed     95.74%
+ 347  Lin938910gen20001_gene2_347    0.00%    passed     95.74%
+ 348  Lin938910gen20001_gene2_348    0.00%    passed     95.74%
+ 349  Lin938910gen20001_gene2_349    0.00%    passed     95.74%
+ 350  Lin938910gen20001_gene2_350    0.00%    passed     95.74%
+ 351  Lin938910gen20001_gene2_351    0.00%    passed     95.74%
+ 352  Lin938910gen20001_gene2_352    0.00%    passed     95.74%
+ 353  Lin938910gen20001_gene2_353    0.00%    passed     95.74%
+ 354  Lin938910gen20001_gene2_354    0.00%    passed     95.74%
+ 355  Lin938910gen20001_gene2_355    0.00%    passed     95.74%
+ 356  Lin938910gen20001_gene2_356    0.00%    passed     95.74%
+ 357  Lin938910gen20001_gene2_357    0.00%    passed     95.74%
+ 358  Lin938910gen20001_gene2_358    0.00%    passed     95.74%
+ 359  Lin938910gen20001_gene2_359    0.00%    passed     95.74%
+ 360  Lin938910gen20001_gene2_360    0.00%    passed     95.74%
+ 361  Lin938910gen20001_gene2_361    0.00%    passed     95.74%
+ 362  Lin938910gen20001_gene2_362    0.00%    passed     95.74%
+ 363  Lin938910gen20001_gene2_363    0.00%    passed     95.74%
+ 364  Lin938910gen20001_gene2_364    0.00%    passed     95.74%
+ 365  Lin938910gen20001_gene2_365    0.00%    passed     95.74%
+ 366  Lin938910gen20001_gene2_366    0.00%    passed     95.74%
+ 367  Lin938910gen20001_gene2_367    0.00%    passed     95.74%
+ 368  Lin938910gen20001_gene2_368    0.00%    passed     95.74%
+ 369  Lin938910gen20001_gene2_369    0.00%    passed     95.74%
+ 370  Lin938910gen20001_gene2_370    0.00%    passed     95.74%
+ 371  Lin938910gen20001_gene2_371    0.00%    passed     95.74%
+ 372  Lin938910gen20001_gene2_372    0.00%    passed     95.74%
+ 373  Lin938910gen20001_gene2_373    0.00%    passed     95.74%
+ 374  Lin938910gen20001_gene2_374    0.00%    passed     95.74%
+ 375  Lin938910gen20001_gene2_375    0.00%    passed     95.74%
+ 376  Lin938910gen20001_gene2_376    0.00%    passed     95.74%
+ 377  Lin938910gen20001_gene2_377    0.00%    passed     96.91%
+ 378  Lin938910gen20001_gene2_378    0.00%    passed     95.74%
+ 379  Lin938910gen20001_gene2_379    0.00%    passed     95.74%
+ 380  Lin938910gen20001_gene2_380    0.00%    passed     95.74%
+ 381  Lin938910gen20001_gene2_381    0.00%    passed     95.74%
+ 382  Lin938910gen20001_gene2_382    0.00%    passed     95.74%
+ 383  Lin938910gen20001_gene2_383    0.00%    passed     95.74%
+ 384  Lin938910gen20001_gene2_384    0.00%    passed     95.74%
+ 385  Lin938910gen20001_gene2_385    0.00%    passed     95.74%
+ 386  Lin938910gen20001_gene2_386    0.00%    passed     95.74%
+ 387  Lin938910gen20001_gene2_387    0.00%    passed     95.74%
+ 388  Lin938910gen20001_gene2_388    0.00%    passed     95.74%
+ 389  Lin938910gen20001_gene2_389    0.00%    passed     95.74%
+ 390  Lin938910gen20001_gene2_390    0.00%    passed     95.74%
+ 391  Lin938910gen20001_gene2_391    0.00%    passed     95.74%
+ 392  Lin938910gen20001_gene2_392    0.00%    passed     95.74%
+ 393  Lin938910gen20001_gene2_393    0.00%    passed     95.74%
+ 394  Lin938910gen20001_gene2_394    0.00%    passed     95.74%
+ 395  Lin938910gen20001_gene2_395    0.00%    passed     95.74%
+ 396  Lin938910gen20001_gene2_396    0.00%    passed     95.74%
+ 397  Lin938910gen20001_gene2_397    0.00%    passed     95.74%
+ 398  Lin938910gen20001_gene2_398    0.00%    passed     95.74%
+ 399  Lin938910gen20001_gene2_399    0.00%    passed     95.74%
+ 400  Lin938910gen20001_gene2_400    0.00%    passed     95.74%
+****  TOTAL                          0.00%  0 sequences failed composition chi2 test (p-value<5%; df=3)
+NOTE: Lin938910gen20001_gene2_2 is identical to Lin938910gen20001_gene2_1 but kept for subsequent analysis
+NOTE: Lin938910gen20001_gene2_102 is identical to Lin938910gen20001_gene2_101 but kept for subsequent analysis
+NOTE: Lin938910gen20001_gene2_202 is identical to Lin938910gen20001_gene2_201 but kept for subsequent analysis
+NOTE: Lin938910gen20001_gene2_302 is identical to Lin938910gen20001_gene2_301 but kept for subsequent analysis
+NOTE: 384 identical sequences (see below) will be ignored for subsequent analysis
+NOTE: Lin938910gen20001_gene2_3 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_4 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_5 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_6 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_7 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_8 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_9 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_10 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_11 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_12 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_13 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_14 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_15 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_16 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_17 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_18 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_19 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_20 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_21 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_22 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_23 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_24 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_25 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_26 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_27 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_28 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_30 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_31 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_32 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_33 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_34 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_35 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_36 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_37 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_38 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_39 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_40 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_41 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_42 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_43 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_44 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_45 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_46 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_47 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_48 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_49 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_50 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_51 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_52 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_53 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_54 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_55 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_56 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_57 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_58 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_59 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_60 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_61 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_62 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_63 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_64 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_65 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_66 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_67 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_68 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_69 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_70 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_71 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_72 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_73 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_74 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_75 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_76 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_77 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_78 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_79 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_80 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_81 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_82 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_83 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_84 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_85 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_86 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_87 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_88 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_89 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_90 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_91 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_92 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_93 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_94 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_95 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_96 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_97 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_98 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_99 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_100 (identical to Lin938910gen20001_gene2_1) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_103 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_104 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_105 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_106 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_107 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_109 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_110 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_111 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_112 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_113 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_114 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_115 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_116 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_117 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_118 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_119 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_120 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_121 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_122 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_123 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_124 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_125 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_126 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_127 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_128 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_129 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_130 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_131 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_132 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_133 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_134 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_135 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_136 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_137 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_138 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_139 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_140 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_141 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_142 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_143 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_144 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_145 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_146 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_147 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_148 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_149 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_150 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_151 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_152 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_153 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_154 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_155 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_156 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_157 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_158 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_159 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_160 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_161 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_162 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_163 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_164 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_165 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_166 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_167 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_168 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_169 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_170 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_171 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_172 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_173 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_174 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_175 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_176 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_177 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_178 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_179 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_180 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_181 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_182 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_183 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_184 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_185 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_186 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_188 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_189 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_190 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_191 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_192 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_193 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_194 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_195 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_196 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_197 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_198 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_199 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_200 (identical to Lin938910gen20001_gene2_101) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_203 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_204 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_205 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_206 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_207 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_208 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_209 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_210 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_211 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_212 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_213 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_214 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_215 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_216 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_217 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_218 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_219 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_220 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_221 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_222 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_223 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_224 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_225 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_226 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_227 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_228 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_229 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_230 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_231 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_232 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_233 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_234 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_235 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_236 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_237 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_238 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_239 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_240 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_241 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_242 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_243 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_244 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_245 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_246 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_247 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_248 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_249 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_250 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_251 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_252 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_253 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_254 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_255 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_256 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_257 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_258 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_259 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_260 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_261 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_262 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_263 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_264 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_265 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_267 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_269 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_270 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_271 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_272 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_273 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_274 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_275 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_276 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_278 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_279 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_280 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_281 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_282 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_283 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_284 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_285 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_286 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_287 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_288 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_289 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_290 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_291 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_292 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_293 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_294 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_295 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_296 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_297 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_298 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_299 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_300 (identical to Lin938910gen20001_gene2_201) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_303 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_304 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_305 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_306 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_307 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_308 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_309 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_311 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_312 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_313 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_314 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_315 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_316 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_317 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_318 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_319 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_320 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_321 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_322 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_323 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_324 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_325 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_326 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_327 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_328 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_329 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_330 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_331 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_332 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_333 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_334 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_335 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_336 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_337 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_338 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_339 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_340 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_341 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_342 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_343 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_344 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_345 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_346 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_347 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_348 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_349 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_350 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_351 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_352 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_353 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_354 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_355 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_356 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_357 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_358 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_359 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_360 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_361 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_362 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_363 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_364 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_365 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_366 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_367 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_368 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_369 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_370 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_371 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_372 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_373 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_374 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_375 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_376 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_378 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_379 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_380 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_381 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_382 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_383 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_384 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_385 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_386 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_387 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_388 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_389 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_390 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_391 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_392 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_393 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_394 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_395 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_396 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_397 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_398 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_399 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+NOTE: Lin938910gen20001_gene2_400 (identical to Lin938910gen20001_gene2_301) is ignored but added at the end
+
+For your convenience alignment with unique sequences printed to CodeSeq_all_gene2_modTest.uniqueseq.phy
+
+
+Create initial parsimony tree by phylogenetic likelihood library (PLL)... 0.001 seconds
+NOTE: ModelFinder requires 0 MB RAM!
+ModelFinder will test 88 DNA models (sample size: 1500) ...
+ No. Model         -LnL         df  AIC          AICc         BIC
+  1  JC            5092.806     29  10243.612    10244.796    10397.696
+  2  JC+I          5092.806     30  10245.611    10246.878    10405.008
+  3  JC+G4         5092.823     30  10245.646    10246.912    10405.042
+  4  JC+I+G4       5095.446     31  10252.893    10254.244    10417.602
+  5  F81+F         5083.864     32  10231.728    10233.168    10401.751
+  6  F81+F+I       5083.864     33  10233.728    10235.259    10409.064
+  7  F81+F+G4      5083.882     33  10233.763    10235.294    10409.099
+  8  F81+F+I+G4    5086.384     34  10240.767    10242.392    10421.417
+  9  K2P           5092.688     30  10245.375    10246.641    10404.772
+ 10  K2P+I         5092.688     31  10247.375    10248.727    10412.085
+ 11  K2P+G4        5092.705     31  10247.410    10248.761    10412.120
+ 12  K2P+I+G4      5094.985     32  10253.971    10255.411    10423.994
+ 13  HKY+F         5083.792     33  10233.584    10235.115    10408.921
+ 14  HKY+F+I       5083.792     34  10235.584    10237.209    10416.234
+ 15  HKY+F+G4      5083.810     34  10235.620    10237.244    10416.269
+ 16  HKY+F+I+G4    5085.998     35  10241.995    10243.717    10427.958
+ 17  TNe           5089.750     31  10241.499    10242.851    10406.209
+ 18  TNe+I         5089.749     32  10243.499    10244.938    10413.522
+ 19  TNe+G4        5089.768     32  10243.536    10244.976    10413.559
+ 20  TNe+I+G4      5091.893     33  10249.785    10251.316    10425.121
+ 21  TN+F          5080.647     34  10229.295    10230.919    10409.944
+ 22  TN+F+I        5080.647     35  10231.295    10233.016    10417.258
+ 23  TN+F+G4       5080.666     35  10231.333    10233.054    10417.295
+ 24  TN+F+I+G4     5082.691     36  10237.381    10239.202    10428.657
+ 25  K3P           5092.446     31  10246.892    10248.244    10411.602
+ 26  K3P+I         5092.446     32  10248.892    10250.332    10418.915
+ 27  K3P+G4        5092.463     32  10248.927    10250.366    10418.950
+ 28  K3P+I+G4      5094.201     33  10254.401    10255.932    10429.737
+ 29  K3Pu+F        5083.673     34  10235.346    10236.970    10415.995
+ 30  K3Pu+F+I      5083.673     35  10237.346    10239.067    10423.308
+ 31  K3Pu+F+G4     5083.691     35  10237.381    10239.102    10423.344
+ 32  K3Pu+F+I+G4   5085.364     36  10242.728    10244.549    10434.004
+ 33  TPM2+F        5083.719     34  10235.437    10237.062    10416.087
+ 34  TPM2+F+I      5083.719     35  10237.437    10239.158    10423.400
+ 35  TPM2+F+G4     5083.736     35  10237.472    10239.194    10423.435
+ 36  TPM2+F+I+G4   5085.304     36  10242.608    10244.429    10433.884
+ 37  TPM2u+F       5083.719     34  10235.437    10237.062    10416.087
+ 38  TPM2u+F+I     5083.719     35  10237.437    10239.159    10423.400
+ 39  TPM2u+F+G4    5083.736     35  10237.473    10239.194    10423.435
+ 40  TPM2u+F+I+G4  5085.210     36  10242.421    10244.242    10433.697
+ 41  TPM3+F        5082.220     34  10232.439    10234.064    10413.089
+ 42  TPM3+F+I      5082.220     35  10234.439    10236.160    10420.402
+ 43  TPM3+F+G4     5082.237     35  10234.475    10236.196    10420.437
+ 44  TPM3+F+I+G4   5083.643     36  10239.287    10241.107    10430.562
+ 45  TPM3u+F       5082.220     34  10232.439    10234.064    10413.089
+ 46  TPM3u+F+I     5082.220     35  10234.439    10236.161    10420.402
+ 47  TPM3u+F+G4    5082.237     35  10234.475    10236.196    10420.438
+ 48  TPM3u+F+I+G4  5083.560     36  10239.121    10240.942    10430.397
+ 49  TIMe          5089.507     32  10243.014    10244.454    10413.037
+ 50  TIMe+I        5089.507     33  10245.014    10246.544    10420.350
+ 51  TIMe+G4       5089.525     33  10245.051    10246.582    10420.387
+ 52  TIMe+I+G4     5090.809     34  10249.618    10251.243    10430.268
+ 53  TIM+F         5080.529     35  10231.058    10232.779    10417.021
+ 54  TIM+F+I       5080.529     36  10233.058    10234.879    10424.334
+ 55  TIM+F+G4      5080.548     36  10233.095    10234.916    10424.371
+ 56  TIM+F+I+G4    5081.779     37  10237.559    10239.482    10434.148
+ 57  TIM2e         5089.724     32  10243.448    10244.887    10413.471
+ 58  TIM2e+I       5089.724     33  10245.448    10246.978    10420.784
+ 59  TIM2e+G4      5089.742     33  10245.485    10247.015    10420.821
+ 60  TIM2e+I+G4    5090.875     34  10249.751    10251.375    10430.400
+ 61  TIM2+F        5080.571     35  10231.142    10232.864    10417.105
+ 62  TIM2+F+I      5080.571     36  10233.143    10234.963    10424.418
+ 63  TIM2+F+G4     5080.590     36  10233.180    10235.001    10424.456
+ 64  TIM2+F+I+G4   5081.713     37  10237.425    10239.349    10434.014
+ 65  TIM3e         5089.548     32  10243.095    10244.535    10413.118
+ 66  TIM3e+I       5089.548     33  10245.095    10246.626    10420.432
+ 67  TIM3e+G4      5089.566     33  10245.133    10246.663    10420.469
+ 68  TIM3e+I+G4    5090.643     34  10249.287    10250.911    10429.936
+ 69  TIM3+F        5079.068     35  10228.135    10229.857    10414.098
+ 70  TIM3+F+I      5079.068     36  10230.135    10231.956    10421.411
+ 71  TIM3+F+G4     5079.086     36  10230.173    10231.994    10421.449
+ 72  TIM3+F+I+G4   5080.161     37  10234.322    10236.245    10430.911
+ 73  TVMe          5092.175     33  10250.350    10251.881    10425.686
+ 74  TVMe+I        5092.175     34  10252.350    10253.974    10432.999
+ 75  TVMe+G4       5092.192     34  10252.385    10254.009    10433.034
+ 76  TVMe+I+G4     5093.145     35  10256.290    10258.011    10442.252
+ 77  TVM+F         5081.948     36  10235.897    10237.718    10427.173
+ 78  TVM+F+I       5081.948     37  10237.897    10239.820    10434.486
+ 79  TVM+F+G4      5081.966     37  10237.932    10239.855    10434.521
+ 80  TVM+F+I+G4    5082.917     38  10241.835    10243.863    10443.737
+ 81  SYM           5089.268     34  10246.535    10248.160    10427.185
+ 82  SYM+I         5089.268     35  10248.535    10250.256    10434.498
+ 83  SYM+G4        5089.286     35  10248.572    10250.294    10434.535
+ 84  SYM+I+G4      5090.249     36  10252.497    10254.318    10443.773
+ 85  GTR+F         5078.791     37  10231.582    10233.505    10428.171
+ 86  GTR+F+I       5078.791     38  10233.582    10235.610    10435.484
+ 87  GTR+F+G4      5078.810     38  10233.619    10235.648    10435.522
+ 88  GTR+F+I+G4    5079.768     39  10237.536    10239.673    10444.751
+Akaike Information Criterion:           TIM3+F
+Corrected Akaike Information Criterion: TIM3+F
+Bayesian Information Criterion:         JC
+Best-fit model: JC chosen according to BIC
+
+All model information printed to CodeSeq_all_gene2_modTest.model.gz
+CPU time for ModelFinder: 0.294 seconds (0h:0m:0s)
+Wall-clock time for ModelFinder: 0.294 seconds (0h:0m:0s)
+
+NOTE: 0 MB RAM (0 GB) is required!
+Estimate model parameters (epsilon = 0.100)
+1. Initial log-likelihood: -5092.806
+Optimal log-likelihood: -5092.806
+Rate parameters:  A-C: 1.00000  A-G: 1.00000  A-T: 1.00000  C-G: 1.00000  C-T: 1.00000  G-T: 1.00000
+Base frequencies:  A: 0.250  C: 0.250  G: 0.250  T: 0.250
+Parameters optimization took 1 rounds (0.000 sec)
+Computing ML distances based on estimated model parameters... 0.001 sec
+Computing BIONJ tree...
+0.000 seconds
+Log-likelihood of BIONJ tree: -5092.793
+--------------------------------------------------------------------
+|             INITIALIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Generating 98 parsimony trees... 0.062 second
+Computing log-likelihood of 98 initial trees ... 0.055 seconds
+Current best score: -5092.793
+
+Do NNI search on 20 best initial trees
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 1: -5092.793
+Iteration 10 / LogL: -5092.805 / Time: 0h:0m:0s
+Iteration 20 / LogL: -5092.805 / Time: 0h:0m:0s
+Finish initializing candidate tree set (16)
+Current best tree score: -5092.793 / CPU time: 0.156
+Number of iterations: 20
+--------------------------------------------------------------------
+|               OPTIMIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+BETTER TREE FOUND at iteration 26: -5092.792
+BETTER TREE FOUND at iteration 29: -5092.792
+Iteration 30 / LogL: -5092.793 / Time: 0h:0m:0s (0h:0m:0s left)
+BETTER TREE FOUND at iteration 38: -5092.792
+Iteration 40 / LogL: -5174.707 / Time: 0h:0m:0s (0h:0m:0s left)
+BETTER TREE FOUND at iteration 42: -5092.792
+Iteration 50 / LogL: -5092.792 / Time: 0h:0m:0s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -5092.791
+Iteration 60 / LogL: -5092.792 / Time: 0h:0m:0s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -5092.791
+Iteration 70 / LogL: -5092.792 / Time: 0h:0m:0s (0h:0m:0s left)
+BETTER TREE FOUND at iteration 72: -5092.791
+Iteration 80 / LogL: -5092.792 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 90 / LogL: -5092.792 / Time: 0h:0m:0s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -5092.791
+UPDATE BEST LOG-LIKELIHOOD: -5092.791
+Iteration 100 / LogL: -5092.791 / Time: 0h:0m:0s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -5092.791
+UPDATE BEST LOG-LIKELIHOOD: -5092.791
+Iteration 110 / LogL: -5092.791 / Time: 0h:0m:0s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -5092.791
+Iteration 120 / LogL: -5124.122 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 130 / LogL: -5092.791 / Time: 0h:0m:0s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -5092.791
+UPDATE BEST LOG-LIKELIHOOD: -5092.791
+Iteration 140 / LogL: -5092.791 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 150 / LogL: -5092.792 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 160 / LogL: -5092.791 / Time: 0h:0m:0s (0h:0m:0s left)
+BETTER TREE FOUND at iteration 164: -5092.791
+Iteration 170 / LogL: -5092.792 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 180 / LogL: -5092.792 / Time: 0h:0m:0s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -5092.789
+Iteration 190 / LogL: -5092.790 / Time: 0h:0m:0s (0h:0m:0s left)
+Iteration 200 / LogL: -5092.790 / Time: 0h:0m:1s (0h:0m:0s left)
+BETTER TREE FOUND at iteration 209: -5092.789
+BETTER TREE FOUND at iteration 210: -5092.789
+Iteration 210 / LogL: -5092.789 / Time: 0h:0m:1s (0h:0m:0s left)
+Iteration 220 / LogL: -5092.789 / Time: 0h:0m:1s (0h:0m:0s left)
+Iteration 230 / LogL: -5092.789 / Time: 0h:0m:1s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -5092.789
+BETTER TREE FOUND at iteration 239: -5092.789
+Iteration 240 / LogL: -5092.789 / Time: 0h:0m:1s (0h:0m:0s left)
+Iteration 250 / LogL: -5092.789 / Time: 0h:0m:1s (0h:0m:0s left)
+BETTER TREE FOUND at iteration 252: -5092.789
+UPDATE BEST LOG-LIKELIHOOD: -5092.789
+Iteration 260 / LogL: -5092.789 / Time: 0h:0m:1s (0h:0m:0s left)
+Iteration 270 / LogL: -5092.789 / Time: 0h:0m:1s (0h:0m:0s left)
+Iteration 280 / LogL: -5629.805 / Time: 0h:0m:1s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -5092.789
+Iteration 290 / LogL: -5092.793 / Time: 0h:0m:1s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -5092.789
+Iteration 300 / LogL: -5092.789 / Time: 0h:0m:1s (0h:0m:0s left)
+Iteration 310 / LogL: -5092.789 / Time: 0h:0m:1s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -5092.789
+BETTER TREE FOUND at iteration 317: -5092.788
+BETTER TREE FOUND at iteration 318: -5092.788
+Iteration 320 / LogL: -5092.790 / Time: 0h:0m:1s (0h:0m:0s left)
+Iteration 330 / LogL: -5092.789 / Time: 0h:0m:1s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -5092.788
+Iteration 340 / LogL: -5098.288 / Time: 0h:0m:1s (0h:0m:0s left)
+Iteration 350 / LogL: -5092.789 / Time: 0h:0m:1s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -5092.788
+UPDATE BEST LOG-LIKELIHOOD: -5092.788
+Iteration 360 / LogL: -5092.788 / Time: 0h:0m:1s (0h:0m:0s left)
+Iteration 370 / LogL: -5124.119 / Time: 0h:0m:1s (0h:0m:0s left)
+Iteration 380 / LogL: -5092.788 / Time: 0h:0m:1s (0h:0m:0s left)
+Iteration 390 / LogL: -5092.788 / Time: 0h:0m:1s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -5092.788
+Iteration 400 / LogL: -5092.788 / Time: 0h:0m:1s (0h:0m:0s left)
+UPDATE BEST LOG-LIKELIHOOD: -5092.788
+Iteration 410 / LogL: -5092.788 / Time: 0h:0m:1s (0h:0m:0s left)
+TREE SEARCH COMPLETED AFTER 419 ITERATIONS / Time: 0h:0m:2s
+
+--------------------------------------------------------------------
+|                    FINALIZING TREE SEARCH                        |
+--------------------------------------------------------------------
+Performs final model parameters optimization
+Estimate model parameters (epsilon = 0.010)
+1. Initial log-likelihood: -5092.788
+Optimal log-likelihood: -5092.788
+Rate parameters:  A-C: 1.00000  A-G: 1.00000  A-T: 1.00000  C-G: 1.00000  C-T: 1.00000  G-T: 1.00000
+Base frequencies:  A: 0.250  C: 0.250  G: 0.250  T: 0.250
+Parameters optimization took 1 rounds (0.000 sec)
+BEST SCORE FOUND : -5092.788
+Total tree length: 0.747
+
+Total number of iterations: 419
+CPU time used for tree search: 1.995 sec (0h:0m:1s)
+Wall-clock time used for tree search: 2.000 sec (0h:0m:1s)
+Total CPU time used: 2.004 sec (0h:0m:2s)
+Total wall-clock time used: 2.010 sec (0h:0m:2s)
+
+Analysis results written to: 
+  IQ-TREE report:                CodeSeq_all_gene2_modTest.iqtree
+  Maximum-likelihood tree:       CodeSeq_all_gene2_modTest.treefile
+  Likelihood distances:          CodeSeq_all_gene2_modTest.mldist
+  Screen log file:               CodeSeq_all_gene2_modTest.log
+
+Date and Time: Wed Jun 12 16:56:12 2019
