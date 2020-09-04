@@ -312,6 +312,18 @@ def mutated_sectors_mapper(ranged_dict,muts_location_table):
 			if val in key:
 				outlist.append(ranged_dict[key])
 	return(outlist)
+	
+def GRN_sectorial_mutator(parent,gene_index,mutated_sectors_list):
+	decays=parent.decays
+	thresholds=parent.thresholds
+	grn=parent.grn
+	for i in mutated_sectors_list:
+		if type(i) == str:
+			if i == 'decay':
+			else if i == 'threshold':
+		else if type(i) == tuple:
+		else
+		
 			
 
 def gene_mutator(gene_index,num_syn_muts,num_nonsyn_muts,in_grn,in_decays,in_thresholds,active_genes):
