@@ -304,6 +304,14 @@ def ranged_dictionary_maker(gene_index,num_genes,num_mutable_vals):
 		b=b+block_size
 		rep+=1
 	return(out_dict)
+	
+def mutation_mapper(ranged_dict,muts_location_table):
+	outlist=[]
+	for val in muts_location_table[1]:
+		for key in ranged_dict:
+			if val in key:
+				outlist.append(ranged_dict[key])
+	return(outlist)
 			
 
 def gene_mutator(gene_index,num_syn_muts,num_nonsyn_muts,in_grn,in_decays,in_thresholds,active_genes):
