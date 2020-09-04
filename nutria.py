@@ -263,6 +263,8 @@ def master_mutator(parent,offsp_genome,offsp_proteome):
 		for gene_index in range(len(genes_to_be_mutated)):
 			gene_mutated = genes_to_be_mutated[gene_index]
 			sites_mutated = muts_location_table[1,muts_location_table[0] == gene_index]
+			gene_addresses=ranged_dictionary_maker(gene_index,num_genes,num_mutable_params)
+			specific_gene_mutations=mutated_sectors_mapper(gene_addresses,sites_mutated)
 #			print("gene",gene_index," - syn muts:",gene_syn_muts,"- nonsyn muts:",gene_nonsyn_muts)
 			if (gene_syn_muts > 0) | (gene_nonsyn_muts > 0):
 #				print("Sent for mutation")
@@ -276,8 +278,9 @@ def master_mutator(parent,offsp_genome,offsp_proteome):
 	out_dev = develop(parent.start_vect,out_grn,out_decays,out_thresholds,parent.dev_steps,active_genes)
 	out_fitness = calcFitness(out_dev)
 	return(out_grn,out_decays,out_thresholds,out_dev,out_fitness)
-	
-def ranged_dictionary_maker(gene_index,num_genes,num_mutable_vals):
+
+#Produce a dictionary of addresses in order to locate single mutations to specific values. Independent for each gene (gene-gene interaction addresses must be adapted to the current gene being mutated).
+def ranged_dictionary_maker(num_genes,num_mutable_vals):
 	seq_length=pf.seq_length
 	if seq_length % num_mutable_vals:
 		print("Sequence length",seq_length,"is not a multiple of parameter length",num_mutable_vals)
@@ -289,25 +292,29 @@ def ranged_dictionary_maker(gene_index,num_genes,num_mutable_vals):
 	else:
 		block_size = np.int(seq_length/num_mutable_vals)
 		print("Sequence length of",seq_length,"and",num_mutable_vals,"mutable parameters imply a block size of",block_size,"nt for each parameter")
-	dict_val_list=['decay','threshold']
-	addendum1=list(zip(range(num_genes),list(np.repeat(gene_index,num_genes))))
-	addendum2=list(zip(list(np.repeat(gene_index,num_genes)),range(num_genes)))
-	addendum2.remove((gene_index,gene_index))
-	dict_val_list=dict_val_list+addendum1+addendum2
-	print(dict_val_list)
-	block_size = np.int(seq_length/num_mutable_vals)
-	a,b,rep = 0,block_size,0
-	out_dict = {}
-	while b <= seq_length:
-		out_dict[range(a,b)] = dict_val_list[rep]
-		a=a+block_size
-		b=b+block_size
-		rep+=1
-	return(out_dict)
+	tot_dict_list=[]
+	for w in range(num_genes):
+		gene_dict_val_list=['decay','threshold']
+		addendum1=list(zip(range(num_genes),list(np.repeat(w,num_genes))))
+		addendum2=list(zip(list(np.repeat(w,num_genes)),range(num_genes)))
+		print(gene_dict_val_list,"\n",addendum1,"\n",addendum2)
+		addendum2.remove((w,w))
+		gene_dict_val_list=gene_dict_val_list+addendum1+addendum2
+#		print(dict_val_list)
+		block_size = np.int(seq_length/num_mutable_vals)
+		a,b,rep = 0,block_size,0
+		out_dict = {}
+		while b <= seq_length:
+			out_dict[range(a,b)] = gene_dict_val_list[rep]
+			a=a+block_size
+			b=b+block_size
+			rep+=1
+		tot_dict_list.append(out_dict)
+	return(tot_dict_list)
 	
-def mutated_sectors_mapper(ranged_dict,muts_location_table):
+def mutated_sectors_mapper(ranged_dict,sites_mutated):
 	outlist=[]
-	for val in muts_location_table[1]:
+	for val in sites_mutated:
 		for key in ranged_dict:
 			if val in key:
 				outlist.append(ranged_dict[key])
@@ -320,9 +327,13 @@ def GRN_sectorial_mutator(parent,gene_index,mutated_sectors_list):
 	for i in mutated_sectors_list:
 		if type(i) == str:
 			if i == 'decay':
-			else if i == 'threshold':
-		else if type(i) == tuple:
-		else
+				None
+		elif i == 'threshold':
+			None
+		elif type(i) == tuple:
+			None
+		else:
+			None
 		
 			
 
