@@ -305,7 +305,7 @@ def ranged_dictionary_maker(gene_index,num_genes,num_mutable_vals):
 		rep+=1
 	return(out_dict)
 	
-def mutation_mapper(ranged_dict,muts_location_table):
+def mutated_sectors_mapper(ranged_dict,muts_location_table):
 	outlist=[]
 	for val in muts_location_table[1]:
 		for key in ranged_dict:
