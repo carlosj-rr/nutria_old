@@ -276,6 +276,35 @@ def master_mutator(parent,offsp_genome,offsp_proteome):
 	out_dev = develop(parent.start_vect,out_grn,out_decays,out_thresholds,parent.dev_steps,active_genes)
 	out_fitness = calcFitness(out_dev)
 	return(out_grn,out_decays,out_thresholds,out_dev,out_fitness)
+	
+def ranged_dictionary_maker(gene_index,num_genes,num_mutable_vals):
+	seq_length=pf.seq_length
+	if seq_length % num_mutable_vals:
+		print("Sequence length",seq_length,"is not a multiple of parameter length",num_mutable_vals)
+		seq_length = seq_length - (seq_length % num_mutable_vals)
+		pf.seq_length = seq_length
+		print("Changing sequence length to",seq_length)
+		block_size = np.int(seq_length/num_mutable_vals)
+		print("This implies a block size of",block_size,"nt for each parameter")
+	else:
+		block_size = np.int(seq_length/num_mutable_vals)
+		print("Sequence length of",seq_length,"and",num_mutable_vals,"mutable parameters imply a block size of",block_size,"nt for each parameter")
+	dict_val_list=['decay','threshold']
+	addendum1=list(zip(range(num_genes),list(np.repeat(gene_index,num_genes))))
+	addendum2=list(zip(list(np.repeat(gene_index,num_genes)),range(num_genes)))
+	addendum2.remove((gene_index,gene_index))
+	dict_val_list=dict_val_list+addendum1+addendum2
+	print(dict_val_list)
+	block_size = np.int(seq_length/num_mutable_vals)
+	a,b,rep = 0,block_size,0
+	out_dict = {}
+	while b <= seq_length:
+		out_dict[range(a,b)] = dict_val_list[rep]
+		a=a+block_size
+		b=b+block_size
+		rep+=1
+	return(out_dict)
+			
 
 def gene_mutator(gene_index,num_syn_muts,num_nonsyn_muts,in_grn,in_decays,in_thresholds,active_genes):
 	num_genes = active_genes.size
