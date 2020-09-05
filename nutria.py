@@ -265,7 +265,7 @@ def master_mutator(parent,offsp_genome):
 		out_thresholds = curr_thresholds
 	else:
 		genes_to_be_mutated = np.unique(all_mutated_sites[0])
-		print("Genes",list(genes_to_be_mutated),"were mutated in the genome.")
+#		print("Genes",list(genes_to_be_mutated),"were mutated in the genome.")
 		out_grn,out_decays,out_thresholds=GRN_sectorial_mutator(parent,mutated_sectors_list,all_mutated_sites)
 	out_dev = develop(parent.start_vect,out_grn,out_decays,out_thresholds,parent.dev_steps)
 	out_fitness = calcFitness(out_dev)
@@ -283,7 +283,7 @@ def ranged_dictionary_maker(num_genes,num_mutable_vals):
 		print("This implies a block size of",block_size,"nt for each parameter")
 	else:
 		block_size = np.int(seq_length/num_mutable_vals)
-		print("Sequence length of",seq_length,"and",num_mutable_vals,"mutable parameters imply a block size of",block_size,"nt for each parameter")
+#		print("Sequence length of",seq_length,"and",num_mutable_vals,"mutable parameters imply a block size of",block_size,"nt for each parameter")
 	tot_dict_list=[]
 	for w in range(num_genes):
 		gene_dict_val_list=[('decay',w),('threshold',w)]
