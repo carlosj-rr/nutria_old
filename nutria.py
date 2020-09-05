@@ -104,7 +104,6 @@ def founderFinder():
 
 ##### ----- #####
 def makeNewOrganism(parent=None):
-	
 	if parent: 		# add also: if type(parent) is Organism:
 		prob_grn_change = pf.prob_grn_change
 		prob_thresh_change = pf.prob_thresh_change
@@ -120,7 +119,7 @@ def makeNewOrganism(parent=None):
 		seq_mutation_rate = pf.seq_mutation_rate
 		sequences = mutateGenome(parent.sequences,seq_mutation_rate)
 		proteome = translate_genome(sequences)
-		grn,decays,thresholds,development,fitness = master_mutator(parent,sequences,proteome)
+		grn,decays,thresholds,development,fitness = master_mutator(parent,sequences)
 		out_org = Organism(name,generation,parent.num_genes,parent.prop_unlinked,parent.prop_no_threshold,parent.thresh_boundaries,parent.decay_boundaries,parent.dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences,proteome)
 	else:
 		num_genes = pf.num_genes
@@ -249,41 +248,26 @@ def randomMaskedVector(num_vals,prop_zero=0,min_val=0,max_val=1):
 # CHAPTER 4. MUTATION FUNCTIONS
 
 ########## ----- MASTER MUTATOR ----- ##########
-def master_mutator(parent,offsp_genome,offsp_proteome):
+def master_mutator(parent,offsp_genome):
 	num_mutable_params = parent.num_mutable_values
-	curr_grn = np.array(parent.grn)
-	curr_decays = np.array(parent.decays)
-	curr_thresholds = np.array(parent.thresholds)
-	num_genes = offsp_genome.shape[0]
-	syn_muts_table,nonsyn_muts_table = syn_nonsyn_muts(parent.sequences,offsp_genome,parent.proteome,offsp_proteome)
-	new_ko_muts = new_kos(parent.proteome,offsp_proteome)
-	muts_location_table = np.array(np.where(parent.sequences != offsp_genome))
-	total_num_muts = muts_location_table.shape[1]
-	active_genes = np.bool_(parent.genes_on * (nonsyn_muts_table != 99999999)) # Makes KO mutations effective
+	curr_grn = parent.grn
+	curr_decays = parent.decays
+	curr_thresholds = parent.thresholds
+	num_genes = parent.num_genes
+	all_mutated_sites=np.array(np.where(parent.sequences != offsp_genome))
+	genome_map = ranged_dictionary_maker(num_genes,parent.num_mutable_values)
+	mutated_sectors_list = mutated_sectors_mapper(genome_map,all_mutated_sites)
+	total_num_muts = len(mutated_sectors_list)
 	if total_num_muts == 0:
 		print("No mutations in this generation")
 		out_grn = curr_grn
 		out_decays = curr_decays
 		out_thresholds = curr_thresholds
 	else:
-		genes_to_be_mutated = np.unique(muts_location_table[0])
-		print("Genes",list(genes_to_be_mutated),"will mutate.")
-		for gene_index in range(len(genes_to_be_mutated)):
-			gene_mutated = genes_to_be_mutated[gene_index]
-			sites_mutated = muts_location_table[1,muts_location_table[0] == gene_index]
-			gene_addresses=ranged_dictionary_maker(gene_index,num_genes,num_mutable_params)
-			specific_gene_mutations=mutated_sectors_mapper(gene_addresses,sites_mutated)
-#			print("gene",gene_index," - syn muts:",gene_syn_muts,"- nonsyn muts:",gene_nonsyn_muts)
-			if (gene_syn_muts > 0) | (gene_nonsyn_muts > 0):
-#				print("Sent for mutation")
-				curr_grn,curr_decays,curr_thresholds = gene_mutator(gene_index,gene_syn_muts,gene_nonsyn_muts,curr_grn,curr_decays,curr_thresholds,active_genes)
-			else:
-				None
-#				print("Not sent for mutation")
-		out_grn = curr_grn
-		out_decays = curr_decays
-		out_thresholds = curr_thresholds
-	out_dev = develop(parent.start_vect,out_grn,out_decays,out_thresholds,parent.dev_steps,active_genes)
+		genes_to_be_mutated = np.unique(all_mutated_sites[0])
+		print("Genes",list(genes_to_be_mutated),"were mutated in the genome.")
+		out_grn,out_decays,out_thresholds=GRN_sectorial_mutator(parent,mutated_sectors_list,all_mutated_sites)
+	out_dev = develop(parent.start_vect,out_grn,out_decays,out_thresholds,parent.dev_steps)
 	out_fitness = calcFitness(out_dev)
 	return(out_grn,out_decays,out_thresholds,out_dev,out_fitness)
 
@@ -342,19 +326,16 @@ def GRN_sectorial_mutator(parent,mutated_sectors_list,all_mutated_sites):
 	thresholds=parent.thresholds
 	grn=parent.grn
 	i=0
-	for gene_index in all_mutated_sites[0]:
-		relevant_inputs=np.array(np.where(all_mutated_sites[1][all_mutated_sites[0]]))
-		first_num=np.min(relevant_inputs+1) #+1 because for some reason it's giving me the indexes one number below
-		final_num=np.max(relevant_inputs+2) #+2 because of the same as above, and also I want to declare a range, so I need to have the number +1 above the range I want
-		addresses_toMut=mutated_sectors_list[first_num:final_num]
-		for k in addresses_toMut:
-			if 'decay' in k:
-				decays[gene_index] = mutateLink(decays[gene_index],pf.thresh_decay_mut_bounds)
-			elif 'threshold' in k:
-				thresholds[gene_index] = mutateLink(thresholds[gene_index],pf.thresh_decay_mut_bounds)
-			else:
-				change_address=k
-				grn[change_address]= mutateLink(grn[change_address],pf.link_mutation_bounds)
+	for i in range(len(all_mutated_sites[0])-1):
+		gene_index=all_mutated_sites[0][i]
+		addresses_toMut=mutated_sectors_list[i]
+		if 'decay' in addresses_toMut:
+			decays[gene_index] = mutateLink(decays[gene_index],pf.thresh_decay_mut_bounds)
+		elif 'threshold' in addresses_toMut:
+			thresholds[gene_index] = mutateLink(thresholds[gene_index],pf.thresh_decay_mut_bounds)
+		else:
+			change_address=addresses_toMut
+			grn[addresses_toMut]= mutateLink(grn[addresses_toMut],pf.link_mutation_bounds)
 	new_grn,new_decays,new_thresholds=grn,decays,thresholds
 	return(new_grn,new_decays,new_thresholds)
 			
