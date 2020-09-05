@@ -104,6 +104,7 @@ def founderFinder():
 
 ##### ----- #####
 def makeNewOrganism(parent=None):
+	
 	if parent: 		# add also: if type(parent) is Organism:
 		prob_grn_change = pf.prob_grn_change
 		prob_thresh_change = pf.prob_thresh_change
@@ -139,7 +140,14 @@ def makeNewOrganism(parent=None):
 			sequences = None
 			proteome = None
 		else:
-			seq_length = pf.seq_length
+			param_number=(pf.num_genes*2)+1
+			if pf.seq_length % param_number:
+				print("Sequence length",pf.seq_length,"is not a multiple of parameter number",param_number,", Changing to a better number...")
+				seq_length = pf.seq_length - (pf.seq_length % param_number)
+				print("sequence length changed to",seq_length)
+				pf.seq_length=seq_length
+			else:
+				seq_length = pf.seq_length
 #			base_props = pf.base_props
 			sequences = makeCodingSequenceArray(seq_length,num_genes)
 			proteome = translate_genome(sequences)
@@ -183,20 +191,20 @@ def makeRandomSequenceArray(seq_length,base_props,num_genes):
 	return(seq_arr)
 
 def makeCodingSequence(seq_length):
-	if seq_length % 3:
-		print("Sequence length",seq_length,"is not a multiple of 3.")
-		seq_length = seq_length - (seq_length % 3)
-		print("Rounding to", seq_length)
+#	if seq_length % 3:
+#		print("Sequence length",seq_length,"is not a multiple of 3.")
+#		seq_length = seq_length - (seq_length % 3)
+#		print("Rounding to", seq_length)
 	codon_list = list(coding_codons.keys())
 	num_codons = np.int(seq_length/3)
 	out_seq = np.array(list(''.join(np.random.choice(codon_list,num_codons))))
 	return(out_seq)
 	
 def makeCodingSequenceArray(seq_length,num_genes):
-	if seq_length % 3:
-		print("Sequence length",seq_length,"is not a multiple of 3.")
-		seq_length = seq_length - (seq_length % 3)
-		print("Rounding to", seq_length)
+#	if seq_length % 3:
+#		print("Sequence length",seq_length,"is not a multiple of 3.")
+#		seq_length = seq_length - (seq_length % 3)
+#		print("Rounding to", seq_length)
 	vect_length = seq_length * num_genes
 	seq_vect = makeCodingSequence(vect_length)
 	seq_arr = seq_vect.reshape(num_genes,seq_length)
@@ -294,10 +302,10 @@ def ranged_dictionary_maker(num_genes,num_mutable_vals):
 		print("Sequence length of",seq_length,"and",num_mutable_vals,"mutable parameters imply a block size of",block_size,"nt for each parameter")
 	tot_dict_list=[]
 	for w in range(num_genes):
-		gene_dict_val_list=['decay','threshold']
+		gene_dict_val_list=[('decay',w),('threshold',w)]
 		addendum1=list(zip(range(num_genes),list(np.repeat(w,num_genes))))
 		addendum2=list(zip(list(np.repeat(w,num_genes)),range(num_genes)))
-		print(gene_dict_val_list,"\n",addendum1,"\n",addendum2)
+#		print(gene_dict_val_list,"\n",addendum1,"\n",addendum2)
 		addendum2.remove((w,w))
 		gene_dict_val_list=gene_dict_val_list+addendum1+addendum2
 #		print(dict_val_list)
@@ -311,30 +319,44 @@ def ranged_dictionary_maker(num_genes,num_mutable_vals):
 			rep+=1
 		tot_dict_list.append(out_dict)
 	return(tot_dict_list)
+
+def mutated_sectors_mapper(genome_map,all_mutated_sites):
+	outlistoflists=[]
+	genes_to_be_mutated=np.unique(all_mutated_sites[0])
+	for i in genes_to_be_mutated:
+		gene_index=i
+		sites_tomut=all_mutated_sites[1][all_mutated_sites[0] == gene_index]
+		outlist=[]
+		ranged_dict=genome_map[gene_index]
+#		print(ranged_dict)
+		for val in sites_tomut:
+			for key in ranged_dict:
+				if val in key:
+					outlist.append(ranged_dict[key])
+		outlistoflists.append(outlist)
+	outlistoflists=[item for elem in outlistoflists for item in elem]
+	return(outlistoflists)
 	
-def mutated_sectors_mapper(ranged_dict,sites_mutated):
-	outlist=[]
-	for val in sites_mutated:
-		for key in ranged_dict:
-			if val in key:
-				outlist.append(ranged_dict[key])
-	return(outlist)
-	
-def GRN_sectorial_mutator(parent,gene_index,mutated_sectors_list):
+def GRN_sectorial_mutator(parent,mutated_sectors_list,all_mutated_sites):
 	decays=parent.decays
 	thresholds=parent.thresholds
 	grn=parent.grn
-	for i in mutated_sectors_list:
-		if type(i) == str:
-			if i == 'decay':
-				None
-		elif i == 'threshold':
-			None
-		elif type(i) == tuple:
-			None
-		else:
-			None
-		
+	i=0
+	for gene_index in all_mutated_sites[0]:
+		relevant_inputs=np.array(np.where(all_mutated_sites[1][all_mutated_sites[0]]))
+		first_num=np.min(relevant_inputs+1) #+1 because for some reason it's giving me the indexes one number below
+		final_num=np.max(relevant_inputs+2) #+2 because of the same as above, and also I want to declare a range, so I need to have the number +1 above the range I want
+		addresses_toMut=mutated_sectors_list[first_num:final_num]
+		for k in addresses_toMut:
+			if 'decay' in k:
+				decays[gene_index] = mutateLink(decays[gene_index],pf.thresh_decay_mut_bounds)
+			elif 'threshold' in k:
+				thresholds[gene_index] = mutateLink(thresholds[gene_index],pf.thresh_decay_mut_bounds)
+			else:
+				change_address=k
+				grn[change_address]= mutateLink(grn[change_address],pf.link_mutation_bounds)
+	new_grn,new_decays,new_thresholds=grn,decays,thresholds
+	return(new_grn,new_decays,new_thresholds)
 			
 
 def gene_mutator(gene_index,num_syn_muts,num_nonsyn_muts,in_grn,in_decays,in_thresholds,active_genes):

@@ -15,7 +15,7 @@ thresh_decay_mut_bounds = (-0.01,0.01)
 thresh_mutation_rate = 0 # It can also be 0.001, for example
 prob_thresh_change = 0
 decay_mutation_rate = 0
-seq_mutation_rate = 0.00001	# Mutation likelihood per base, per generation.  Ex:
+seq_mutation_rate = 0.001	# Mutation likelihood per base, per generation.  Ex:
 				# 1 mutation per 10,000 bases per generation: 1/10000 = 0.0001
 				# mutation_ratios = () # For now, JC model hardcoded.
 
@@ -38,4 +38,4 @@ select_strategy = "greedy" # For the moment, just "greedy" and "random"
 # REPRODUCTION PARAMETERS
 reproductive_strategy = "equal" # for the moment, just "equal"
 recomb_pairing = "panmictic" # for the moment, the only option
-recomb_style = "vertical" # Options: "vertical", "horizontal", "minimal", "maximal" - how grn matrices are combined
+recomb_style = "vertical" # Options: "vertical", "horizontal", "minimal", "maximal" - how grn matrices are recombined. still non-functional
