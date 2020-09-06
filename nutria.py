@@ -753,20 +753,19 @@ def runThisStuff(num_generations = 1000,founder=None):
 	living_fitness_mean[0] = np.mean(fitnesses_no_zeroes)
 	living_fitness_sd[0] = np.std(fitnesses_no_zeroes)
 	select_strategy = pf.select_strategy
-	if death_count != pf.pop_size:
-		for i in range(num_generations):
-			print("Generation",i,"is currently having a beautiful life...")
-			survivor_pop = select(curr_pop,pf.prop_survivors,select_strategy)
-			curr_pop = reproduce(survivor_pop,pf.pop_size,"equal")
-			fitnesses = np.array([ indiv.fitness for indiv in curr_pop.individuals ])
-			death_count[i + 1] = sum(fitnesses == 0)
-			if death_count[i + 1]:
-				fitnesses_no_zeroes = np.array([ x for i,x in enumerate(fitnesses) if x > 0 ])
-			else:
-				fitnesses_no_zeroes = fitnesses
-			living_fitness_mean[i +  1] = np.mean(fitnesses_no_zeroes)
-			living_fitness_sd[i + 1] = np.std(fitnesses_no_zeroes)
-			print("Dead:",death_count[i + 1],"Fitness mean:",living_fitness_mean[i + 1],"Fitness_sd:",living_fitness_sd[i + 1])
+	for i in range(num_generations):
+		print("Generation",i,"is currently having a beautiful life...")
+		survivor_pop = select(curr_pop,pf.prop_survivors,select_strategy)
+		curr_pop = reproduce(survivor_pop,pf.pop_size,"equal")
+		fitnesses = np.array([ indiv.fitness for indiv in curr_pop.individuals ])
+		death_count[i + 1] = sum(fitnesses == 0)
+		if death_count[i + 1]:
+			fitnesses_no_zeroes = np.array([ x for i,x in enumerate(fitnesses) if x > 0 ])
+		else:
+			fitnesses_no_zeroes = fitnesses
+		living_fitness_mean[i +  1] = np.mean(fitnesses_no_zeroes)
+		living_fitness_sd[i + 1] = np.std(fitnesses_no_zeroes)
+		print("Dead:",death_count[i + 1],"Fitness mean:",living_fitness_mean[i + 1],"Fitness_sd:",living_fitness_sd[i + 1])
 	summary_table = np.array((death_count,living_fitness_mean,living_fitness_sd))
 	return(summary_table.T,founder_pop,curr_pop)
 
