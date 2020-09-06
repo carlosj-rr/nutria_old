@@ -96,9 +96,9 @@ coding_codons = {
 # -- from scratch, or as a next generation
 
 ##### ----- #####
-def founderFinder():
+def founderFinder(min_fitness_val=0):
 	founder = makeNewOrganism()
-	while founder.fitness == 0:
+	while founder.fitness <= min_fitness_val:
 		founder = makeNewOrganism()
 	return(founder)
 
@@ -120,7 +120,7 @@ def makeNewOrganism(parent=None):
 		sequences = mutateGenome(parent.sequences,seq_mutation_rate)
 #		proteome = translate_genome(sequences)
 		grn,decays,thresholds,development,fitness = master_mutator(parent,sequences)
-		out_org = Organism(name,generation,parent.num_genes,parent.prop_unlinked,parent.prop_no_threshold,parent.thresh_boundaries,parent.decay_boundaries,parent.dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences,proteome)
+		out_org = Organism(name,generation,parent.num_genes,parent.prop_unlinked,parent.prop_no_threshold,parent.thresh_boundaries,parent.decay_boundaries,parent.dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences)
 	else:
 		num_genes = pf.num_genes
 		decay_boundaries = pf.decay_boundaries
@@ -150,21 +150,22 @@ def makeNewOrganism(parent=None):
 #			base_props = pf.base_props
 			sequences = makeRandomSequenceArray(pf.seq_length,pf.base_props,num_genes)
 #			proteome = translate_genome(sequences)
-		out_org = Organism(name,0,num_genes,prop_unlinked,prop_no_threshold,thresh_boundaries,decay_boundaries,dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences,proteome)
+		out_org = Organism(name,0,num_genes,prop_unlinked,prop_no_threshold,thresh_boundaries,decay_boundaries,dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences)
 	return(out_org)
 
 def producePop(pop_size,parent=None):
-	pop = np.ndarray((pop_size,),dtype=np.object)
+	popu = np.ndarray((pop_size,),dtype=np.object)
 	if not parent:
 		for i in range(pop_size):
-			pop[i] = makeNewOrganism()
+			popu[i] = makeNewOrganism()
 	else:
 		if type(parent) is Organism:
 			for i in range(pop_size):
-				pop[i] = makeNewOrganism(parent)
+				print("Making member number",i,"of the new population")
+				popu[i] = makeNewOrganism(parent)
 		else:
 			print("The type of the parent is not correct",type(parent))
-	return(pop)
+	return(popu)
 
 
 # CHAPTER 3. SUPPORT FUNCTIONS FOR MAKING AND ORGANISM FROM SCRATCH
@@ -705,7 +706,7 @@ def select(parental_pop,prop_survivors,select_strategy = "random"):
 	return(survivors_pop,red_flag)
 
 def reproduce(survivors_pop,final_pop_size,reproductive_strategy="equal"):
-	survivors = survivors_pop.individuals
+	survivors = survivors_pop
 	if reproductive_strategy == "equal":
 		offspring_per_parent = round(final_pop_size/survivors.size)
 		final_pop_array = np.ndarray((survivors.size,offspring_per_parent),dtype=np.object)
