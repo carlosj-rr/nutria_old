@@ -17,7 +17,7 @@ class Organism(object):
 	""" To access attributes from the Organism class, do
 	smth along the lines of:
 	>>> founder_pop.individuals[0].grn"""
-	def __init__(self,name,generation,num_genes,prop_unlinked,prop_no_threshold,thresh_boundaries,decay_boundaries,dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences,proteome):
+	def __init__(self,name,generation,num_genes,prop_unlinked,prop_no_threshold,thresh_boundaries,decay_boundaries,dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences):
 		self.name = name
 		self.generation = generation
 		self.num_genes = num_genes
@@ -34,7 +34,7 @@ class Organism(object):
 		self.genes_on = np.int_(self.development.sum(axis=0) != 0)
 		self.fitness = fitness
 		self.sequences = sequences
-		self.proteome = proteome
+#		self.proteome = proteome
 		self.num_mutable_values = (self.num_genes*2)+1
 
 ##### ----- #####
@@ -148,7 +148,7 @@ def makeNewOrganism(parent=None):
 			else:
 				seq_length = pf.seq_length
 #			base_props = pf.base_props
-			sequences = makeCodingSequenceArray(seq_length,num_genes)
+			sequences = makeRandomSequenceArray(pf.seq_length,pf.base_props,num_genes)
 #			proteome = translate_genome(sequences)
 		out_org = Organism(name,0,num_genes,prop_unlinked,prop_no_threshold,thresh_boundaries,decay_boundaries,dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences,proteome)
 	return(out_org)
