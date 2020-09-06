@@ -118,7 +118,7 @@ def makeNewOrganism(parent=None):
 		start_vect = parent.start_vect
 		seq_mutation_rate = pf.seq_mutation_rate
 		sequences = mutateGenome(parent.sequences,seq_mutation_rate)
-		proteome = translate_genome(sequences)
+#		proteome = translate_genome(sequences)
 		grn,decays,thresholds,development,fitness = master_mutator(parent,sequences)
 		out_org = Organism(name,generation,parent.num_genes,parent.prop_unlinked,parent.prop_no_threshold,parent.thresh_boundaries,parent.decay_boundaries,parent.dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences,proteome)
 	else:
@@ -137,7 +137,7 @@ def makeNewOrganism(parent=None):
 		fitness = calcFitness(development)
 		if fitness == 0:
 			sequences = None
-			proteome = None
+#			proteome = None
 		else:
 			param_number=(pf.num_genes*2)+1
 			if pf.seq_length % param_number:
@@ -149,7 +149,7 @@ def makeNewOrganism(parent=None):
 				seq_length = pf.seq_length
 #			base_props = pf.base_props
 			sequences = makeCodingSequenceArray(seq_length,num_genes)
-			proteome = translate_genome(sequences)
+#			proteome = translate_genome(sequences)
 		out_org = Organism(name,0,num_genes,prop_unlinked,prop_no_threshold,thresh_boundaries,decay_boundaries,dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences,proteome)
 	return(out_org)
 
