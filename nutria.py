@@ -261,12 +261,12 @@ def master_mutator(parent,offsp_genome):
 	mutated_sectors_list = mutated_sectors_mapper(genome_map,all_mutated_sites)
 	total_num_muts = len(mutated_sectors_list)
 	if total_num_muts == 0:
-		print("No mutations in this generation")
+#		print("No mutations in this generation")
 		out_grn = curr_grn
 		out_decays = curr_decays
 		out_thresholds = curr_thresholds
 	else:
-		print(total_num_muts,"mutation(s) in the genome this generation, in locations",mutated_sectors_list)
+#		print(total_num_muts,"mutation(s) in the genome this generation, in locations",mutated_sectors_list)
 		genes_to_be_mutated = np.unique(all_mutated_sites[0])
 		out_grn,out_decays,out_thresholds=GRN_sectorial_mutator(parent,mutated_sectors_list,all_mutated_sites)
 	out_dev = develop(parent.start_vect,out_grn,out_decays,out_thresholds,parent.dev_steps)
@@ -326,25 +326,24 @@ def mutated_sectors_mapper(genome_map,all_mutated_sites):
 
 
 def GRN_sectorial_mutator(parent,mutated_sectors_list,all_mutated_sites):
-	decays=parent.decays
-	thresholds=parent.thresholds
-	grn=parent.grn
+	out_decays=parent.decays
+	out_thresholds=parent.thresholds
+	out_grn=parent.grn
 	i=0
 	for i in range(len(all_mutated_sites[0])-1):
 		gene_index=all_mutated_sites[0][i]
 		addresses_toMut=mutated_sectors_list[i]
 		if 'decay' in addresses_toMut:
-			print("Mutating the decay of gene",gene_index)
-			decays[gene_index] = mutateLink(decays[gene_index],pf.thresh_decay_mut_bounds)
+#			print("Mutating the decay of gene",gene_index)
+			out_decays[gene_index] = mutateLink(out_decays[gene_index],pf.thresh_decay_mut_bounds)
 		elif 'threshold' in addresses_toMut:
-			print("Mutating the threshold of gene",gene_index)
-			thresholds[gene_index] = mutateLink(thresholds[gene_index],pf.thresh_decay_mut_bounds)
+#			print("Mutating the threshold of gene",gene_index)
+			out_thresholds[gene_index] = mutateLink(out_thresholds[gene_index],pf.thresh_decay_mut_bounds)
 		else:
 			change_address=addresses_toMut
-			print("Mutating the link of gene",gene_index,"in location",change_address)
-			grn[change_address]= mutateLink(grn[change_address],pf.link_mutation_bounds)
-	new_grn,new_decays,new_thresholds=grn,decays,thresholds
-	return(new_grn,new_decays,new_thresholds)
+#			print("Mutating the link of gene",gene_index,"in location",change_address)
+			out_grn[change_address]= mutateLink(out_grn[change_address],pf.link_mutation_bounds)
+	return(out_grn,out_decays,out_thresholds)
 	
 
 def mutateGRN(grn,mutation_rate,mutation_bounds,change_rate,change_bounds): # Func also used for thresholds + decays
