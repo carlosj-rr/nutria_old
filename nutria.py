@@ -341,120 +341,6 @@ def GRN_sectorial_mutator(parent,mutated_sectors_list,all_mutated_sites):
 			grn[addresses_toMut]= mutateLink(grn[addresses_toMut],pf.link_mutation_bounds)
 	new_grn,new_decays,new_thresholds=grn,decays,thresholds
 	return(new_grn,new_decays,new_thresholds)
-
-
-#def gene_mutator(gene_index,num_syn_muts,num_nonsyn_muts,in_grn,in_decays,in_thresholds,active_genes):
-#	num_genes = active_genes.size
-#	if num_nonsyn_muts > 0:
-#		print("gene",gene_index,"has nonsyn muts. checking if changes will be made")
-#		changes = np.random.choice((0,1),num_nonsyn_muts,p=(1-pf.prob_grn_change,pf.prob_grn_change))
-#		if changes.sum() > 0:
-#			print(changes.sum(),"changes will be made")
-#			num_nonsyn_muts = num_nonsyn_muts - changes.sum()
-#			changer = True
-#		else:
-#			print("Changes won't be made")
-#			changer = False
-#	else:
-#		changer = False
-#	if active_genes[gene_index]:
-##		print("gene",gene_index,"is active")
-#		if num_nonsyn_muts > 0:
-#			print("organizing data for nonsyn mutations")
-#			total_genes_active = active_genes.sum()
-#			index_act_genes = np.hstack(np.where(active_genes))
-#			nonsyn_grn_sites_rows = np.hstack([np.repeat(gene_index,total_genes_active),index_act_genes[index_act_genes != gene_index]])
-#			nonsyn_grn_sites_cols = np.hstack([np.array(index_act_genes),np.repeat(gene_index,(nonsyn_grn_sites_rows.size-index_act_genes.size))])
-#			num_nonsyn_muts_options = nonsyn_grn_sites_rows.size + 2 # All nonsyn sites + decays + thresholds
-#			if num_nonsyn_muts_options < num_nonsyn_muts:
-#				to_mutate = np.random.choice(range(num_nonsyn_muts_options),num_nonsyn_muts,replace=True)
-#			else:
-#				to_mutate = np.random.choice(range(num_nonsyn_muts_options),num_nonsyn_muts,replace=False)
-#			print("gene",gene_index,"nonsyn muts:",to_mutate)
-#			for i in to_mutate:
-#				if i < nonsyn_grn_sites_rows.size:
-#					print("	",i,"nonsyn mut is in grn")
-#					row = nonsyn_grn_sites_rows[i]
-#					col = nonsyn_grn_sites_cols[i]
-#					print("	nonsyn mut site: row -",row,", col -",col)
-#					in_grn[row][col] = mutateLink(in_grn[row][col],pf.link_mutation_bounds)
-#				elif i == nonsyn_grn_sites_rows.size:
-#					print("	",i,"nonsyn mut is in decays")
-#					in_decays[gene_index] = de_negativize(mutateLink(in_decays[gene_index],pf.thresh_decay_mut_bounds))
-#				elif i == nonsyn_grn_sites_rows.size + 1:
-#					print("	",i,"nonsyn mut is in thresholds")
-#					in_thresholds[gene_index] = de_negativize(mutateLink(in_thresholds[gene_index],pf.thresh_decay_mut_bounds))
-#		if num_syn_muts > 0:
-#			print("organizing data for syn mutations")
-#			inactive_genes = np.invert(active_genes)
-#			total_genes_inactive = inactive_genes.sum()
-#			index_inact_genes = np.hstack(np.where(inactive_genes))
-#			syn_grn_sites_rows = np.hstack([np.repeat(gene_index,total_genes_inactive),index_inact_genes[index_inact_genes != gene_index]])
-#			syn_grn_sites_cols = np.hstack([np.array(index_inact_genes),np.repeat(gene_index,(syn_grn_sites_rows.size-index_inact_genes.size))])
-#			num_syn_muts_options = syn_grn_sites_rows.size + 2 # All syn sites + decays + thresholds
-#			if num_syn_muts_options == 0:
-#				to_mutate = None
-#			elif (num_syn_muts_options < num_syn_muts) & (num_syn_muts_options != 0):
-#				to_mutate = np.random.choice(range(num_syn_muts_options),num_syn_muts,replace=True)
-#			elif num_syn_muts_options >= num_syn_muts:
-#				to_mutate = np.random.choice(range(num_syn_muts_options),num_syn_muts,replace=False)
-#			print("gene",gene_index,"syn muts:",to_mutate)
-#			if to_mutate is not None:
-#				for i in to_mutate:
-#					if i < syn_grn_sites_rows.size:
-#						print("	",i,"syn mut is in grn")
-#						row = syn_grn_sites_rows[i]
-#						col = syn_grn_sites_cols[i]
-#						print("	syn mut site: row -",row,", col -",col)
-#						in_grn[row][col] = mutateLink(in_grn[row][col],pf.link_mutation_bounds)
-#					elif i == syn_grn_sites_rows.size:
-#						print("	",i,"syn mut is in decays")
-#						in_decays[gene_index] = de_negativize(mutateLink(in_decays[gene_index],pf.thresh_decay_mut_bounds))
-#					elif i == syn_grn_sites_rows.size + 1:
-#						print("	",i,"syn mut is in thresholds")
-#						in_thresholds[gene_index] = de_negativize(mutateLink(in_thresholds[gene_index],pf.thresh_decay_mut_bounds))
-#	else:
-#		print("gene",gene_index,"is NOT active, organizing all mutations as synonymous")
-#		num_syn_muts = num_syn_muts + num_nonsyn_muts
-#		num_nonsyn_muts = 0
-#		syn_grn_sites_rows = np.hstack([np.repeat(gene_index,num_genes),np.delete(np.array(range(num_genes)),gene_index,0)])
-#		syn_grn_sites_cols = np.hstack([np.array(range(num_genes)),np.repeat(gene_index,(num_genes-1))])
-#		num_syn_muts_options = syn_grn_sites_rows.size + 2 # All syn sites + decays + thresholds
-#		if num_syn_muts_options < num_syn_muts:
-#			to_mutate = np.random.choice(range(num_syn_muts_options),num_syn_muts,replace=True)
-#		else:
-#			to_mutate = np.random.choice(range(num_syn_muts_options),num_syn_muts,replace=False)
-#		print("gene",gene_index,"inact syn muts:",to_mutate)
-#		for i in to_mutate:
-#			if i < syn_grn_sites_rows.size:
-#				print("	",i,"inact syn mut is in grn")
-#				row = syn_grn_sites_rows[i]
-#				col = syn_grn_sites_cols[i]
-#				print("	inact syn mut site: row -",row,", col -",col)
-#				in_grn[row][col] = mutateLink(in_grn[row][col],pf.link_mutation_bounds)
-#			elif i == syn_grn_sites_rows.size:
-#				print("	",i,"inact syn mut is in decays")
-#				in_decays[gene_index] = de_negativize(mutateLink(in_decays[gene_index],pf.thresh_decay_mut_bounds))
-#			elif i == syn_grn_sites_rows.size + 1:
-#				print("	",i,"inact syn mut is in thresholds")
-#				in_thresholds[gene_index] = de_negativize(mutateLink(in_thresholds[gene_index],pf.thresh_decay_mut_bounds))
-#	if changer:
-#		print("doing changes")
-#		change_grn_sites_rows = np.hstack([np.repeat(gene_index,num_genes),np.delete(np.array(range(num_genes)),gene_index,0)])
-#		change_grn_sites_cols = np.hstack([np.array(range(num_genes)),np.repeat(gene_index,(num_genes-1))])
-#		num_change_options = change_grn_sites_rows.size
-#		change_index = np.random.choice(range(num_change_options),changes.sum(),replace=False)
-#		print("Sites to change",change_index)
-#		for i in change_index:
-#			row = change_grn_sites_rows[i]
-#			col = change_grn_sites_cols[i]
-#			print("change will happen on row:",row,"col:",col)
-#			min_val,max_val = pf.new_link_bounds
-#			in_grn[row][col] = changeGRNLink(in_grn[row][col],min_val,max_val)
-#	mod_grn = in_grn
-#	mod_decays = in_decays
-#	mod_thresholds = in_thresholds	
-#	return(mod_grn,mod_decays,mod_thresholds)
 	
 
 def mutateGRN(grn,mutation_rate,mutation_bounds,change_rate,change_bounds): # Func also used for thresholds + decays
@@ -554,45 +440,6 @@ def mutateGenome(genome,seq_mutation_rate):
 		final_seq = genome
 #		different_sites = None
 	return(final_seq)
-if 0:
-	def syn_nonsyn_muts(p_genome,o_genome,p_proteome,o_proteome):
-		all_muts = np.where(p_genome != o_genome)
-		nonsyns = np.where(p_proteome != o_proteome)
-		num_genes = p_proteome.shape[0]
-		syn_array = np.ndarray(num_genes,dtype=np.object)
-		nonsyn_array = np.ndarray(num_genes,dtype=np.object)
-		if all_muts[0].size != 0:
-			total_mutated_genes = all_muts[0]
-			nonsyn_mutated_genes = nonsyns[0]
-			for i in range(num_genes):
-				if np.any(o_proteome[i] == "_"):
-					nonsyn_array[i] = 99999999
-					# (BELOW) If gene has a KO mutation, all mutations are synonymous,
-					# except if the KO is new. In this case the KO is subtracted from
-					# the amount of synonymous muts.
-					if np.any(p_proteome[i] == "_"):
-						syn_array[i] = np.count_nonzero(total_mutated_genes == i)
-					else:
-						syn_array[i] = np.count_nonzero(total_mutated_genes == i) - 1
-				else:
-					nonsyn_array[i] = np.count_nonzero(nonsyn_mutated_genes == i)
-					syn_array[i] = np.count_nonzero(total_mutated_genes == i) - nonsyn_array[i]
-		else:
-			syn_array[:] = 0
-			nonsyn_array[:] = 0
-		return(syn_array,nonsyn_array)	
-
-	def new_kos(p_proteome,o_proteome):
-		if np.any(o_proteome == "_"):
-			outnum = 0
-			for i in range(p_proteome.shape[0]):
-				p_gene_ko = np.any(p_proteome[i] == "_")
-				o_gene_ko = np.any(o_proteome[i] == "_")
-				if (p_gene_ko == False) & (o_gene_ko == True):
-					outnum += 1
-		else:
-			outnum = 0
-		return(outnum)
 
 
 ##### ----- #####
@@ -709,15 +556,12 @@ def select(parental_pop,prop_survivors,select_strategy = "random"):
 
 def reproduce(survivors_pop,final_pop_size,reproductive_strategy="none"):
 	survivors = survivors_pop.individuals
-	if reproductive_strategy == "none":
-		offspring_per_parent = round(final_pop_size/survivors_pop.individuals.size)
-		final_pop_array = np.ndarray((survivors_pop.individuals.size,offspring_per_parent),dtype=np.object)
-		for i in range(survivors_pop.individuals.size):
-			for j in range(offspring_per_parent):
-				final_pop_array[i][j] = makeNewOrganism(survivors[i])
-		final_pop_array = final_pop_array.flatten()
-	else:
-		None
+	offspring_per_parent = round(final_pop_size/survivors.size)
+	final_pop_array = np.ndarray((survivors.size,offspring_per_parent),dtype=np.object)
+	for i in range(survivors.size):
+		for j in range(offspring_per_parent):
+			final_pop_array[i][j] = makeNewOrganism(survivors[i])
+	final_pop_array = final_pop_array.flatten()
 	new_pop_indivs = final_pop_array.flatten()
 	new_gen_pop = Population(new_pop_indivs.size)
 	new_gen_pop.individuals = new_pop_indivs
