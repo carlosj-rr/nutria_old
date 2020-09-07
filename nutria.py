@@ -119,7 +119,8 @@ def makeNewOrganism(parent=None):
 		seq_mutation_rate = pf.seq_mutation_rate
 		sequences = mutateGenome(parent.sequences,seq_mutation_rate)
 #		proteome = translate_genome(sequences)
-		grn,decays,thresholds,development,fitness = master_mutator(parent,sequences)
+		grn,decays,thresholds,development,fitness = master_mutator(np.array(parent.sequences),np.array(parent.start_vect),np.int(parent.dev_steps),np.int(parent.num_mutable_values),np.array(parent.grn),np.array(parent.decays),np.array(parent.thresholds),sequences)
+#		print("differences between founder and offspring grns:",sum(sum(grn != parent.grn)))
 		out_org = Organism(name,generation,parent.num_genes,parent.prop_unlinked,parent.prop_no_threshold,parent.thresh_boundaries,parent.decay_boundaries,parent.dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences)
 	else:
 		num_genes = pf.num_genes
@@ -162,7 +163,7 @@ def producePop(pop_size,parent=None):
 	else:
 		if type(parent) is Organism:
 			for i in range(pop_size):
-				print("Making member number",i,"of the new population")
+#				print("Making member number",i,"of the new population")
 				popu[i] = makeNewOrganism(parent)
 		else:
 			print("The type of the parent is not correct",type(parent))
@@ -250,14 +251,14 @@ def randomMaskedVector(num_vals,prop_zero=0,min_val=0,max_val=1):
 # CHAPTER 4. MUTATION FUNCTIONS
 
 ########## ----- MASTER MUTATOR ----- ##########
-def master_mutator(parent,offsp_genome):
-	num_mutable_params = parent.num_mutable_values
-	curr_grn = parent.grn
-	curr_decays = parent.decays
-	curr_thresholds = parent.thresholds
-	num_genes = parent.num_genes
-	all_mutated_sites=np.array(np.where(parent.sequences != offsp_genome))
-	genome_map = ranged_dictionary_maker(num_genes,parent.num_mutable_values)
+def master_mutator(parental_sequences,start_vector,dev_steps,num_mutable_values,curr_grn,curr_decays,curr_thresholds,offsp_genome):
+	num_mutable_params = num_mutable_values
+#	curr_grn = parent.grn
+#	curr_decays = parent.decays
+#	curr_thresholds = parent.thresholds
+	num_genes = pf.num_genes
+	all_mutated_sites=np.array(np.where(parental_sequences != offsp_genome))
+	genome_map = ranged_dictionary_maker(num_genes,num_mutable_values)
 	mutated_sectors_list = mutated_sectors_mapper(genome_map,all_mutated_sites)
 	total_num_muts = len(mutated_sectors_list)
 	if total_num_muts == 0:
@@ -268,8 +269,8 @@ def master_mutator(parent,offsp_genome):
 	else:
 #		print(total_num_muts,"mutation(s) in the genome this generation, in locations",mutated_sectors_list)
 		genes_to_be_mutated = np.unique(all_mutated_sites[0])
-		out_grn,out_decays,out_thresholds=GRN_sectorial_mutator(parent,mutated_sectors_list,all_mutated_sites)
-	out_dev = develop(parent.start_vect,out_grn,out_decays,out_thresholds,parent.dev_steps)
+		out_grn,out_decays,out_thresholds=GRN_sectorial_mutator(curr_grn,curr_decays,curr_thresholds,mutated_sectors_list,all_mutated_sites)
+	out_dev = develop(start_vector,out_grn,out_decays,out_thresholds,dev_steps)
 	out_fitness = calcFitness(out_dev)
 	return(out_grn,out_decays,out_thresholds,out_dev,out_fitness)
 
@@ -325,10 +326,10 @@ def mutated_sectors_mapper(genome_map,all_mutated_sites):
 	return(outlistoflists)
 
 
-def GRN_sectorial_mutator(parent,mutated_sectors_list,all_mutated_sites):
-	out_decays=parent.decays
-	out_thresholds=parent.thresholds
-	out_grn=parent.grn
+def GRN_sectorial_mutator(out_grn,out_decays,out_thresholds,mutated_sectors_list,all_mutated_sites):
+#	out_decays
+#	out_thresholds=parent.thresholds
+#	out_grn=parent.grn
 	i=0
 	for i in range(len(all_mutated_sites[0])-1):
 		gene_index=all_mutated_sites[0][i]
