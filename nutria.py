@@ -266,6 +266,7 @@ def master_mutator(parent,offsp_genome):
 		out_decays = curr_decays
 		out_thresholds = curr_thresholds
 	else:
+		print(total_num_muts,"mutation(s) in the genome this generation, in locations",mutated_sectors_list)
 		genes_to_be_mutated = np.unique(all_mutated_sites[0])
 		out_grn,out_decays,out_thresholds=GRN_sectorial_mutator(parent,mutated_sectors_list,all_mutated_sites)
 	out_dev = develop(parent.start_vect,out_grn,out_decays,out_thresholds,parent.dev_steps)
@@ -333,12 +334,15 @@ def GRN_sectorial_mutator(parent,mutated_sectors_list,all_mutated_sites):
 		gene_index=all_mutated_sites[0][i]
 		addresses_toMut=mutated_sectors_list[i]
 		if 'decay' in addresses_toMut:
+			print("Mutating the decay of gene",gene_index)
 			decays[gene_index] = mutateLink(decays[gene_index],pf.thresh_decay_mut_bounds)
 		elif 'threshold' in addresses_toMut:
+			print("Mutating the threshold of gene",gene_index)
 			thresholds[gene_index] = mutateLink(thresholds[gene_index],pf.thresh_decay_mut_bounds)
 		else:
 			change_address=addresses_toMut
-			grn[addresses_toMut]= mutateLink(grn[addresses_toMut],pf.link_mutation_bounds)
+			print("Mutating the link of gene",gene_index,"in location",change_address)
+			grn[change_address]= mutateLink(grn[change_address],pf.link_mutation_bounds)
 	new_grn,new_decays,new_thresholds=grn,decays,thresholds
 	return(new_grn,new_decays,new_thresholds)
 	
@@ -524,7 +528,7 @@ def exponentialSimilarity(development):
 # CHAPTER 7: SELECTION FUNCTION
 
 ##### ----- #####
-def select(parental_pop,prop_survivors,select_strategy = "random"):
+def select(parental_pop,prop_survivors,select_strategy = "greedy"):
 	num_parents = parental_pop.individuals.flatten().size
 	num_survivors = np.int(num_parents * prop_survivors)
 #	num_survivors = sum(np.random.choice((0,1),num_parents #+1?#,p=(1-prop_survivors,prop_survivors))) #IDEAL
