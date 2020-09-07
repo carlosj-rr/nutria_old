@@ -34,7 +34,6 @@ class Organism(object):
 		self.genes_on = np.int_(self.development.sum(axis=0) != 0)
 		self.fitness = fitness
 		self.sequences = sequences
-#		self.proteome = proteome
 		self.num_mutable_values = (self.num_genes*2)+1
 
 ##### ----- #####
@@ -95,19 +94,16 @@ coding_codons = {
 # CHAPTER 2. MAIN FUNCTIONS TO CREATE AN ORGANISM, AND A POPULATION
 # -- from scratch, or as a next generation
 
-##### ----- #####
+##### ----- ##### Produces random founders until one has a fitness value of more than min_fitness_val
 def founderFinder(min_fitness_val=0):
 	founder = makeNewOrganism()
 	while founder.fitness <= min_fitness_val:
 		founder = makeNewOrganism()
 	return(founder)
 
-##### ----- #####
+##### ----- ##### the core function to create an organism, can be from scratch, or as a mutated version of a previously existing organism.
 def makeNewOrganism(parent=None):
 	if parent: 		# add also: if type(parent) is Organism:
-#		prob_grn_change = pf.prob_grn_change
-#		prob_thresh_change = pf.prob_thresh_change
-#		grn_mutation_rate = pf.grn_mutation_rate
 		thresh_mutation_rate = pf.thresh_mutation_rate
 		decay_mutation_rate = pf.decay_mutation_rate
 		thresh_decay_mut_bounds = pf.thresh_decay_mut_bounds
@@ -118,9 +114,7 @@ def makeNewOrganism(parent=None):
 		start_vect = parent.start_vect
 		seq_mutation_rate = pf.seq_mutation_rate
 		sequences = mutateGenome(parent.sequences,seq_mutation_rate)
-#		proteome = translate_genome(sequences)
 		grn,decays,thresholds,development,fitness = master_mutator(np.array(parent.sequences),np.array(parent.start_vect),np.int(parent.dev_steps),np.int(parent.num_mutable_values),np.array(parent.grn),np.array(parent.decays),np.array(parent.thresholds),sequences)
-#		print("differences between founder and offspring grns:",sum(sum(grn != parent.grn)))
 		out_org = Organism(name,generation,parent.num_genes,parent.prop_unlinked,parent.prop_no_threshold,parent.thresh_boundaries,parent.decay_boundaries,parent.dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences)
 	else:
 		num_genes = pf.num_genes
@@ -138,7 +132,6 @@ def makeNewOrganism(parent=None):
 		fitness = calcFitness(development)
 		if fitness == 0:
 			sequences = None
-#			proteome = None
 		else:
 			param_number=(pf.num_genes*2)+1
 			if pf.seq_length % param_number:
@@ -148,9 +141,7 @@ def makeNewOrganism(parent=None):
 				pf.seq_length=seq_length
 			else:
 				seq_length = pf.seq_length
-#			base_props = pf.base_props
 			sequences = makeRandomSequenceArray(pf.seq_length,pf.base_props,num_genes)
-#			proteome = translate_genome(sequences)
 		out_org = Organism(name,0,num_genes,prop_unlinked,prop_no_threshold,thresh_boundaries,decay_boundaries,dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences)
 	return(out_org)
 
@@ -179,38 +170,19 @@ def makeGRN(numGenes,prop_unlinked):
 	return(grn)
 
 ########## ----- SEQUENCE RELATED ----- ##########
-# Non-coding sequences are no longer in use
 def makeRandomSequence(seq_length,base_props=(0.25,0.25,0.25,0.25)):
 	bases = ("T","C","A","G")
 	sequence = np.random.choice(bases,seq_length,p=base_props)
 	return(sequence)
 
-##### ----- ##### Non-coding sequences are no longer in use
+##### ----- #####
 def makeRandomSequenceArray(seq_length,base_props,num_genes):
 	vect_length = seq_length * num_genes
 	seq_vect = makeRandomSequence(vect_length,base_props)
 	seq_arr = seq_vect.reshape(num_genes,seq_length)
 	return(seq_arr)
 
-def makeCodingSequence(seq_length):
-#	if seq_length % 3:
-#		print("Sequence length",seq_length,"is not a multiple of 3.")
-#		seq_length = seq_length - (seq_length % 3)
-#		print("Rounding to", seq_length)
-	codon_list = list(coding_codons.keys())
-	num_codons = np.int(seq_length/3)
-	out_seq = np.array(list(''.join(np.random.choice(codon_list,num_codons))))
-	return(out_seq)
-	
-def makeCodingSequenceArray(seq_length,num_genes):
-#	if seq_length % 3:
-#		print("Sequence length",seq_length,"is not a multiple of 3.")
-#		seq_length = seq_length - (seq_length % 3)
-#		print("Rounding to", seq_length)
-	vect_length = seq_length * num_genes
-	seq_vect = makeCodingSequence(vect_length)
-	seq_arr = seq_vect.reshape(num_genes,seq_length)
-	return(seq_arr)
+##### ----- #####
 
 ########## ----- OTHER----- ##########
 def makeStartVect(numGenes):
@@ -250,24 +222,19 @@ def randomMaskedVector(num_vals,prop_zero=0,min_val=0,max_val=1):
 
 # CHAPTER 4. MUTATION FUNCTIONS
 
-########## ----- MASTER MUTATOR ----- ##########
+########## ----- MASTER MUTATOR ----- ########## (needs info from the parental organism, and its mutated genome)
 def master_mutator(parental_sequences,start_vector,dev_steps,num_mutable_values,curr_grn,curr_decays,curr_thresholds,offsp_genome):
 	num_mutable_params = num_mutable_values
-#	curr_grn = parent.grn
-#	curr_decays = parent.decays
-#	curr_thresholds = parent.thresholds
 	num_genes = pf.num_genes
 	all_mutated_sites=np.array(np.where(parental_sequences != offsp_genome))
 	genome_map = ranged_dictionary_maker(num_genes,num_mutable_values)
 	mutated_sectors_list = mutated_sectors_mapper(genome_map,all_mutated_sites)
 	total_num_muts = len(mutated_sectors_list)
 	if total_num_muts == 0:
-#		print("No mutations in this generation")
 		out_grn = curr_grn
 		out_decays = curr_decays
 		out_thresholds = curr_thresholds
 	else:
-#		print(total_num_muts,"mutation(s) in the genome this generation, in locations",mutated_sectors_list)
 		genes_to_be_mutated = np.unique(all_mutated_sites[0])
 		out_grn,out_decays,out_thresholds=GRN_sectorial_mutator(curr_grn,curr_decays,curr_thresholds,mutated_sectors_list,all_mutated_sites)
 	out_dev = develop(start_vector,out_grn,out_decays,out_thresholds,dev_steps)
@@ -286,16 +253,13 @@ def ranged_dictionary_maker(num_genes,num_mutable_vals):
 		print("This implies a block size of",block_size,"nt for each parameter")
 	else:
 		block_size = np.int(seq_length/num_mutable_vals)
-#		print("Sequence length of",seq_length,"and",num_mutable_vals,"mutable parameters imply a block size of",block_size,"nt for each parameter")
 	tot_dict_list=[]
 	for w in range(num_genes):
 		gene_dict_val_list=[('decay',w),('threshold',w)]
 		addendum1=list(zip(range(num_genes),list(np.repeat(w,num_genes))))
 		addendum2=list(zip(list(np.repeat(w,num_genes)),range(num_genes)))
-#		print(gene_dict_val_list,"\n",addendum1,"\n",addendum2)
 		addendum2.remove((w,w))
 		gene_dict_val_list=gene_dict_val_list+addendum1+addendum2
-#		print(dict_val_list)
 		block_size = np.int(seq_length/num_mutable_vals)
 		a,b,rep = 0,block_size,0
 		out_dict = {}
@@ -316,7 +280,6 @@ def mutated_sectors_mapper(genome_map,all_mutated_sites):
 		sites_tomut=all_mutated_sites[1][all_mutated_sites[0] == gene_index]
 		outlist=[]
 		ranged_dict=genome_map[gene_index]
-#		print(ranged_dict)
 		for val in sites_tomut:
 			for key in ranged_dict:
 				if val in key:
@@ -327,75 +290,19 @@ def mutated_sectors_mapper(genome_map,all_mutated_sites):
 
 
 def GRN_sectorial_mutator(out_grn,out_decays,out_thresholds,mutated_sectors_list,all_mutated_sites):
-#	out_decays
-#	out_thresholds=parent.thresholds
-#	out_grn=parent.grn
 	i=0
 	for i in range(len(all_mutated_sites[0])-1):
 		gene_index=all_mutated_sites[0][i]
 		addresses_toMut=mutated_sectors_list[i]
 		if 'decay' in addresses_toMut:
-#			print("Mutating the decay of gene",gene_index)
 			out_decays[gene_index] = mutateLink(out_decays[gene_index],pf.thresh_decay_mut_bounds)
 		elif 'threshold' in addresses_toMut:
-#			print("Mutating the threshold of gene",gene_index)
 			out_thresholds[gene_index] = mutateLink(out_thresholds[gene_index],pf.thresh_decay_mut_bounds)
 		else:
 			change_address=addresses_toMut
-#			print("Mutating the link of gene",gene_index,"in location",change_address)
 			out_grn[change_address]= mutateLink(out_grn[change_address],pf.link_mutation_bounds)
 	return(out_grn,out_decays,out_thresholds)
-	
 
-def mutateGRN(grn,mutation_rate,mutation_bounds,change_rate,change_bounds): # Func also used for thresholds + decays
-	original_shape = grn.shape
-	flat_grn = grn.flatten()
-	active_links = np.array([i for i,x in enumerate(flat_grn) if x != 0])
-	to_mutate = np.random.choice((0,1),active_links.size,p=(1-mutation_rate,mutation_rate))
-	if sum(to_mutate):
-		mutants_indexes = np.array([i for i,x in enumerate(to_mutate) if x == 1])
-		mutants_grn_indexes = active_links[mutants_indexes]
-		flat_grn[mutants_grn_indexes] = mutateLink(flat_grn[mutants_grn_indexes],mutation_bounds)
-	else:
-		None
-	if change_rate != 0:
-		changer_vector = np.random.choice((0,1),flat_grn.size,p=(1-change_rate,change_rate))
-		num_changes = sum(changer_vector)
-		if num_changes == 0:
-			None
-		else:
-			inactives = np.where(flat_grn == 0)[0]
-#			prop_inactive = inactives.size/flat_grn.size
-			actives = np.where(flat_grn != 0)[0]
-#			prop_active = actives.size/flat_grn.size
-			np.random.shuffle(actives)
-			np.random.shuffle(inactives)
-#			selector = np.random.choice((0,1),num_changes,p=(1-pf.prop_unlinked,pf.prop_unlinked))
-#			selector = np.random.choice((0,1),num_changes,p=(prop_active,prop_inactive))
-			selector = np.random.choice((0,1),num_changes)
-			from_inactives = selector.size - selector.sum()
-			from_actives = selector.sum()
-			change_indexes = np.hstack([inactives[0:from_inactives],actives[0:from_actives]])
-			changed_vals = np.ndarray((change_indexes.size),dtype=np.object)
-			for i in range(change_indexes.size):
-				changed_vals[i] = changeGRNLink(flat_grn[change_indexes[i]],min(change_bounds),max(change_bounds))
-			flat_grn[change_indexes] = changed_vals
-	else:
-		None
-	grn = flat_grn.reshape(original_shape)
-	return(grn)
-
-##### ----- #####
-def changeGRNLink(link_value,min_val,max_val):
-		if link_value:
-			new_value = 0
-		else:
-			range_size = max_val - min_val
-			new_value = range_size * np.random.random() + min_val
-		return(new_value)
-
-##### ----- #####
-changeGRNLink_vect = np.vectorize(changeGRNLink)
 
 ##### ----- #####
 def mutateLink(link_value,link_mutation_bounds): # If a numpy array is passed, it's vectorized
@@ -405,24 +312,6 @@ def mutateLink(link_value,link_mutation_bounds): # If a numpy array is passed, i
 	return(result)
 
 ########## ----- SEQUENCE RELATED ----- ##########
-def translate_seq(sequence):
-	start = 0
-	stop = 3
-	codons = np.int(sequence.size / 3)
-	translated_seq = np.ndarray(codons,dtype='<U1')
-	for i in range(codons):
-		curr_cod = ''.join(sequence[start:stop])
-		translated_seq[i] = gencode[curr_cod]
-		start = start + 3
-		stop = stop + 3
-	return(translated_seq)
-
-def translate_genome(in_genome):
-	num_genes,num_bases = in_genome.shape[0],in_genome.shape[1]
-	out_genome = np.ndarray((num_genes,(np.int(num_bases/3))),dtype='<U1')
-	for i in range(num_genes):
-		out_genome[i] = translate_seq(in_genome[i])
-	return(out_genome)
 
 def mutateGenome(genome,seq_mutation_rate):
 	genome_length = genome.size
@@ -515,7 +404,7 @@ def expressionStability(development):			# I haven't thought deeply about this.
 	return(stab_val)
 
 ##### ----- #####
-# How similar are the gene expression profiles to an exponential curve?
+# How similar are the gene expression profiles to an exponential curve? (inverse points - better to be less exponential than more)
 def exponentialSimilarity(development):
 	dev_steps,num_genes = development.shape
 	row_means = development.mean(axis=1)
@@ -531,7 +420,6 @@ def exponentialSimilarity(development):
 def select(parental_pop,prop_survivors,select_strategy = "greedy"):
 	num_parents = parental_pop.individuals.flatten().size
 	num_survivors = np.int(num_parents * prop_survivors)
-#	num_survivors = sum(np.random.choice((0,1),num_parents #+1?#,p=(1-prop_survivors,prop_survivors))) #IDEAL
 	fitness_vals = np.array([ x.fitness for x in parental_pop.individuals ])
 	select_table = np.array((np.array(range(fitness_vals.size)),fitness_vals)).T
 	living_select_table = select_table[select_table[:,1] > 0]
@@ -572,11 +460,11 @@ def reproduce(survivors_pop,final_pop_size,reproductive_strategy="none"):
 	return(new_gen_pop)
 
 # For the moment, not used. When vectorized, it can be used in an array of individuals
-def replicatorMutator(parent,num_offspring):
-	out_array = np.ndarray((num_offspring,),dtype=np.object)
-	for i in range(num_offspring):
-		out_array[i] = makeNewOrganism(parent)
-	return(out_array)
+#def replicatorMutator(parent,num_offspring):
+#	out_array = np.ndarray((num_offspring,),dtype=np.object)
+#	for i in range(num_offspring):
+#		out_array[i] = makeNewOrganism(parent)
+#	return(out_array)
 		
 def runThisStuff(num_generations = 1000,founder=None):
 	death_count = np.ndarray((num_generations + 1,),dtype=np.object)
@@ -591,7 +479,8 @@ def runThisStuff(num_generations = 1000,founder=None):
 			founder_pop.remove_dead()
 		elif type(founder) == Population:
 			print("A founder population was provided")
-			founder_pop = founder.remove_dead()
+			founder_pop = founder
+			founder_pop.remove_dead()
 		else:
 			print("Error: A founder was provided but it is neither type Organism nor Population")
 			return
@@ -611,7 +500,7 @@ def runThisStuff(num_generations = 1000,founder=None):
 	for i in range(num_generations):
 		print("Generation",i,"is currently having a beautiful life...")
 		survivor_pop,red_flag = select(curr_pop,pf.prop_survivors,select_strategy)
-		curr_pop = reproduce(survivor_pop,pf.pop_size,"equal") # Must correct function for cases in which the survivors are less than the number of survivors defined by user (say, user wants 25 survivors, but only 10 remain, they need to reproduce differently to produce a new population of size 100) - DONE (6/8/2020).
+		curr_pop = reproduce(survivor_pop,pf.pop_size,"equal") # Must correct function for cases in which the survivors are less than the number of survivors defined by user (say, user wants 25 survivors, but only 10 remain, they need to reproduce differently to produce a new population of size 100) - DONE-ish (6/8/2020), now it gets a red flag, but stil haven't defined what happens next.
 		fitnesses = np.array([ indiv.fitness for indiv in curr_pop.individuals ])
 		death_count[i + 1] = sum(fitnesses == 0)
 		if death_count[i + 1]:
@@ -733,195 +622,3 @@ def sin_01_vect(param1,param2,num_values):
 	
 
 ############################################################################
-
-
-
-
-
-
-
-##### ----- #####
-#def makeNewOrganismOld(parent=None): # AN OUTDATED VERSION THAT I SCREWED UP LATER BY CONFUSING IT WITH THE REAL ONE
-#	if parent: 		# add also: if type(parent) is Organism:
-#		prob_grn_change = pf.prob_grn_change
-#		prob_thresh_change = pf.prob_thresh_change
-#		grn_mutation_rate = pf.grn_mutation_rate
-#		thresh_mutation_rate = pf.thresh_mutation_rate
-#		decay_mutation_rate = pf.decay_mutation_rate
-#		thresh_decay_mut_bounds = pf.thresh_decay_mut_bounds
-#		new_link_bounds = pf.new_link_bounds
-#		link_mutation_bounds = pf.link_mutation_bounds
-#		generation = parent.generation + 1
-#		name = parent.name.split("gen")[0] + "gen" + str(generation)
-#		start_vect = parent.start_vect
-#		seq_mutation_rate = pf.seq_mutation_rate
-#		sequences = mutateGenome(parent.sequences,seq_mutation_rate)
-#		proteome = translate_genome(sequences)
-#		grn,decays,thresholds,development,fitness = master_mutator(parent,sequences,proteome)
-#		out_org = Organism(name,generation,parent.num_genes,parent.prop_unlinked,parent.prop_no_threshold,parent.thresh_boundaries,parent.decay_boundaries,parent.dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences,proteome)
-#	else:
-#		num_genes = pf.num_genes
-#		decay_boundaries = pf.decay_boundaries
-#		prop_no_threshold = pf.prop_no_threshold
-#		thresh_boundaries = pf.thresh_boundaries
-#		prop_unlinked = pf.prop_unlinked
-#		dev_steps = pf.dev_steps
-#		name = "Lin" + str(int(np.random.random() * 1000000)) + "gen0"
-#		decays = randomMaskedVector(num_genes,0,decay_boundaries[0],decay_boundaries[1]) #BUG: check why some values are zero. Decays must never be zero
-#		thresholds = randomMaskedVector(num_genes,prop_no_threshold,thresh_boundaries[0],thresh_boundaries[1])
-#		start_vect = makeStartVect(num_genes)
-#		grn = makeGRN(num_genes,prop_unlinked)
-#		development = develop(start_vect,grn,decays,thresholds,dev_steps)
-#		fitness = calcFitness(development)
-#		if fitness == 0:
-#			sequences = None
-#			proteome = None
-#		else:
-#			seq_length = pf.seq_length
-#			base_props = pf.base_props
-#			sequences = makeCodingSequenceArray(seq_length,num_genes)
-#			proteome = translate_genome(sequences)
-#		out_org = Organism(name,0,num_genes,prop_unlinked,prop_no_threshold,thresh_boundaries,decay_boundaries,dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences,proteome)
-#	return(out_org)
-
-##### ----- #####
-
-
-#def offspringNumTuple(tot_offspring,num_survivors,equal_fertility):
-	# returns a tuple in which each element i is the amount of offspring the ith best fitting organism will have
-
-#### IDEA ####
-# When a new population is made, determine the population
-# size from a random draw of a normal distribution with
-# mean pop_size and stdev pop_stdev
-
-###### FUNCTION SEMATARY #######
-
-#def develop_old(start_vect,grn,decays,thresholds,dev_steps):
-#	geneExpressionProfile = np.array([start_vect])
-	#Running the organism's development, and outputting the results
-	#in an array called geneExpressionProfile
-#	invect = start_vect
-#	for i in range(dev_steps):
-#		decayed_invect = exponentialDecay(invect,decays)
-#		currV = grn.dot(invect) - thresholds	      # Here the threshold is subtracted.
-#		currV = de_negativize(currV) + decayed_invect # Think about how the thresholds
-							      # should affect gene expression
-#		geneExpressionProfile = np.append(geneExpressionProfile,[currV],axis=0)
-#		invect = currV
-#	return(geneExpressionProfile)
-
-
-#def mutateGenomeNew(genome,seq_mutation_rate):
-#	genome_length = genome.size
-#	if genome_length > 99999999:
-#		num_to_mut = np.int(seq_mutation_rate * genome_length) #Could eventually be given more stochasticity
-#		ones_to_mutate = np.array(random.sample(range(genome_length),num_to_mut))
-#	else:
-#		bin_vector = np.random.choice((0,1),genome_length,p=(1-seq_mutation_rate,seq_mutation_rate))
-#		ones_to_mutate = np.where(ones_to_mutate == 1)
-#		num_to_mut = bin_vector.sum()
-#	if num_to_mut:
-#		original_dimensions = genome.shape
-#		flat_seq = genome.flatten()
-#		new_bases = np.ndarray((num_to_mut),dtype=np.object)
-#		mutated_nucs = np.where(ones_to_mutate == 1)[0]
-#		for i in range(mutated_nucs.size):
-#			new_bases[i] = mutateBase(flat_seq[mutated_nucs[i]])
-#		flat_seq[mutated_nucs] = new_bases
-#		final_seq = flat_seq.reshape(original_dimensions)
-#	else:
-#		final_seq = genome
-#	return(final_seq)
-
-
-
-#class Offspring(object):
-#	def __init__(self,name,parent):
-#		self.name = name
-#		self.parent = parent
-
-#def mutateOrganism(old_organism):
-#	organism = Organism(old_organism.name) # this is not a good idea. change.
-#	organism.generation = organism.generation + 1
-#	organism.grn = mutateGRN(organism.grn,grn_mutation_rate,link_mutation_bounds,prob_grn_change,new_link_bounds)
-#	organism.decays = de_negativize(mutateGRN(organism.decays,decay_mutation_rate,thresh_decay_mut_bounds,0,None))
-#	organism.thresholds = de_negativize(mutateGRN(organism.thresholds,thresh_mutation_rate,thresh_decay_mut_bounds,prob_thresh_change,thresh_decay_mut_bounds))
-#	organism.development = develop(organism.start_vect,organism.grn,organism.decays,organism.thresholds,organism.dev_steps)
-#	organism.fitness = fitness = calcFitness(organism.development)
-#	if organism.fitness != 0:
-#		organism.sequences = mutateGenome(organism.sequences,seq_mutation_rate)
-#	else:
-#		None
-#	return(organism)
-
-
-	# NOT SURE I WANT TO USE THIS YET...
-#	def mutate(self):
-#		self.generation = self.generation + 1
-#		self.grn = mutateGRN(self.grn,grn_mutation_rate,link_mutation_bounds,prob_grn_change,new_link_bounds)
-#		self.decays = de_negativize(mutateGRN(self.decays,decay_mutation_rate,thresh_decay_mut_bounds,0,None))
-#		self.thresholds = de_negativize(mutateGRN(self.thresholds,thresh_mutation_rate,thresh_decay_mut_bounds,prob_thresh_change,thresh_decay_mut_bounds))
-#		self.development = develop(self.start_vect,self.grn,self.decays,self.thresholds,self.dev_steps)
-#		self.fitness = calcFitness(self.development)
-#		if self.fitness != 0:
-#			self.sequences = mutateGenome(self.sequences,seq_mutation_rate)
-#		else:
-#			None
-
-#def mutateGenome_old(genome,seq_mutation_rate):
-#	original_dimensions = genome.shape
-#	flat_seq = genome.flatten()
-#	genome_length = flat_seq.size
-#	ones_to_mutate = np.random.choice((0,1),genome_length,p=(1-seq_mutation_rate,seq_mutation_rate))
-#	if sum(ones_to_mutate):
-#		mutated_nucs = [i for i,x in enumerate(ones_to_mutate) if x == 1 ]
-#		for i in mutated_nucs:
-#			flat_seq[i] = mutateBase(flat_seq[i])
-#	final_seq = flat_seq.reshape(original_dimensions)
-#	return(final_seq)
-
-#def mutateGRN_2(grn,mutation_rate,mutation_bounds,change_rate,change_bounds): # Func also used for thresholds + decays
-#	original_shape = grn.shape
-#	flat_grn = grn.flatten()
-#	actives = np.where(flat_grn != 0)[0]
-#	mutator_vector = np.random.choice((False,True),actives.size,p=(1-mutation_rate,mutation_rate))
-#	if sum(mutator_vector) == 0:
-#		curr_flat_grn = flat_grn
-#	else:
-#		muts_indexes = actives[mutator_vector]
-#		new_vals = np.ndarray((muts_indexes.size),dtype=np.object)
-#		for i in range(new_vals.size):
-#			new_vals[i] = mutateLink(flat_grn[muts_indexes[i]],mutation_bounds)
-#		flat_grn[muts_indexes] = new_vals
-#		curr_flat_grn = flat_grn
-#	changer_vector = np.random.choice((False,True),curr_flat_grn.size,p=(1-change_rate,change_rate))
-#	num_changes = sum(changer_vector)
-#	if num_changes == 0:
-#		final_flat_grn = curr_flat_grn
-#	else:
-#		inactives = np.where(curr_flat_grn == 0)[0]
-#		np.random.shuffle(actives)
-#		np.random.shuffle(inactives)
-#		select_array = np.array([inactives,actives])
-#		selector = np.random.choice((0,1),num_changes,p=(1-pf.prop_unlinked,pf.prop_unlinked))
-#		from_inactives = selector.size - sum(selector)
-#		from_actives = sum(selector)
-#		change_indexes = np.hstack(np.array([inactives[0:from_inactives],actives[0:from_actives]]))
-#		changed_vals = np.ndarray((change_indexes.size),dtype=np.object)
-#		for i in range(change_indexes.size):
-#			changed_vals[i] = changeGRNLink(curr_flat_grn[change_indexes[i]],min(change_bounds),max(change_bounds))
-#		curr_flat_grn[change_indexes] = changed_vals
-#		final_flat_grn = curr_flat_grn
-#	final_grn = final_flat_grn.reshape(original_shape)
-#	return(final_grn)
-		
-# FROM INITIAL MUTATE GRN - CHANGE PART DID NOT TAKE INTO ACCOUNT DIFFERENT SPARSENESS
-#			changed_grn_indexes = np.array([i for i,x in enumerate(to_change) if x == 1])
-#			min_val,max_val = change_bounds
-#			if sum(to_change) > 1:
-#				flat_grn[changed_grn_indexes] = changeGRNLink_vect(flat_grn[changed_grn_indexes],min_val,max_val)
-#			else:
-#				flat_grn[changed_grn_indexes] = changeGRNLink(flat_grn[changed_grn_indexes],min_val,max_val)
-
-
