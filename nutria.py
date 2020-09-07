@@ -105,9 +105,9 @@ def founderFinder(min_fitness_val=0):
 ##### ----- #####
 def makeNewOrganism(parent=None):
 	if parent: 		# add also: if type(parent) is Organism:
-		prob_grn_change = pf.prob_grn_change
-		prob_thresh_change = pf.prob_thresh_change
-		grn_mutation_rate = pf.grn_mutation_rate
+#		prob_grn_change = pf.prob_grn_change
+#		prob_thresh_change = pf.prob_thresh_change
+#		grn_mutation_rate = pf.grn_mutation_rate
 		thresh_mutation_rate = pf.thresh_mutation_rate
 		decay_mutation_rate = pf.decay_mutation_rate
 		thresh_decay_mut_bounds = pf.thresh_decay_mut_bounds
@@ -129,7 +129,7 @@ def makeNewOrganism(parent=None):
 		prop_unlinked = pf.prop_unlinked
 		dev_steps = pf.dev_steps
 		name = "Lin" + str(int(np.random.random() * 1000000)) + "gen0"
-		decays = randomMaskedVector(num_genes,0,decay_boundaries[0],decay_boundaries[1]) #BUG: check why some values are zero. Decays must never be zero
+		decays = randomMaskedVector(num_genes,0,decay_boundaries[0],decay_boundaries[1]) #BUG: check why some values are zero. Decays must never be zero ::--:: not sure this is still happening (7/9/2020 - CJR)
 		thresholds = randomMaskedVector(num_genes,prop_no_threshold,thresh_boundaries[0],thresh_boundaries[1])
 		start_vect = makeStartVect(num_genes)
 		grn = makeGRN(num_genes,prop_unlinked)
@@ -153,6 +153,7 @@ def makeNewOrganism(parent=None):
 		out_org = Organism(name,0,num_genes,prop_unlinked,prop_no_threshold,thresh_boundaries,decay_boundaries,dev_steps,decays,thresholds,start_vect,grn,development,fitness,sequences)
 	return(out_org)
 
+#ACHTUNG: Produces an np.array for the Population() class constructor. All original populations must be made with the class constructor, otherwise it will not behave like a Population() object. Remember, Population objects have to be 'populated' (class function .populate).
 def producePop(pop_size,parent=None):
 	popu = np.ndarray((pop_size,),dtype=np.object)
 	if not parent:
@@ -266,13 +267,12 @@ def master_mutator(parent,offsp_genome):
 		out_thresholds = curr_thresholds
 	else:
 		genes_to_be_mutated = np.unique(all_mutated_sites[0])
-#		print("Genes",list(genes_to_be_mutated),"were mutated in the genome.")
 		out_grn,out_decays,out_thresholds=GRN_sectorial_mutator(parent,mutated_sectors_list,all_mutated_sites)
 	out_dev = develop(parent.start_vect,out_grn,out_decays,out_thresholds,parent.dev_steps)
 	out_fitness = calcFitness(out_dev)
 	return(out_grn,out_decays,out_thresholds,out_dev,out_fitness)
 
-#Produce a dictionary of addresses in order to locate single mutations to specific values. Independent for each gene (gene-gene interaction addresses must be adapted to the current gene being mutated).
+#Produce a dictionary of addresses in order to locate single mutations to specific values. Independent for each gene (gene-gene interaction addresses must be adapted to the current gene being mutated). Function now produces a location map for the entire genome (7/9/2020 - CJRR).
 def ranged_dictionary_maker(num_genes,num_mutable_vals):
 	seq_length=pf.seq_length
 	if seq_length % num_mutable_vals:
@@ -305,6 +305,7 @@ def ranged_dictionary_maker(num_genes,num_mutable_vals):
 		tot_dict_list.append(out_dict)
 	return(tot_dict_list)
 
+
 def mutated_sectors_mapper(genome_map,all_mutated_sites):
 	outlistoflists=[]
 	genes_to_be_mutated=np.unique(all_mutated_sites[0])
@@ -321,7 +322,8 @@ def mutated_sectors_mapper(genome_map,all_mutated_sites):
 		outlistoflists.append(outlist)
 	outlistoflists=[item for elem in outlistoflists for item in elem]
 	return(outlistoflists)
-	
+
+
 def GRN_sectorial_mutator(parent,mutated_sectors_list,all_mutated_sites):
 	decays=parent.decays
 	thresholds=parent.thresholds
@@ -339,7 +341,7 @@ def GRN_sectorial_mutator(parent,mutated_sectors_list,all_mutated_sites):
 			grn[addresses_toMut]= mutateLink(grn[addresses_toMut],pf.link_mutation_bounds)
 	new_grn,new_decays,new_thresholds=grn,decays,thresholds
 	return(new_grn,new_decays,new_thresholds)
-			
+
 
 #def gene_mutator(gene_index,num_syn_muts,num_nonsyn_muts,in_grn,in_decays,in_thresholds,active_genes):
 #	num_genes = active_genes.size
@@ -552,46 +554,46 @@ def mutateGenome(genome,seq_mutation_rate):
 		final_seq = genome
 #		different_sites = None
 	return(final_seq)
-
-def syn_nonsyn_muts(p_genome,o_genome,p_proteome,o_proteome):
-	all_muts = np.where(p_genome != o_genome)
-	nonsyns = np.where(p_proteome != o_proteome)
-	num_genes = p_proteome.shape[0]
-	syn_array = np.ndarray(num_genes,dtype=np.object)
-	nonsyn_array = np.ndarray(num_genes,dtype=np.object)
-	if all_muts[0].size != 0:
-		total_mutated_genes = all_muts[0]
-		nonsyn_mutated_genes = nonsyns[0]
-		for i in range(num_genes):
-			if np.any(o_proteome[i] == "_"):
-				nonsyn_array[i] = 99999999
-				# (BELOW) If gene has a KO mutation, all mutations are synonymous,
-				# except if the KO is new. In this case the KO is subtracted from
-				# the amount of synonymous muts.
-				if np.any(p_proteome[i] == "_"):
-					syn_array[i] = np.count_nonzero(total_mutated_genes == i)
+if 0:
+	def syn_nonsyn_muts(p_genome,o_genome,p_proteome,o_proteome):
+		all_muts = np.where(p_genome != o_genome)
+		nonsyns = np.where(p_proteome != o_proteome)
+		num_genes = p_proteome.shape[0]
+		syn_array = np.ndarray(num_genes,dtype=np.object)
+		nonsyn_array = np.ndarray(num_genes,dtype=np.object)
+		if all_muts[0].size != 0:
+			total_mutated_genes = all_muts[0]
+			nonsyn_mutated_genes = nonsyns[0]
+			for i in range(num_genes):
+				if np.any(o_proteome[i] == "_"):
+					nonsyn_array[i] = 99999999
+					# (BELOW) If gene has a KO mutation, all mutations are synonymous,
+					# except if the KO is new. In this case the KO is subtracted from
+					# the amount of synonymous muts.
+					if np.any(p_proteome[i] == "_"):
+						syn_array[i] = np.count_nonzero(total_mutated_genes == i)
+					else:
+						syn_array[i] = np.count_nonzero(total_mutated_genes == i) - 1
 				else:
-					syn_array[i] = np.count_nonzero(total_mutated_genes == i) - 1
-			else:
-				nonsyn_array[i] = np.count_nonzero(nonsyn_mutated_genes == i)
-				syn_array[i] = np.count_nonzero(total_mutated_genes == i) - nonsyn_array[i]
-	else:
-		syn_array[:] = 0
-		nonsyn_array[:] = 0
-	return(syn_array,nonsyn_array)
+					nonsyn_array[i] = np.count_nonzero(nonsyn_mutated_genes == i)
+					syn_array[i] = np.count_nonzero(total_mutated_genes == i) - nonsyn_array[i]
+		else:
+			syn_array[:] = 0
+			nonsyn_array[:] = 0
+		return(syn_array,nonsyn_array)	
 
-def new_kos(p_proteome,o_proteome):
-	if np.any(o_proteome == "_"):
-		outnum = 0
-		for i in range(p_proteome.shape[0]):
-			p_gene_ko = np.any(p_proteome[i] == "_")
-			o_gene_ko = np.any(o_proteome[i] == "_")
-			if (p_gene_ko == False) & (o_gene_ko == True):
-				outnum += 1
-	else:
-		outnum = 0
-	return(outnum)
-	
+	def new_kos(p_proteome,o_proteome):
+		if np.any(o_proteome == "_"):
+			outnum = 0
+			for i in range(p_proteome.shape[0]):
+				p_gene_ko = np.any(p_proteome[i] == "_")
+				o_gene_ko = np.any(o_proteome[i] == "_")
+				if (p_gene_ko == False) & (o_gene_ko == True):
+					outnum += 1
+		else:
+			outnum = 0
+		return(outnum)
+
 
 ##### ----- #####
 def mutateBase(base):				# This mutation function is equivalent to
@@ -696,21 +698,21 @@ def select(parental_pop,prop_survivors,select_strategy = "random"):
 		else:
 			print("Error: No selective strategy was provided")
 			return
-		red_flag=False
+		red_flag=False #Intended to raise if the population is becoming endangered
 	else:
 		print("Watch out: Only",living_select_table[:,1].size,"offspring alive, but you asked for",num_survivors,"population is endangered")
-		red_flag=True
+		red_flag=True #Raise the red flag if the population is becoming endangered (i.e., user is asking for more selected fit individuals than there actually remain alive). Still unsure what to do with this, though.
 		surviving_orgs = parental_pop.individuals[living_select_table[:,0].astype(int)]
 	survivors_pop = Population(surviving_orgs.size)
 	survivors_pop.individuals = surviving_orgs
 	return(survivors_pop,red_flag)
 
-def reproduce(survivors_pop,final_pop_size,reproductive_strategy="equal"):
-	survivors = survivors_pop
-	if reproductive_strategy == "equal":
-		offspring_per_parent = round(final_pop_size/survivors.size)
-		final_pop_array = np.ndarray((survivors.size,offspring_per_parent),dtype=np.object)
-		for i in range(survivors.size):
+def reproduce(survivors_pop,final_pop_size,reproductive_strategy="none"):
+	survivors = survivors_pop.individuals
+	if reproductive_strategy == "none":
+		offspring_per_parent = round(final_pop_size/survivors_pop.individuals.size)
+		final_pop_array = np.ndarray((survivors_pop.individuals.size,offspring_per_parent),dtype=np.object)
+		for i in range(survivors_pop.individuals.size):
 			for j in range(offspring_per_parent):
 				final_pop_array[i][j] = makeNewOrganism(survivors[i])
 		final_pop_array = final_pop_array.flatten()
@@ -737,10 +739,11 @@ def runThisStuff(num_generations = 1000,founder=None):
 			print("A founder organism was provided")
 			founder = founder
 			founder_pop = Population(pf.pop_size,founder)
-			founder_pop.populate()	
+			founder_pop.populate()
+			founder_pop.remove_dead()
 		elif type(founder) == Population:
 			print("A founder population was provided")
-			founder_pop = founder
+			founder_pop = founder.remove_dead()
 		else:
 			print("Error: A founder was provided but it is neither type Organism nor Population")
 			return
@@ -749,6 +752,7 @@ def runThisStuff(num_generations = 1000,founder=None):
 		founder = founderFinder()
 		founder_pop = Population(pf.pop_size,founder)
 		founder_pop.populate()
+		founder_pop.remove_dead()
 	curr_pop = founder_pop
 	fitnesses = np.array([ indiv.fitness for indiv in curr_pop.individuals ])
 	death_count[0] = sum(fitnesses == 0)
@@ -758,8 +762,8 @@ def runThisStuff(num_generations = 1000,founder=None):
 	select_strategy = pf.select_strategy
 	for i in range(num_generations):
 		print("Generation",i,"is currently having a beautiful life...")
-		survivor_pop = select(curr_pop,pf.prop_survivors,select_strategy)
-		curr_pop = reproduce(survivor_pop,pf.pop_size,"equal")
+		survivor_pop,red_flag = select(curr_pop,pf.prop_survivors,select_strategy)
+		curr_pop = reproduce(survivor_pop,pf.pop_size,"equal") # Must correct function for cases in which the survivors are less than the number of survivors defined by user (say, user wants 25 survivors, but only 10 remain, they need to reproduce differently to produce a new population of size 100) - DONE (6/8/2020).
 		fitnesses = np.array([ indiv.fitness for indiv in curr_pop.individuals ])
 		death_count[i + 1] = sum(fitnesses == 0)
 		if death_count[i + 1]:
